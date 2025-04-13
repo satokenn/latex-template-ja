@@ -1,5 +1,5 @@
 % コピペスタート
-\documentclass[8pt, jfont=ipaexm]{beamer} % IPAex明朝
+\documentclass[8pt, jfont=ipaexm, t]{beamer} % IPAex明朝
 \usepackage{hyperref}
 % 一般的によく使用されるパッケージ
 \usepackage[utf8]{inputenc}
@@ -155,21 +155,221 @@
 \end{frame}
 
 \section{撮影画角}
+\begin{frame}{画角}
+  \begin{block}{}
+    画角とは，カメラが一度に移せる範囲のこと．
+  \end{block}
+  \begin{block}{画角の種類}
+    \begin{itemize}
+      \item 水平画角 - 撮像素子の幅に対応する画角
+      \item 垂直画角 - 撮像素子の高さに対応する画角
+      \item 対角線画角 - 撮影できる範囲の対角線の画角
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{画角の求め方}
+  \begin{block}{}
+    画角は以下の公式を用いて求めることができる．
+    \begin{equation}
+      \theta = 2 tan^{-1} \dfrac{S / 2}{f}
+    \end{equation}
+  \end{block}
+  
+  \begin{block}{}
+    三角関数より，
+    \begin{align*}
+      \tan{\dfrac{\theta}{2}} &= \dfrac{S / 2}{f} \\
+      \theta &= 2 \tan^{-1}{\dfrac{S / 2}{f}}
+    \end{align*}
+  \end{block}
+\end{frame}
+
+\begin{frame}{撮像素子}
+  \begin{block}{撮像素子とは}
+    被写体の光を電気信号に変換する部品のことを示す．撮像素子サイズは変更や調整ができない為，カメラを選定することによって撮像素子サイズが決定する．主に，インチやフィルムサイズをもとに表される．
+  \end{block}
+
+  \begin{table}[H]
+    \centering
+    \caption{写真撮影酔うカメラで使用されている代表的な撮像素子サイズ}
+    \begin{tabular}{|l|lll|}
+      \hline
+      撮像素子サイズ & 横 & 縦 & 対角線 \\
+      \hline
+      1/2.7インチ & 5.28mm & 3.96mm & 6.6mm \\
+      1/1.8インチ & 7.2mm & 4.8mm & 8.7mm \\
+      フォーサーズ & 17.3mm & 13.0mm & 21.6mm \\
+      APS-C（キヤノン） & 22.3mm & 14.9mm & 26.8mm \\
+      APS-C（ソニー、ニコン） & 23.6mm & 15.8mm & 28.4mm \\
+      APS-H（キヤノン） & 28.1mm & 18.7mm & 33.8mm \\
+      フルサイズ & 36.0mm & 24.0mm & 43.3mm \\
+      \hline
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+
+\begin{frame}{レンズ焦点距離}
+  \begin{block}{レンズ焦点距離とは}
+    レンズの後側主点から後側焦点までの距離のことを指す．
+    レンズ焦点距離が長いほど，被写体は大きく撮影される．
+    レンズ書店距離が短いほど，被写体は小さく撮影され，撮影できる範囲は広い．
+  \end{block}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{焦点距離の換算}
+  \begin{block}{35mm換算焦点距離}
+    同じ焦点距離のレンズを用いても撮像素子サイズに応じ，撮影画角が変化するため，レンズ焦点距離だけでは撮影画角は分からない．
+    そこで，35mm換算焦点距離を用いることで，撮像素子サイズに対する撮影レンズの焦点距離を表す事ができる．
+  \end{block}
+  \newpage
+
+\begin{block}{求め方}
+  \small
+  実際の焦点距離と35mm換算焦点距離は相似として考えることができるため，以下の式で求めることができる．
+  \begin{align*}
+    \dfrac{S / 2}{f} &\risingdotseq \dfrac{S_{35} / 2}{f_{35}} \\
+    \dfrac{f}{S} &\risingdotseq \dfrac{f_{35}}{S_{35}}  \\
+    f_{35} &\risingdotseq \dfrac{S_{35}}{S}f
+  \end{align*}
+  ここで， $S_{35} = \sqrt{36^2 + 24^2}$ であるため，代入すると
+  \begin{align*}
+    f_{35} \risingdotseq \dfrac{\sqrt{36^2 + 24^2}}{S} f = \dfrac{43.3}{S}f
+  \end{align*}
+\end{block}
+
+\end{frame}
+
+\begin{frame}{35mmフィルム換算焦点距離}
+  35mmフィルム換算焦点距離では，以下のように分けて呼ばれることがある．
+  \begin{table}[H]
+    \centering
+    \caption{35mmフィルム換算焦点距離での区分け}
+    \begin{tabular}{|l|l|}
+      \hline
+      区分け & 35mmフィルム換算焦点距離 \\
+      \hline
+      広角レンズ & \textasciitilde ~ 50 \\
+      標準レンズ & 50前後 \\
+      望遠レンズ & 50 ~ \textasciitilde \\
+      \hline
+    \end{tabular}
+  \end{table}
+\end{frame}
+
 
 \section{画像の明るさ}
+\begin{frame}{画像の明るさ}
+\begin{block}{}
+  像の明るさは，撮影レンズの直径 $D$ の2乗に比例している．また，撮像レンズの焦点距離 $f$ の2乗に反比例している．
+  \begin{equation}\label{ip}
+    I \propto (\dfrac{D}{f})^2
+  \end{equation}
+\end{block}
+\end{frame}
+
+\begin{frame}{Fナンバ}
+  \begin{block}{}
+    Fナンバとは，撮影レンズの焦点距離 $f$ をレンズの直径 $D$ で割った値であり，撮影レンズの集光性能を表す．
+    また，レンズ絞りで設定したFナンバをレンズの絞り値と呼ぶ．
+    \begin{equation} \label{fnam}
+      F\text{ナンバ} = \dfrac{f}{D}
+    \end{equation}
+  \end{block}
+
+  \begin{block}{画像の明るさとFナンバの関係}
+    \eqref{ip}と\eqref{fnam}より，\eqref{if}の式を導くことができる．
+    \begin{equation} \label{if}
+      I \propto \dfrac{1}{F\text{ナンバ}^2}
+    \end{equation}
+  \end{block}
+\end{frame}
+
+\begin{frame}{シャッタースピード}
+  \begin{block}{}
+    シャッタスピードとは，画像を撮影するために撮像面上に光を当てる時間の事を指す．撮像素子が受け取る光エネルギーは，光量 $\times$ 時間 と考えることができるので，
+    シャッタスピードを1段階遅くすると，光が当たる時間が2倍になるため，画像の明るさも2倍になる．
+  \end{block}
+  \begin{table}[h]
+    \centering
+    \caption{シャッタスピード}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+      \hline
+      1/1,000 & 1/500 & 1/250 & 1/125 & 1/60 & 1/30 & 1/15 & 1/8 & 1/4 & 1/2 \\
+      \hline
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+\begin{frame}{ISO感度}
+  \begin{block}{}
+    光に対するフィルム感度を表したもの．産業用カメラの場合はISO感度の代わりにゲイン\footnote{増幅器の倍率を示す}を用いる．
+    撮像素子から読みだした信号には画像情報と共にノイズが含まれており，ISO感度を2倍にすると信号が増幅されるがノイズも増加する．
+  \end{block}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{移動ブレの防止}
+  画像の明るさを同じするためには以下のような要素を組み合わせて使用することができる．したがって，画像を撮影する際には，目的に応じた設定が必要である．
+  この目的の1つとしてブレのない画像を撮影することである．被写体が移動する移動ブレは，シャッタスピードをより短時間に設定することで防ぐことが可能である．
+  \begin{itemize}
+    \item 絞り値
+    \item シャッタスピード
+    \item ISO感度
+    \item 焦点距離
+    \item 撮影レンズの直径
+  \end{itemize}
+
+  \newpage
+  \begin{exampleblock}{被写体の移動ブレがない画像の取り方}
+    \small
+    以下のように変数を定義した際の移動ブレが十分に小さいシャッタスピードは\eqref{ts}で求めることができる．
+    \begin{itemize}
+      \item 被写体までの距離 $R[m]$
+      \item 被写体の移動速度 $v[m]$
+      \item シャッタスピード $t_s[s]$
+      \item レンズ焦点距離 $f[mm]$
+      \item 撮像素子サイズ $S[mm]$
+      \item 撮像素子サイズに対応する方向の画素数 $N$
+    \end{itemize}
+    \begin{equation}\label{ts}
+      \begin{split}
+        vt_s : R &= \dfrac{S}{N} : f \\
+        t_s &= \dfrac{S}{N} \cdot \dfrac{R}{vf}
+      \end{split}
+    \end{equation}
+  \end{exampleblock}
+
+  \newpage
+
+  \begin{exampleblock}{変数の入力例}
+    先ほどの変数をそれぞれ以下のような場合のときに考えてみる．
+    \begin{itemize}
+      \item $R = 10[m]$
+      \item $ v = 10[m/s]$
+      \item $f = 6[mm]$
+      \item $S = 4.8[mm]$
+      \item $N = 640$ $[$画素$]$
+    \end{itemize}
+    これらの値を\eqref{ts}に代入すると
+    \begin{align*}
+      10 \cdot t_s : 10 &= \dfrac{4.8}{640} : 6 \\
+      t_s &= \dfrac{4.8}{640} \cdot \dfrac{10}{10 \cdot 6} \\
+      t_s &= \dfrac{1}{800}
+    \end{align*}
+  \end{exampleblock}
+\end{frame}
 
 \section{被写界深度}
 
 \section{フレームレート}
 
-\begin{frame}
-  \cite{boyd2004convex}や\cite{yoshida2018safe}で引用できる.
-\end{frame}
 
-\begin{frame}[allowframebreaks]{Reference}
-	\scriptsize
-	\beamertemplatetextbibitems
-	\bibliographystyle{junsrt}
+
+\begin{frame}[allowframebreaks]{参考文献}
+  \beamertemplatetextbibitems
+	\bibliographystyle{jplain}
+  \nocite{*}
 	\bibliography{Reference/ref1}
 \end{frame}
 
