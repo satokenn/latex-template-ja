@@ -143,7 +143,7 @@
 
 
 
-\title{離散数学}
+\title{ディジタル画像処理}
 \author{佐藤謙成}
 \date{\today}
 \begin{document}
@@ -154,108 +154,23 @@
     \tableofcontents
 \end{frame}
 
-\section{写像}
+\section{撮影画角}
 
-\begin{frame}{写像}
-    \begin{block}{}
-        2つの集合 $A$ から $B$ への関係のうち, 集合 $A$ の各要素に, それぞれ $B$ の
-        要素がただ一つだけ対応している関係を $A$ から $B$ への写像という. この時, 集合 $A$ を定義域と呼び, 集合 $B$ を値域, 像と呼ぶ. $f$ が $A$ から $B$ への写像ならば,
-        \begin{equation*}
-            f : A \to B
-        \end{equation*}
-        と書く. ここで, $a$ の対応先が $b$ のとき $b = f(a)$ と書く. また, 関数 $f$ の要素でもあるので順序対 $(a, b)$ と書くことができる.
-    \end{block}
+\section{画像の明るさ}
+
+\section{被写界深度}
+
+\section{フレームレート}
+
+\begin{frame}
+  \cite{boyd2004convex}や\cite{yoshida2018safe}で引用できる.
 \end{frame}
 
-\begin{frame}{恒等写像}
-    \begin{block}{}
-        $A$ を任意の集合とし, $A$ の各要素 $a$ に $a$ を対応させれば, これも $A$ から $A$ への写像となる. この写像を恒等写像という.
-    \end{block}
+\begin{frame}[allowframebreaks]{Reference}
+	\scriptsize
+	\beamertemplatetextbibitems
+	\bibliographystyle{junsrt}
+	\bibliography{Reference/ref1}
 \end{frame}
 
-\begin{frame}{単射}
-    \begin{block}{}
-        $A$ から $B$ への写像を $f$ とする. 定義域 $A$ の異なる要素が異なる像を持つならば, 写像 $f$ は単射という. $a_1, a_2 \in A$ について
-        \begin{equation*}
-            a_1 \neq a_2 \text{ならば} f(a_1) \neq f(a_2)
-        \end{equation*}
-    \end{block}
-\end{frame}
-
-\begin{frame}{全射}
-    \begin{block}{}
-        $A$ から $B$ への写像を $f$ とする.
-        値域 $B$ の各要素が $A$ のある要素の像となっている時, 写像 $f$ は全射という.
-        \begin{equation}
-            \forall b \in B, \exists a \in A, b = f(a)
-        \end{equation}
-    \end{block}
-\end{frame}
-
-\begin{frame}{全単射}
-    \begin{block}{}
-    $f$ が単射かつ全射のとき, 全単射という. 1対1対応という.
-    \end{block}
-\end{frame}
-
-
-\begin{frame}{逆写像}
-    \begin{block}{}
-        写像 $f : A \to B$ の逆関係 $f^{-1} : B \to A$ が写像となるための必要十分条件は, $f$ が $A$ から $B$ への全単射であることである. またそのときの $f^{-1}$ は $B$ から $A$ への全単射となる. これを $f$ の逆写像という.
-    \end{block}
-\end{frame}
-
-\begin{frame}{写像の合成}
-    \begin{block}{}
-        $A, B, C$ を3つの集合とし, $A$ から $B$ への写像を $f$, $B$ から $C$ への写像を $g$ とする. ここで, $A$ の各元 $a$ に対して, $f$ による像として $B$ の元 $f(a)$ が定まり, さらに $f(a)$ の $g$ による像として $C$ の元, $g(f(a))$ が定まるので, すなわち $a$ に $g(f(a))$ を対応させる $A$ から $C$ への写像 $h: A \to C$ を考えることができる. この写像 $h$ を $f$ と $g$ との合成写像といい, $g \circ f$ または $(gf)$ で表す. 
-    \end{block}
-\end{frame}
-
-\begin{frame}{合成写像の性質}
-    \begin{block}{}
-        $A, B, C$ を3つの集合とし, $A \to B$ への写像を $f$ , $B \ to C$ への写像を $g$ とすると
-        \begin{enumerate}
-            \item $f$ と $g$ が共に全射なら, $g \circ f$ は全射である.
-            \item $f$ と $g$ が共に単射なら, $g \circ f$ は単射である.
-            \item $f$ と $g$ が共に全単射なら, $g \circ f$ は全単射である.
-        \end{enumerate}
-    \end{block}
-\end{frame}
-
-\begin{frame}{合成写像の性質.2}
-    \begin{block}{}
-        複数の写像を合成する場合, 合成した結果は順番に依存しない, つまり任意の写像 $f, g, h$ について,
-        \begin{equation*}
-            (h \circ g) \circ f = h \circ (g \circ f)
-        \end{equation*}
-    \end{block}
-    
-\end{frame}
-
-\begin{frame}{鳩の巣原理(部屋割り論法)}
-    \begin{block}{}
-        $U,V$が有限集合で$|U| > |V|$のとき,$U$から$V$への単射\footnote{始集合の任意の2つの要素が終集合の要素との関係で重複しないこと}は存在しない.\\
-        言い換えると,$n+1$個以上のアイテムを$n$個の箱に入れる場合、少なくとも$1$つの箱には$2$個以上のアイテムが入る        
-    \end{block}
-\end{frame}
-
-\begin{frame}{鳩の巣箱の原理.2}
-    \begin{exampleblock}{問題例}
-    $6$個の異なる正の整数をどのように選んでも,それらの中に,差が$5$で割り切れる$2$つの数が存在する.        
-    \end{exampleblock}
-    \begin{alertblock}{鳩の巣箱の原理の証明例}
-
-
-    \mbox{}\\
-        \( \mathbb{Z}^+ \) の部分集合で要素数が6となる集合 \( U \) を任意に取る。集合 \( V = \{0, 1, 2, 3, 4\} \) とし、\( U \) から \( V \) への写像 \( f \) を \( f(x) = x \mod 5 \) と定める。
-
-\( |U| > |V| \) なので、鳩の巣原理より、\( V \) の要素 $y$で $|f^{-1}[\{y\}]| \geq 2$となる要素が存在する.そのような要素を $y_0$とする.
-
-$f^{-1}[\{y_0\}]$から異なる要素 \( x_1 \) と \( x_2 \) を任意に取る。逆像の定義と \( f \) の定義より、\( f(x_1) = f(x_2) \)、即ち、\( x_1 \mod 5 = x_2 \mod 5 \) が成り立つ。modの定義より、\( x_1 - 5 \lfloor x_1 / 5 \rfloor = x_2 - 5 \lfloor x_2 / 5 \rfloor \) が成り立つ。
-
-\( \mathbb{Z} \) の要素について、\( x_1 - x_2 = 5(\lfloor x_1 / 5 \rfloor - \lfloor x_2 / 5 \rfloor) \) が成り立つ。即ち、\( x_1 \) と \( x_2 \) の差は5で割り切れる。
-ここで、\( U \) は任意の集合であったので、任意の異なる6個の正の整数からなる集合に対して、差が5で割り切れる2つの数が存在する。
-
-    \end{alertblock}
-\end{frame}
 \end{document}
