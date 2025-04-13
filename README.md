@@ -1,3 +1,18 @@
+# Latexを書く為のリポジトリです．
+
+Dockerを用いてlatexを書きたいため，[being24](https://github.com/being24)さんのテンプレートを使用しています．
+
+私が実際に書いているLatexのディレクトリは[github](github)以降に記述しています． 
+現在は，Krlaがあります．（これから増える予定）
+
+- [Krlab](github/Krlab)では，研究室の輪講資料で用いるlatexのソースコード並びにコンパイル後のPDFをおいています．
+
+
+
+
+
+以降は，being24さんが記述しているテンプレートの内容です．
+
 # 日本語論文をLaTeXで書いて、textlintをするためのテンプレート
 
 [![Test Docker Image](https://github.com/being24/latex-template-ja/actions/workflows/test.yml/badge.svg)](https://github.com/being24/latex-template-ja/actions/workflows/test.yml)
