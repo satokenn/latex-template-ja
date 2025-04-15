@@ -2,6 +2,7 @@
 \documentclass[8pt, jfont=ipaexm, t]{beamer} % IPAex明朝
 \usepackage{hyperref}
 % 一般的によく使用されるパッケージ
+\usepackage{caption}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{amsmath}
@@ -187,7 +188,7 @@
 
   \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.1]{figure/02.png}
+    \includegraphics[scale=0.3]{figure/02.png}
     \caption{画角の求め方}
     \label{fig:02}
   \end{figure}
@@ -227,7 +228,7 @@
 
   \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.1]{figure/04.png}
+    \includegraphics[scale=0.3]{figure/04.png}
     \caption{後側主点と後側焦点}
     \label{fig:04}
   \end{figure}
@@ -241,7 +242,7 @@
   \newpage
 
 \begin{block}{求め方}
-  \small
+  \tiny
   実際の焦点距離と35mm換算焦点距離は相似として考えることができるため，以下の式で求めることができる．
   \begin{align*}
     \dfrac{S / 2}{f} &\risingdotseq \dfrac{S_{35} / 2}{f_{35}} \\
@@ -256,7 +257,7 @@
 
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.1]{figure/03.png}
+  \includegraphics[scale=0.18]{figure/03.png}
   \caption{焦点距離 $f$ と 35mmフィルム換算焦点距離 $f_{35}$ の関係}
   \label{fig:03}
 \end{figure}
@@ -343,7 +344,7 @@
 
   \newpage
   \begin{exampleblock}{被写体の移動ブレがない画像の取り方}
-    \small
+    \tiny
     以下のように変数を定義した際の移動ブレが十分に小さいシャッタスピードは\eqref{ts}で求めることができる．
     \begin{itemize}
       \item 被写体までの距離 $R[m]$
@@ -363,7 +364,7 @@
 
   \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.1]{figure/05.png}
+    \includegraphics[scale=0.23]{figure/05.png}
     \caption{移動する被写体をぶれなく撮影できるシャッタスピードを求める}
     \label{fig:05}
   \end{figure}
@@ -398,11 +399,11 @@
 
   図\ref{fig:a}，図\ref{fig:b}，図\ref{fig:c}では，レンズ主点 $O$ から距離 $a$ の位置の被写体 $A$ に対して，レンズ主点からレンズ焦点距離 $f$ よりも少し大きな位置 $b$ の位置にある
   撮像素子上にピントが合っている．
-  
+
 
   \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.1]{figure/06.png}
+    \includegraphics[scale=0.4]{figure/06.png}
     \caption{Aの位置の被写体は，撮像素子上にピントが合う}
     \label{fig:a}
   \end{figure}
@@ -412,27 +413,24 @@
     次に，図\ref{fig:b}について考える．この場合では，被写体 $A$ よりも少し近い距離 $a_n$ にある被写体 $A_n$ について考える．
     被写体の位置が近づくと像の位置は焦点より後方で形成される．そのため，像ができるのは撮像素子よりも離れた距離 $b_n$ である．
 \end{block}
-
+  \begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.35]{figure/07.png}
+    \caption{Aよりも近い位置の被写体は，撮像素子よりも後でピントが合う}
+    \label{fig:b}
+  \end{figure}
+\newpage
   \begin{block}{図\ref{fig:c}について}
     最後に，図\ref{fig:c} について考える．この場合では，被写体 $A$ よりも少し遠い距離 $a_f$ にある被写体 $A_f$ について考える．
     被写体の位置が遠ざかると像の位置は焦点より前方で形成される．そのため，像ができるのは撮像素子よりレンズに近い $b_f$ である．
   \end{block}
-
   \begin{figure}[H]
     \centering
-    \begin{minipage}[b]{0.33\columnwidth}
-        \centering
-        \includegraphics{figure/07.png}
-        \caption{Aよりも近い位置の被写体は，撮像素子よりも後でピントが合う}
-        \label{fig:b}
-    \end{minipage}
-    \begin{minipage}[b]{0.33\columnwidth}
-        \centering
-        \includegraphics{figure/08.png}
-        \caption{Aよりも遠い位置の被写体は，撮像素子よりも手前でピントが合う}
-        \label{fig:c}
-    \end{minipage}
-    \end{figure}
+    \includegraphics[scale=0.35]{figure/08.png}
+    \caption{Aよりも遠い位置の被写体は，撮像素子よりも手前でピントが合う}
+    \label{fig:c}
+  \end{figure}
+
     \newpage
 
     \begin{block}{被写界深度の特性}
@@ -452,7 +450,7 @@
     \end{block}
     \begin{figure}[H]
       \centering
-      \includegraphics[scale=0.1]{figure/09.png}
+      \includegraphics[scale=0.35]{figure/09.png}
       \caption{被写界深度のまとめ}
       \label{fig:09}
     \end{figure}
