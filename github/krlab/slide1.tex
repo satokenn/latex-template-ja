@@ -283,7 +283,7 @@
 \section{画像の明るさ}
 \begin{frame}{画像の明るさ}
 \begin{block}{}
-  像の明るさは，撮影レンズの直径 $D$ の2乗に比例している．また，撮像レンズの焦点距離 $f$ の2乗に反比例している．
+  撮影レンズで集光して撮像素子上に像が結像する際，撮影レンズの直径とレンズ焦点距離によって像の明るさは異なる．像の明るさは，撮影レンズの直径 $D$ の2乗に比例している．また，撮像レンズの焦点距離 $f$ の2乗に反比例している．
   \begin{equation}\label{ip}
     I \propto (\dfrac{D}{f})^2
   \end{equation}
@@ -325,9 +325,15 @@
 
 \begin{frame}{ISO感度}
   \begin{block}{}
-    光に対するフィルム感度を表したもの．産業用カメラの場合はISO感度の代わりにゲイン\footnote{増幅器の倍率を示す}を用いる．
-    撮像素子から読みだした信号には画像情報と共にノイズが含まれており，ISO感度を2倍にすると信号が増幅されるがノイズも増加する．
+    光に対するフィルム感度を表したもの．フィルム感度は100を基準として100に対して2倍の感度があれ200となる．産業用カメラの場合はISO感度の代わりにゲイン\footnote{増幅器の倍率を示す}を用いる．
+    撮像素子から読みだした信号には画像情報と共にノイズが含まれており，ISO感度を2倍にすると信号が増幅されるがノイズも増加する．したがって，感度をあげると共に画像中のノイズも多くなる．
   \end{block}
+  \begin{figure}[htbp]
+      \centering
+      \includegraphics[keepaspectratio,width=0.5\textwidth]{figure/013.jpg}
+      \caption{ISO感度の違いによるノイズの変化}
+      \label{fig:label}
+  \end{figure}
 \end{frame}
 
 \begin{frame}[allowframebreaks]{移動ブレの防止}
@@ -470,7 +476,7 @@
 
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.5]{figure/011.png}
+  \includegraphics[width=0.5 \textwidth]{figure/011.jpg}
   \caption{露光時間とフレームレートの関係}
 \end{figure}
 \end{frame}
@@ -486,7 +492,7 @@
   \end{block}
   \begin{figure}[H]
       \centering
-      \includegraphics[scale=0.5]{figure/012.png}
+      \includegraphics[width=0.5\textwidth]{figure/012.jpg}
       \caption{フリッカの発生過程}
       \label{fig:label}
   \end{figure}
