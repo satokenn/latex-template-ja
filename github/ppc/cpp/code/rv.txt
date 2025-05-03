@@ -1,0 +1,5 @@
+int func(void) { 引数が必要ない場合は,voidと記述する.
+    int a = 1;
+    a += 5;
+    return a;
+}

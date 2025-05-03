@@ -1,0 +1,14 @@
+        switch(変数) {
+            case 定数1 : 
+                実行内容;
+                break;
+            case 定数2 :
+                実行内容;
+                break;
+            .
+            .
+            .
+            default : 
+                実行内容;
+                break;
+        }

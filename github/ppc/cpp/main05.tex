@@ -1,0 +1,353 @@
+% コピペスタート
+\documentclass[xdvipdfmx, 8pt, t]{beamer}
+
+% 一般的によく使用されるパッケージ
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{pgfplots}
+%\usepackage{xeCJK}
+\usepackage{zxjatype}
+\usepackage[ipaex]{zxjafont}
+%\usetheme{Copenhagen}
+\pgfplotsset{compat=1.17}
+\usepackage{atbegshi}
+\usepackage{listings}
+% スタイル設定
+\usepackage{ifthen}
+\usepackage{otf}
+\usepackage[varg]{txfonts}
+\usepackage{svg}
+
+
+%カラーテーマの選択(省略可)
+\usecolortheme{orchid}
+%フォントテーマの選択(省略可)
+\usefonttheme{professionalfonts}
+%フレーム内のテーマの選択(省略可)
+\useinnertheme{circles}
+%フレーム外側のテーマの選択(省略可)
+\useoutertheme{infolines}
+%しおりの文字化け解消
+\usepackage{atbegshi}
+\AtBeginShipoutFirst{\special{pdf:tounicode EUC-UCS2}}
+
+\AtBeginShipoutFirst{\special{pdf:tounicode 90ms-RKSJ-UCS2}}
+%ナビゲーションバー非表示
+%\setbeamertemplate{navigation symbols}{}
+
+% タイトル色
+\setbeamercolor{title}{fg=structure, bg=}
+
+% フレームタイトル色
+\setbeamercolor{frametitle}{fg=structure, bg=}
+
+% caption に番号追加
+\setbeamertemplate{caption}[numbered]
+% caption 日本語
+\renewcommand{\figurename}{図}
+\renewcommand{\tablename}{表}
+
+\usepackage[export]{adjustbox} % loads also graphicx
+
+
+\usetheme[progressbar=frametitle, block=fill, numbering=fraction,]{metropolis}
+            
+% ブロックのスタイルをカスタマイズ
+\setbeamertemplate{blocks}[rounded]
+\setbeamercolor{block title}{bg=gray!30,fg=black} % ブロックのタイトルの背景とフォントの色
+\setbeamercolor{block body}{bg=gray!10,fg=black} % ブロック本体の背景とフォントの色
+
+\setbeamercolor{block title example}{bg=orange!30,fg=black} % 例のブロックのタイトルの背景とフォントの色
+\setbeamercolor{block body example}{bg=orange!10,fg=black} % 例のブロック本体の背景とフォントの色
+
+\setbeamercolor{block title alerted}{bg=red!30,fg=black} % アラートのブロックのタイトルの背景とフォントの色
+\setbeamercolor{block body alerted}{bg=red!10,fg=black} % アラートのブロック本体の背景とフォントの色
+
+
+
+
+%追加
+\setbeamertemplate{footline}{%
+  \hfill%
+  \usebeamercolor[fg]{page number in head/foot}%
+  \usebeamerfont{page number in head/foot}%
+  \insertframenumber\,/\,\inserttotalframenumber\kern1em\vskip2pt%
+}
+
+%ソースコードに関する設定
+\lstset{
+  basicstyle={\ttfamily},
+  identifierstyle={\small},
+  commentstyle={\smallitshape},
+  keywordstyle={\small\bfseries},
+  ndkeywordstyle={\small},
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},
+  numbers=left,
+  % xrightmargin=0zw,
+  % xleftmargin=3zw,
+  numberstyle={\scriptsize},
+  stepnumber=1,
+  numbersep=1,
+  lineskip=1ex
+}
+% コピペフィニィッシュ
+\title{C++入門}
+\subtitle{第5回目}
+\author{佐藤謙成}
+
+\begin{document}
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}<beamer>
+\frametitle{目次}
+    \tableofcontents[]
+\end{frame}
+
+\begin{frame}{注意}
+    このスライドはtexのbeamerというドキュメントクラスを用いています.
+\end{frame}
+\section{関数}
+\begin{frame}{関数とは}
+    \begin{block}{関数とは}
+         ある処理をまとめて名前を付けたものを関数と呼ぶ.
+    \end{block}
+    \begin{block}{関数を使うメリット}
+        関数を使うことによってコードの重複を減らせることができることが理由である.
+    \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{main関数}
+    \begin{lstlisting}[caption=main関数]
+        int main() {
+        実際に処理する内容;
+        return 0;
+        }
+    \end{lstlisting}
+
+    main関数とは各ソースコードに存在する特別な関数である.
+    この関数はプログラム実行時にシステムから呼び出される.また,return 0;に到達するとその時点でプログラムを終了する.
+\end{frame}
+\begin{frame}{関数について}
+    関数は以下の二つに分けることができる.
+    \begin{enumerate}
+        \item ユーザー定義型関数
+        \item 標準関数
+    \end{enumerate}
+    \begin{block}{ユーザー定義型関数}
+        この関数は,プログラマーがそのコードの中で作成し,実行する関数である.必要になったタイミングで関数を作って使うことができる.
+    \end{block}
+    \begin{block}{標準関数}
+       この関数は,ヘッダーファイル等に最初から入っている関数である.そのため,プログラマーが実際に作成することなく使えることができる.ただし,ヘッダーファイルを読み込んでいない場合エラーが発生するので注意すること. 
+    \end{block}
+    ユーザー定義型関数を作成する際には基本的には以下の二つが必要となる.
+    \begin{enumerate}
+        \item 関数プロトタイプ\footnote{関数定義がmain関数前であれば必要はない}
+        \item 関数定義
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]{関数の使用例.1}
+    ここでは,関数を用いた際の全体の流れとして以下のコードを記述する.
+    \tiny
+    \begin{lstlisting}[caption=func.cpp, label=関数使用例]
+        #include <iosream>
+        using namespace std;
+
+        // 関数プロトタイプ宣言
+        int Func_Plus(int n, int m);
+
+        // main関数
+        int main() {
+        int a, b, c;
+        cin >> a >> b;
+        c = Func_Plus(a, b); // 関数呼び出し
+        cout << c << endl;
+        }
+
+        // 関数定義
+        int Func_Plus(int n, int m) {
+        int ans;
+        ans = n + m;
+        return ans;
+        }
+    \end{lstlisting}
+    \normalsize
+    次項から,詳しい解説を行っていく.
+\end{frame}
+
+\subsection{関数プロトタイプ}
+\begin{frame}{関数プロトタイプ宣言について}
+    \begin{block}{関数プロトタイプ宣言とは}
+        関数定義がmain関数の後の場合,ファイルをコンパイルする際にコンパイラに対して関数の情報を渡さないまま関数を呼び出してしまう.そのため関数を呼び出した際にその呼び出し方に誤りがないか確認するための宣言である.
+
+        (関数定義がmain関数前に行っておけば,プロトタイプ宣言は必要ない.)
+    \end{block}
+    プロトタイプ宣言には以下の3つの役割を果たしている.
+    \begin{enumerate}
+        \item 関数の戻り値の型をコンパイルに伝えること
+        \item 関数を呼び出すために使用した引数の型と仮引数の宣言時の型との間で不正確な型変換が行われたとき,コンパイラが検出して報告できるようにしている.
+        \item 関数に渡した引数の数が関数の仮引数の数と一致しない場合にも報告できるようにしている.
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]{関数プロトタイプの宣言}
+    \begin{lstlisting}[caption=関数プロトタイプの一般形]
+        返り値の型　関数名　（仮引数リスト）;
+    \end{lstlisting}
+    関数のプロトタイプ宣言の一般形は上に書いてある書き方である.
+    
+    また,引数は可変個にすることができるが使用することはない為,宣言の方法だけ触れておく.
+    \begin{block}{}
+        int　func　(int i, ...);
+    \end{block}
+\end{frame}
+
+\subsection{関数定義}
+\begin{frame}[fragile]{関数定義}
+\begin{lstlisting}
+    戻り値の型　関数名　(引数リスト) {
+        処理内容;
+        return 戻り値;
+        }
+\end{lstlisting}
+関数定義には以下の要素が必要である.
+\begin{enumerate}
+    \item 戻り値の型
+    \item 関数名
+    \item 引数リスト
+    \item 実際に行う処理
+    \item 戻り値
+\end{enumerate}
+次項から各項目について解説していく.
+\end{frame}
+
+\begin{frame}{戻り値の型}
+    \begin{block}{戻り値の型}
+        戻り値の型は,関数が値を返す\footnote{戻り値については後で詳しく解説する.}際のデータ型のことである.
+    \end{block}
+    \begin{exampleblock}{再掲}
+        \begin{table}[]
+            \centering
+            \begin{tabular}{|l|l|l|}
+                \hline
+                型       & キーワード  & サイズ\\
+                \hline
+                文字データ & char  & 1バイト\\
+                符号付き整数 & int  & 2バイト\\
+                浮動小数点 & float & 4バイト\\
+                倍精度浮動小数点 & double & 8バイト\\
+                値なし & void & \\
+                \hline
+            \end{tabular}
+            \caption{基本のデータ型}
+            \label{tab:my_label}
+        \end{table}        
+    \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{引数リスト}
+    \begin{block}{引数とは}
+        関数を呼び出した際に関数に対して渡す値.引数の宣言は通常の変数と同様に行う.
+    \end{block}
+    \begin{lstlisting}[caption=引数の例,label=引数]
+        int func (int n, int m) {
+        int ans;
+        ans = n * m;
+        return ans;
+        }
+    \end{lstlisting}
+    ソースコード\ref{引数}では,1行目の()で引数を宣言している.関数を呼び出して使用する際は必ず関数名の後ろに渡したい値を記述しなければならないので注意すること.
+\end{frame}
+
+\begin{frame}[fragile]{戻り値}
+\begin{block}{戻り値とは}
+    関数が処理を終えた後に返す.
+    関数の最後にあるreturn 戻り値で値を返すことができる.
+\end{block}
+    \begin{lstlisting}[caption=戻り値の例, label=戻り値]
+        int func(void) { // 引数が必要ない場合は,voidと記述する.
+        int a = 1;
+        a += 5;
+        return a;
+        }
+    \end{lstlisting}
+    ソースコード\ref{戻り値}では,関数の中にreturn a;と書いているため,この関数が呼び出されたときにaが返り値として返る.
+\end{frame}
+
+\subsection{引数の値渡しと参照渡し}
+\begin{frame}[fragile]{値渡しと参照渡し}
+    関数に引数を渡す場合,以下の2つの方法がある.
+    \begin{enumerate}
+        \item 値渡し
+        \item 参照渡し
+    \end{enumerate}
+    1つ目の値渡しとは,引数に値がコピーされる.なので,呼び出し元の値は影響を受けない.2つ目の参照渡しでは,アドレスが引数にコピーされる.そのため,呼び出された関数で値を変更すると呼び出し元の値も変更される.
+    \begin{lstlisting}[caption=参照渡しの例, label=参照渡し]
+        void swap(int *i, int*j) {
+            int temp;
+            temp = *i;
+            *i = *j;
+            *j = temp;
+        }
+    \end{lstlisting}
+    ソースコード\ref{参照渡し}では,関数に2つの変数のポインタを渡しているので引数が指す実際の値が入れ替わる.
+\end{frame}
+\section{再帰}
+\begin{frame}[fragile]{再帰の使用例}
+ここでは,再帰の全体像を確認するために以下のコードを記述しておく.
+\tiny
+    \begin{lstlisting}[caption=再帰関数の例]
+        #include <iostream>
+        using namespace std;
+
+        void recursion(int i);
+        int main() {
+            recursion(5);
+            return 0;
+        }
+
+        void recursion (int i) {
+            if(i == 0) return;
+            cout << i << endl;
+            recursion(i - 1); // recursion関数内でrecursionを呼び出している.
+            return;
+        }
+    \end{lstlisting}    
+\end{frame}
+\begin{frame}[fragile]{再帰とは}
+    \begin{alertblock}{}
+        再帰関数は非常に難しい分野のため,無理に理解しようとする必要はない.
+    \end{alertblock}
+    \begin{block}{再帰とは}
+        関数の中で自分自身（その関数自身）を呼び出すことを再帰と呼ぶ.
+    \end{block}
+    \begin{lstlisting}[caption=再帰の一般形の一つ, label=再帰の一般形]
+        戻り値の型　func（引数）{
+            if(ベースケース){
+                return ベースケースに対する値;
+            }
+
+            // 再帰呼び出し
+            func(次の引数);
+            return 答え;
+        }
+    \end{lstlisting}
+    \begin{alertblock}{}
+        再帰には様々な書き方であるため,ソースコード\ref{再帰の一般形}のような書き方をしなくても良い.
+    \end{alertblock}
+\end{frame}
+\begin{frame}{終了}
+\end{frame}
+\end{document}
+
+

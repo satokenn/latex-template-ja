@@ -1,0 +1,398 @@
+% コピペスタート
+\documentclass[xdvipdfmx, 8pt, t]{beamer}
+
+% 一般的によく使用されるパッケージ
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{pgfplots}
+%\usepackage{xeCJK}
+\usepackage{zxjatype}
+\usepackage[ipaex]{zxjafont}
+%\usetheme{Copenhagen}
+\pgfplotsset{compat=1.17}
+\usepackage{atbegshi}
+\usepackage{listings}
+% スタイル設定
+\usepackage{ifthen}
+\usepackage{otf}
+\usepackage[varg]{txfonts}
+
+
+%カラーテーマの選択(省略可)
+\usecolortheme{orchid}
+%フォントテーマの選択(省略可)
+\usefonttheme{professionalfonts}
+%フレーム内のテーマの選択(省略可)
+\useinnertheme{circles}
+%フレーム外側のテーマの選択(省略可)
+\useoutertheme{infolines}
+%しおりの文字化け解消
+\usepackage{atbegshi}
+\AtBeginShipoutFirst{\special{pdf:tounicode EUC-UCS2}}
+
+\AtBeginShipoutFirst{\special{pdf:tounicode 90ms-RKSJ-UCS2}}
+%ナビゲーションバー非表示
+%\setbeamertemplate{navigation symbols}{}
+
+% タイトル色
+\setbeamercolor{title}{fg=structure, bg=}
+
+% フレームタイトル色
+\setbeamercolor{frametitle}{fg=structure, bg=}
+
+% caption に番号追加
+\setbeamertemplate{caption}[numbered]
+% caption 日本語
+\renewcommand{\figurename}{図}
+\renewcommand{\tablename}{表}
+
+\usepackage[export]{adjustbox} % loads also graphicx
+
+
+\usetheme[progressbar=frametitle, block=fill, numbering=fraction,]{metropolis}
+            
+% ブロックのスタイルをカスタマイズ
+\setbeamertemplate{blocks}[rounded]
+\setbeamercolor{block title}{bg=gray!30,fg=black} % ブロックのタイトルの背景とフォントの色
+\setbeamercolor{block body}{bg=gray!10,fg=black} % ブロック本体の背景とフォントの色
+
+\setbeamercolor{block title example}{bg=orange!30,fg=black} % 例のブロックのタイトルの背景とフォントの色
+\setbeamercolor{block body example}{bg=orange!10,fg=black} % 例のブロック本体の背景とフォントの色
+
+\setbeamercolor{block title alerted}{bg=red!30,fg=black} % アラートのブロックのタイトルの背景とフォントの色
+\setbeamercolor{block body alerted}{bg=red!10,fg=black} % アラートのブロック本体の背景とフォントの色
+
+
+
+
+%追加
+\setbeamertemplate{footline}{%
+  \hfill%
+  \usebeamercolor[fg]{page number in head/foot}%
+  \usebeamerfont{page number in head/foot}%
+  \insertframenumber\,/\,\inserttotalframenumber\kern1em\vskip2pt%
+}
+
+%ソースコードに関する設定
+\lstset{
+  basicstyle={\ttfamily},
+  identifierstyle={\small},
+  commentstyle={\smallitshape},
+  keywordstyle={\small\bfseries},
+  ndkeywordstyle={\small},
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},
+  numbers=left,
+  % xrightmargin=0zw,
+  % xleftmargin=3zw,
+  numberstyle={\scriptsize},
+  stepnumber=1,
+  numbersep=1,
+  lineskip=1ex
+}
+% コピペフィニィッシュ
+\title{C++入門}
+\subtitle{第1回目}
+\author{佐藤謙成}
+
+\begin{document}
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}<beamer>
+\frametitle{目次}
+    \tableofcontents[]
+\end{frame}
+
+\begin{frame}{注意}
+    このスライドはtexのbeamerというドキュメントクラスを用いています.
+\end{frame}
+
+\section{Hello Worldの出力}
+\begin{frame}[fragile]{Hello world}
+ここでは,C言語（プログラミング)の最初の慣習としてHello worldの出力を行なっていく.
+\begin{lstlisting}[caption=Hello World, label=01]
+#include <iostream>
+int main(){
+cout << "Hello World!" << endl;
+return 0;
+}
+\end{lstlisting}
+次のスライドからはこのソースコードの解説を行なっていく.
+\end{frame}
+
+\begin{frame}[fragile]{ソースコードの解説}
+\begin{block}{ヘッダーファイル}
+\begin{lstlisting}
+    #include <iostream>
+\end{lstlisting}
+    このコードは,ヘッダーファイルと呼ばれる物である.
+    このファイルを読み込むことにより,coutやcinを用いることができる.
+\end{block}
+\begin{block}{main関数}
+    \begin{lstlisting}
+        int main(){
+        ソースコード
+        }
+    \end{lstlisting}
+    各コードに必ず存在する特別な関数.
+    プログラムはmain関数の最初から順に実行されていく.
+    基本的には,main関数内に記述すれば良い.
+\end{block}
+\begin{block}{プログラムの終了}
+    \begin{lstlisting}
+        return 0;
+    \end{lstlisting}
+    このコードを記述することでプログラムを終了することができる.
+    (必要なくても実行が最後まで到達すればプログラムは終了する.)
+\end{block}
+    
+\end{frame}
+\section{変数}
+\begin{frame}{変数とは}
+    \begin{block}{変数}
+        記憶域に名前をつけてさまざまな値を格納できるようにしたもの.
+        変数は値を格納する箱という認識で大丈夫である.
+    \end{block}
+    \begin{table}[]
+        \centering
+        \begin{tabular}{|l|l|l|}
+            \hline
+            型       & キーワード  & サイズ\\
+            \hline
+            文字データ & char  & 1バイト\\
+            符号付き整数 & int  & 2バイト\\
+            浮動小数点 & float & 4バイト\\
+            倍精度浮動小数点 & double & 8バイト\\
+            値なし & void & \\
+            \hline
+        \end{tabular}
+        \caption{基本のデータ型}
+        \label{tab:my_label}
+    \end{table}
+\end{frame}
+
+\begin{frame}{変数の宣言}
+    変数をプログラム内で使用する際には変数の宣言というものが必要となる.
+    \begin{block}{宣言方法}
+        変数宣言の一般的な形式は次の通りである : \textbf{型 \mbox{ }変数名;}\footnote{int x, y, z; とまとめて宣言することもできる.}
+        \mbox{}\\
+        
+        実際にコード内で書く例は次の通りである : \textbf{int counter\footnote{変数名は自身で設定することができるため,格納される値に沿った名前にすること.};}
+    \end{block}
+    \begin{alertblock}{}
+        変数宣言は1つの文であるため,一番最後にセミコロン(;)が必要である.
+        
+        よく忘れるため注意すること.
+    \end{alertblock}
+        
+    
+\end{frame}
+\begin{frame}{変数の種類}
+    \begin{block}{グローバル変数}
+    通常の関数やmain関数の外で宣言された変数.そのプログラム内のどの関数からも使うことができる.ただし,どこでどの手順で変数内の値が変更されたか不透明になりやすいため,基本的には使用を避けたい.
+    \end{block}
+    \begin{block}{ローカル変数}
+        通常の関数やmain関数内で宣言された変数.宣言された関数内でのみ使用可能.変数内の値がどこでどの手順で変更されたか分かりやすい.
+    \end{block}
+\end{frame}
+\begin{frame}{変数の代入}
+    \begin{block}{代入方法}
+        代入の一般的な形式は次のとおりである : 変数名 = 値;
+        
+        実際の例は次の通りである : count = 5;\footnote{int count = 5; のように変数の宣言と同時にすることができる.}
+    \end{block}
+\end{frame}
+\section{入出力}
+\begin{frame}[fragile]{入出力}
+    \begin{block}{入力}
+        \begin{lstlisting}
+            cin >> (入力した値を入れる変数);
+        \end{lstlisting}
+    \end{block}
+    \begin{block}{出力}
+        \begin{lstlisting}
+            cout << (出力したい変数,文字列) << endl;
+        \end{lstlisting}
+        \begin{itemize}
+            \item endlで改行する.\footnote{"\textbackslash n"でも可能.}
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\section{プログラムの演算}
+\begin{frame}{算術式の計算}
+    \begin{table}[]
+        \centering
+        \begin{tabular}{|l|l|l|}
+            \hline
+            演算子 & 意味 & 優先順位\\
+            \hline
+            * & 乗算 & 4\\
+            / & 除算（余りは切り捨て) & 4\\
+            \% & 剰余 & 4\\
+            + & 加算 & 5\\
+            - & 減算 & 5\\
+            \hline
+        \end{tabular}
+        \caption{算術演算子}
+        \label{tab:my_label}
+    \end{table}
+    \begin{block}{}
+        もし,加算・減算を先に求めたい場合は()を用いることで優先順位を上げることができる.
+    \end{block}
+\end{frame}
+
+\begin{frame}{複合代入演算子}
+    \begin{block}{}
+        計算式の省略形.競プロではよく使用されるので覚えておきたい.
+    \end{block}
+    \begin{table}[]
+        \centering
+        \begin{tabular}{|l|l|}
+            \hline
+            複合代入演算子 & 代入演算子 \\
+            \hline
+            a += 1 & a = a + 1\\
+            a -= 3 & a = a - 3\\
+            a *= 5 & a = a * 5\\
+            a /= 2 & a = a / 2\\
+            a \%= 9 & a = a \% 9\\
+            \hline
+        \end{tabular}
+        \caption{複合代入演算子}
+        \label{tab:my_label}
+    \end{table}
+\end{frame}
+
+\begin{frame}{インクリメント, デクリメント}
+    \begin{block}{インクリメント}
+        a++; または ++a;である.
+        
+        この二つは計算の優先順位が存在するため,式の途中で登場する場合は異なる結果となる.
+    \end{block}
+    \begin{block}{デクリメント}
+        a--; または --a;である.
+    \end{block}
+    次のスライドで実際にどのように違うのか検証していきたい.
+\end{frame}
+
+\begin{frame}[fragile]{インクリメント,デクリメント}
+    \tiny
+    まずは,前置インクリメント\footnote{++aのこと.}のソースコードである.
+    
+    \begin{lstlisting}{caption=前置インクリメント}
+        #include <iostream>
+        using namespace std;
+        int main(){
+        int x = 2;
+        int y;
+        y = ++x;
+        cout << "x = " << x << " y = " << y << endl;
+        return 0;
+        }
+    \end{lstlisting}
+    次は,後置インクリメント\footnote{a++のこと.}である.
+    \begin{lstlisting}
+        #include <iostream>
+        using namespace std;
+        int main(){
+        int x = 2;
+        int y;
+        y = x++;
+        cout << "x = " << x << " y = " << y << endl;
+        return 0;
+        }
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}{前置インクリメント, 後置インクリメント}
+\begin{table}[]
+    \centering
+    \begin{tabular}{|l|l|}
+    \hline
+        演算子 & 説明\\
+        \hline
+       前置インクリメント  & 先に値をインクリメント(+1)した後に代入 \\
+       後置インクリメント  & 先に代入した後に値をインクリメント(+1)\\
+       \hline
+    \end{tabular}
+    \caption{前置,後置の違い}
+    \label{tab:my_label}
+\end{table}
+    
+\end{frame}
+
+\begin{frame}{関係演算子}
+この演算子は,数学等で頻繁に出るため,簡単に押さえておけばよい.
+    \begin{table}[]
+        \centering
+        \begin{tabular}{|l|l|}
+        \hline
+        演算子 & 関係\\
+        \hline
+        > & より大きい\\
+        >= & 以上\\
+        < & より小さい\\
+        <= & 以下\\
+        == & 等しい\\
+        != & 等しくない\\
+        \hline
+        \end{tabular}
+        \caption{関係演算子}
+        \label{tab:my_label}
+    \end{table}
+\end{frame}
+
+\begin{frame}{論理演算子}
+1年生の2Q(情報代数), 3Q(離散数学)で出てくるため押さえておきたい.
+    \begin{table}[]
+        \centering
+        \begin{tabular}{|c|l|}
+        \hline
+        演算子 & 操作\\
+        \hline
+        \&\& & 論理積(かつ)\\
+        || & 論理和(または)\\
+        ! & 否定\\
+        \hline
+        \end{tabular}
+        \caption{論理演算子}
+        \label{tab:my_label}
+    \end{table}
+    \begin{table}[]
+        \centering
+        \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        p & q & p \&\& q & p || q & !p\\
+        \hline
+        T & T & T & T & F\\
+        T & F & F & T & F\\
+        F & T & F & T & T\\
+        F & F & F & F & T\\
+        \hline
+        \end{tabular}
+        \caption{真理値表}
+        \label{tab:my_label}
+    \end{table}
+\end{frame}
+
+\begin{frame}{参考文献}
+    \begin{thebibliography} {99}
+    \bibitem{独習}ハーバード・シルト,独習C 第4版（2016)
+    \bibitem{林}林晃太郎, C言語入門簡易版(2024-4-9)
+    \bibitem{KUTPG}"KUT-PG 高知工科大学 プログラミング集団 Wiki*"
+    \url{https://wikiwiki.jp/kut-pg/}
+    
+    (アクセス日: 2024-4-16)
+    \end{thebibliography}
+\end{frame}
+\end{document}

@@ -35,7 +35,7 @@
 
 % 和文用パッケージ（luatex用）
 \usepackage{luatexja}
-\usepackage{luatexja-fontspec}
+% \usepackage{luatexja-fontspec}
 \usepackage{lmodern}
 \usepackage[T1]{fontenc} % 必要に応じてフォントエンコーディングを指定
 
@@ -53,7 +53,7 @@
 
 % \AtBeginShipoutFirst{\special{pdf:tounicode 90ms-RKSJ-UCS2}}
 %ナビゲーションバー非表示
-%\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{navigation symbols}{}
 
 % タイトル色
 \setbeamercolor{title}{fg=structure, bg=}
@@ -106,22 +106,23 @@
 
 %ソースコードに関する設定
 \lstset{
-  basicstyle={\ttfamily},
-  identifierstyle={\small},
-  commentstyle={\smallitshape},
-  keywordstyle={\small\bfseries},
-  ndkeywordstyle={\small},
-  stringstyle={\small\ttfamily},
-  frame={tb},
-  breaklines=true,
-  columns=[l]{fullflexible},
-  numbers=left,
-  % xrightmargin=0zw,
-  % xleftmargin=3zw,
-  numberstyle={\scriptsize},
-  stepnumber=1,
-  numbersep=1,
-  lineskip=1ex
+    language={C++}, 
+    basicstyle={\ttfamily},
+    identifierstyle={\small},
+    commentstyle={\smallitshape},
+    keywordstyle={\small\bfseries},
+    ndkeywordstyle={\small},
+    stringstyle={\small\ttfamily},
+    frame={tb},
+    breaklines=true,
+    columns=[l]{fullflexible},
+    numbers=left,
+    xrightmargin=0em,
+    xleftmargin=3em,
+    numberstyle={\scriptsize},
+    stepnumber=1,
+    numbersep=1em,
+    lineskip=-0.5ex
 }
 
 

@@ -1,0 +1,230 @@
+% コピペスタート
+\documentclass[xdvipdfmx, 8pt, t]{beamer}
+
+% 一般的によく使用されるパッケージ
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{pgfplots}
+%\usepackage{xeCJK}
+\usepackage{zxjatype}
+\usepackage[ipaex]{zxjafont}
+%\usetheme{Copenhagen}
+\pgfplotsset{compat=1.17}
+\usepackage{atbegshi}
+\usepackage{listings}
+% スタイル設定
+\usepackage{ifthen}
+\usepackage{otf}
+\usepackage[varg]{txfonts}
+\usepackage{svg}
+
+
+%カラーテーマの選択(省略可)
+\usecolortheme{orchid}
+%フォントテーマの選択(省略可)
+\usefonttheme{professionalfonts}
+%フレーム内のテーマの選択(省略可)
+\useinnertheme{circles}
+%フレーム外側のテーマの選択(省略可)
+\useoutertheme{infolines}
+%しおりの文字化け解消
+\usepackage{atbegshi}
+\AtBeginShipoutFirst{\special{pdf:tounicode EUC-UCS2}}
+
+\AtBeginShipoutFirst{\special{pdf:tounicode 90ms-RKSJ-UCS2}}
+%ナビゲーションバー非表示
+%\setbeamertemplate{navigation symbols}{}
+
+% タイトル色
+\setbeamercolor{title}{fg=structure, bg=}
+
+% フレームタイトル色
+\setbeamercolor{frametitle}{fg=structure, bg=}
+
+% caption に番号追加
+\setbeamertemplate{caption}[numbered]
+% caption 日本語
+\renewcommand{\figurename}{図}
+\renewcommand{\tablename}{表}
+
+\usepackage[export]{adjustbox} % loads also graphicx
+
+
+\usetheme[progressbar=frametitle, block=fill, numbering=fraction,]{metropolis}
+            
+% ブロックのスタイルをカスタマイズ
+\setbeamertemplate{blocks}[rounded]
+\setbeamercolor{block title}{bg=gray!30,fg=black} % ブロックのタイトルの背景とフォントの色
+\setbeamercolor{block body}{bg=gray!10,fg=black} % ブロック本体の背景とフォントの色
+
+\setbeamercolor{block title example}{bg=orange!30,fg=black} % 例のブロックのタイトルの背景とフォントの色
+\setbeamercolor{block body example}{bg=orange!10,fg=black} % 例のブロック本体の背景とフォントの色
+
+\setbeamercolor{block title alerted}{bg=red!30,fg=black} % アラートのブロックのタイトルの背景とフォントの色
+\setbeamercolor{block body alerted}{bg=red!10,fg=black} % アラートのブロック本体の背景とフォントの色
+
+
+
+
+%追加
+\setbeamertemplate{footline}{%
+  \hfill%
+  \usebeamercolor[fg]{page number in head/foot}%
+  \usebeamerfont{page number in head/foot}%
+  \insertframenumber\,/\,\inserttotalframenumber\kern1em\vskip2pt%
+}
+
+%ソースコードに関する設定
+\lstset{
+  basicstyle={\ttfamily},
+  identifierstyle={\small},
+  commentstyle={\smallitshape},
+  keywordstyle={\small\bfseries},
+  ndkeywordstyle={\small},
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},
+  numbers=left,
+  % xrightmargin=0zw,
+  % xleftmargin=3zw,
+  numberstyle={\scriptsize},
+  stepnumber=1,
+  numbersep=1,
+  lineskip=1ex
+}
+% コピペフィニィッシュ
+\title{C++入門}
+\subtitle{第6回目}
+\author{佐藤謙成}
+
+\begin{document}
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}<beamer>
+\frametitle{目次}
+    \tableofcontents[]
+\end{frame}
+
+\begin{frame}{注意}
+    このスライドはtexのbeamerというドキュメントクラスを用いています.
+\end{frame}
+
+\section{構造体}
+
+\begin{frame}[fragile]{構造体の使用例}
+ 以下のコードでは構造体の例である.   
+
+\begin{lstlisting}
+    #include <iostream>
+    using namespace std;
+
+    struct Student {
+        string name;
+        int age;
+        int id;
+    } Student1;
+
+    int main() {
+        cin >> Student1.name >> Student1.age >> Student1.id;
+        cout << "以下の人物を登録しました.\n" << "名前 : " << Student1.name << endl << "年齢 : " << Student1.age << endl << "学籍番号 : " << Student1.id << endl;
+    }
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]{構造体の基礎.1}
+    \begin{block}{構造体とは}
+        構造体とは,メンバと呼ばれる互いに関連のある2つ以上の変数で構成される複合データ型である.配列は全て同じデータ型であるが,メンバはそれぞれ異なる型を持つことができる.
+    \end{block}
+    \begin{lstlisting}[caption = 構造体の定義]
+        struct タグ名 {
+        型 メンバ1;
+        型 メンバ2;
+        .
+        .
+        .
+        型 メンバn;
+        } 変数リスト;
+    \end{lstlisting}
+    \begin{block}{構造体の変数の宣言}
+        struct　タグ名　変数リスト;
+    \end{block}
+\end{frame}
+
+\begin{frame}{構造体の基礎.2}
+    構造体型をを定義したら,後はその型の変数をいくつでも生成することができる.
+    \begin{block}{構造体を用いる手順}
+        構造体を用いる際の手順は以下のとおりである.
+        \begin{enumerate}
+            \item どんなデータを扱うのか考える.
+            \item 変数として実態を作る.
+            \item 実際に数値や文字を格納
+        \end{enumerate}
+    \end{block}    
+    \begin{block}{構造体のアクセス方法}
+        構造体のメンバにアクセスするためには,以下の形式で書かなければならない.
+
+        変数名.メンバ名
+    \end{block}
+    \begin{exampleblock}{構造体を用いるメリット}
+        構造体を用いることでプログラムを綺麗に分かりやすく記述することができる.
+    \end{exampleblock}
+\end{frame}
+
+
+\begin{frame}{構造体の基礎.3}
+    \begin{figure}
+        \centering
+        \includesvg{PNG/構造体のメンバ変数.svg}
+        \caption{構造体とメンバ変数の関係}
+        \label{fig:enter-label}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{構造体へのポインタ.1}
+\tiny
+    \begin{lstlisting}[caption = 構造体ポインタの例]
+    #include <iostream>
+    #include <cstring>
+    using namespace std;
+    
+    struct s_type {
+        int i;
+        char str[80];
+    }s, *p;
+    
+    int main() {
+        p = &s;
+        s.i = 10;
+        p -> i = 10;
+        strcpy(p -> str, "私は構造体が好きです.");
+    
+        cout << s.i << " " <<  p -> i  << " " << p -> str << endl;
+        return 0;
+    }    
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{構造体へのポインタ.2}
+\begin{block}{ポインタを介したメンバ変数へのアクセス}
+    ポインタ変数　->　メンバ変数;
+
+    上記に書いた方法をアロー演算子と呼ぶ.
+\end{block}
+アロー演算子を用いることでポインタを用いたプログラムを書く際,とても読みやすくなるため積極的に使用していきたい.
+
+\begin{lstlisting}[caption=アロー演算子, label=アロー演算子]
+    // pdを構造体ポインタ型変数, dを構造体変数とする.
+    // aをdのメンバ変数とする.
+    *(pd).a;
+    pd -> a;
+\end{lstlisting}
+ソースコード\ref{アロー演算子}の二つは同じ意味である.
+\end{frame}
+\end{document}

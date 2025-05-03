@@ -1,0 +1,16 @@
+\frametitle{構造体へのポインタ}
+
+    \lstinputlisting[caption=str\_p.cpp]{code/str_p.cpp}
+
+    \newpage
+
+    \begin{block}{ポインタを介したメンバ変数へのアクセス}
+    ポインタ変数 -> メンバ変数;
+
+    上記に書いた方法をアロー演算子と呼ぶ.
+\end{block}
+アロー演算子を用いることでポインタを用いたプログラムを書く際,とても読みやすくなるため積極的に使用していきたい.
+
+\lstinputlisting[caption=アロー演算子, label=アロー演算子]{code/arrow.txt}
+
+ソースコード\ref{アロー演算子}の二つは同じ意味である.

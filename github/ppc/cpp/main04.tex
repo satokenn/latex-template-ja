@@ -1,0 +1,234 @@
+% コピペスタート
+\documentclass[xdvipdfmx, 8pt, t]{beamer}
+
+% 一般的によく使用されるパッケージ
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{pgfplots}
+%\usepackage{xeCJK}
+\usepackage{zxjatype}
+\usepackage[ipaex]{zxjafont}
+%\usetheme{Copenhagen}
+\pgfplotsset{compat=1.17}
+\usepackage{atbegshi}
+\usepackage{listings}
+% スタイル設定
+\usepackage{ifthen}
+\usepackage{otf}
+\usepackage[varg]{txfonts}
+\usepackage{svg}
+
+
+%カラーテーマの選択(省略可)
+\usecolortheme{orchid}
+%フォントテーマの選択(省略可)
+\usefonttheme{professionalfonts}
+%フレーム内のテーマの選択(省略可)
+\useinnertheme{circles}
+%フレーム外側のテーマの選択(省略可)
+\useoutertheme{infolines}
+%しおりの文字化け解消
+\usepackage{atbegshi}
+\AtBeginShipoutFirst{\special{pdf:tounicode EUC-UCS2}}
+
+\AtBeginShipoutFirst{\special{pdf:tounicode 90ms-RKSJ-UCS2}}
+%ナビゲーションバー非表示
+%\setbeamertemplate{navigation symbols}{}
+
+% タイトル色
+\setbeamercolor{title}{fg=structure, bg=}
+
+% フレームタイトル色
+\setbeamercolor{frametitle}{fg=structure, bg=}
+
+% caption に番号追加
+\setbeamertemplate{caption}[numbered]
+% caption 日本語
+\renewcommand{\figurename}{図}
+\renewcommand{\tablename}{表}
+
+\usepackage[export]{adjustbox} % loads also graphicx
+
+
+\usetheme[progressbar=frametitle, block=fill, numbering=fraction,]{metropolis}
+            
+% ブロックのスタイルをカスタマイズ
+\setbeamertemplate{blocks}[rounded]
+\setbeamercolor{block title}{bg=gray!30,fg=black} % ブロックのタイトルの背景とフォントの色
+\setbeamercolor{block body}{bg=gray!10,fg=black} % ブロック本体の背景とフォントの色
+
+\setbeamercolor{block title example}{bg=orange!30,fg=black} % 例のブロックのタイトルの背景とフォントの色
+\setbeamercolor{block body example}{bg=orange!10,fg=black} % 例のブロック本体の背景とフォントの色
+
+\setbeamercolor{block title alerted}{bg=red!30,fg=black} % アラートのブロックのタイトルの背景とフォントの色
+\setbeamercolor{block body alerted}{bg=red!10,fg=black} % アラートのブロック本体の背景とフォントの色
+
+
+
+
+%追加
+\setbeamertemplate{footline}{%
+  \hfill%
+  \usebeamercolor[fg]{page number in head/foot}%
+  \usebeamerfont{page number in head/foot}%
+  \insertframenumber\,/\,\inserttotalframenumber\kern1em\vskip2pt%
+}
+
+%ソースコードに関する設定
+\lstset{
+  basicstyle={\ttfamily},
+  identifierstyle={\small},
+  commentstyle={\smallitshape},
+  keywordstyle={\small\bfseries},
+  ndkeywordstyle={\small},
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},
+  numbers=left,
+  % xrightmargin=0zw,
+  % xleftmargin=3zw,
+  numberstyle={\scriptsize},
+  stepnumber=1,
+  numbersep=1,
+  lineskip=1ex
+}
+% コピペフィニィッシュ
+\title{C++入門}
+\subtitle{第4回目}
+\author{佐藤謙成}
+
+\begin{document}
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}<beamer>
+\frametitle{目次}
+    \tableofcontents[]
+\end{frame}
+
+\begin{frame}{注意}
+    このスライドはtexのbeamerというドキュメントクラスを用いています.
+\end{frame}
+
+\section{ポインタ}
+\begin{frame}[fragile]{ポインタの使用例}
+    ここでは,ポインタの簡単な使い方について以下のソースコードを記述する.
+    \begin{lstlisting}
+        #include <iostream>
+        using namespace std;
+
+        int main() {
+            int a =5;
+            int *p;
+            p = &a;
+            cout << p << endl;
+            cout << *p << endl;
+            return 0;
+        }
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}{ポインタとは.1}
+    \begin{alertblock}{}
+        ポインタは難しい分野のため,徐々に理解していけばそれで充分である.
+    \end{alertblock}
+    \begin{block}{ポインタとは}
+        ポインタとは,変数等がメモリのどの場所に保存されているかを指し示す仕組みである.つまり,データ本体ではなく,それがある場所のことである.
+    \end{block}
+    \begin{block}{ポインタの宣言}
+        型　*変数名;
+
+        例として,　int *p;
+    \end{block}
+    \begin{block}{ポインタ演算子}
+        ポインタを用いる際にはポインタ演算子というものを用いる.
+        ここでは, pをポインタ変数として扱う.
+        \begin{table}[h]
+            \centering
+            \begin{tabular}{|l|l|}
+                \hline
+                演算子（変数そのもの) & 説明\\
+                \hline
+                p & アドレス自体を意味\\
+                *p & アドレスが指し示す値\\
+                \&q　(qはただの変数) & qが保存されているアドレスを指し示す\\
+                \hline
+            \end{tabular}
+            \caption{ポインタ演算子}
+            \label{tab:my_label}
+        \end{table}
+    \end{block}
+\end{frame}
+
+\begin{frame}{ポインタとは.2}
+    \begin{figure}[h]
+        \centering
+        \includesvg{PNG/配列の画像.drawio.svg}
+        \caption{配列とポインタの関係性}
+        \label{fig:enter-label}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{ポインタの演算制限について}
+    \begin{block}{ポインタの演算制限}
+        ポインタでは整数の加算と減算以外は実行することができない.即ち,ポインタ変数に適用できる演算は以下の6つのみである.
+
+        \centering
+            *, \&, +, ++, -, --
+    \end{block}
+    \begin{alertblock}{ポインタ変数でのインクリメント,デクリメント}
+        ポインタ変数で*p++としたとき,ポインタが指している値ではなく,ポインタ自体をインクリメントしている.ポインタが指している値をインクリメントしたい場合は,(*p)++とするのが正解である.
+
+    \end{alertblock}
+\end{frame}
+
+\subsection{配列とポインタ}
+\begin{frame}[fragile]{配列とポインタの関係性.1}
+ポインタと配列はとても密接に関わりあっている.
+\begin{block}{配列とポインタの関係}
+    添え字をつけずに配列名の場合は,配列の先頭を指すポインタとなってしまう.そのため,変数として配列を扱いたい場合は添え字を忘れてはいけない.
+\end{block}
+    \begin{lstlisting}{caption=p.cpp}
+        #include <iostream>
+        using namespace std;
+
+        int main() {
+            int a[3] = {1, 1, 1};
+            int *p;
+            p = a; // pにaの先頭アドレスを代入する.
+            cout << *p << *(p + 1) << *(p + 2) << endl; // *演算子の方が優先順位が高いため,()で覆う必要がある.
+            cout << a[0] << a[1] << a[2] << endl;
+            return 0;
+        }
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}{配列とポインタの関係性.2}
+    \begin{figure}[h]
+        \centering
+        \includesvg{PNG/配列とポインタの関係性.svg}
+        \caption{配列とポインタの関係性}
+        \label{fig:enter-label}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{多重間接参照}
+    \begin{block}{多重間接参照とは}
+        ポインタを使い別のポインタを指すことができる.その場合,最初のポインタは2番目のポインタのアドレスを持ち,2番目のポインタは変数を指す.しかし,多重間接参照は連鎖をたどるのが面倒なため極力使用は避けたい.
+    \end{block}
+
+    \begin{figure}[h]
+        \centering
+        \includesvg{PNG/多重間接参照.svg}
+        \caption{多重間接参照の図}
+        \label{fig:enter-label}
+    \end{figure}
+\end{frame}
+\end{document}

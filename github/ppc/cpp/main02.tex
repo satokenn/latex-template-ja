@@ -1,0 +1,372 @@
+% コピペスタート
+\documentclass[xdvipdfmx, 8pt, t]{beamer}
+
+% 一般的によく使用されるパッケージ
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{pgfplots}
+%\usepackage{xeCJK}
+\usepackage{zxjatype}
+\usepackage[ipaex]{zxjafont}
+%\usetheme{Copenhagen}
+\pgfplotsset{compat=1.17}
+\usepackage{atbegshi}
+\usepackage{listings}
+% スタイル設定
+\usepackage{ifthen}
+\usepackage{otf}
+\usepackage[varg]{txfonts}
+
+
+%カラーテーマの選択(省略可)
+\usecolortheme{orchid}
+%フォントテーマの選択(省略可)
+\usefonttheme{professionalfonts}
+%フレーム内のテーマの選択(省略可)
+\useinnertheme{circles}
+%フレーム外側のテーマの選択(省略可)
+\useoutertheme{infolines}
+%しおりの文字化け解消
+\usepackage{atbegshi}
+\AtBeginShipoutFirst{\special{pdf:tounicode EUC-UCS2}}
+
+\AtBeginShipoutFirst{\special{pdf:tounicode 90ms-RKSJ-UCS2}}
+%ナビゲーションバー非表示
+%\setbeamertemplate{navigation symbols}{}
+
+% タイトル色
+\setbeamercolor{title}{fg=structure, bg=}
+
+% フレームタイトル色
+\setbeamercolor{frametitle}{fg=structure, bg=}
+
+% caption に番号追加
+\setbeamertemplate{caption}[numbered]
+% caption 日本語
+\renewcommand{\figurename}{図}
+\renewcommand{\tablename}{表}
+
+\usepackage[export]{adjustbox} % loads also graphicx
+
+
+\usetheme[progressbar=frametitle, block=fill, numbering=fraction,]{metropolis}
+            
+% ブロックのスタイルをカスタマイズ
+\setbeamertemplate{blocks}[rounded]
+\setbeamercolor{block title}{bg=gray!30,fg=black} % ブロックのタイトルの背景とフォントの色
+\setbeamercolor{block body}{bg=gray!10,fg=black} % ブロック本体の背景とフォントの色
+
+\setbeamercolor{block title example}{bg=orange!30,fg=black} % 例のブロックのタイトルの背景とフォントの色
+\setbeamercolor{block body example}{bg=orange!10,fg=black} % 例のブロック本体の背景とフォントの色
+
+\setbeamercolor{block title alerted}{bg=red!30,fg=black} % アラートのブロックのタイトルの背景とフォントの色
+\setbeamercolor{block body alerted}{bg=red!10,fg=black} % アラートのブロック本体の背景とフォントの色
+
+
+
+
+%追加
+\setbeamertemplate{footline}{%
+  \hfill%
+  \usebeamercolor[fg]{page number in head/foot}%
+  \usebeamerfont{page number in head/foot}%
+  \insertframenumber\,/\,\inserttotalframenumber\kern1em\vskip2pt%
+}
+
+%ソースコードに関する設定
+\lstset{
+  basicstyle={\ttfamily},
+  identifierstyle={\small},
+  commentstyle={\smallitshape},
+  keywordstyle={\small\bfseries},
+  ndkeywordstyle={\small},
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},
+  numbers=left,
+  % xrightmargin=0zw,
+  % xleftmargin=3zw,
+  numberstyle={\scriptsize},
+  stepnumber=1,
+  numbersep=1,
+  lineskip=1ex
+}
+% コピペフィニィッシュ
+\title{C++入門}
+\subtitle{第2回目}
+\author{佐藤謙成}
+
+\begin{document}
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}<beamer>
+\frametitle{目次}
+    \tableofcontents[]
+\end{frame}
+
+\begin{frame}{注意}
+    このスライドはtexのbeamerというドキュメントクラスを用いています.
+\end{frame}
+
+\section{条件分岐}
+\begin{frame}[fragile]{条件分岐を用いたソースコード}
+    ここに載せているソースコードは条件分岐を用いた実際のコードである.詳しい解説は次からのスライドで行う.
+    \tiny
+    \begin{lstlisting}[caption=条件分岐を用いたコード]
+        #include <iostream>
+        using namespace std;
+
+        int main() {
+            int weather;
+            cout << "今日の天気を数字で教えてください : "
+            cin >> weather;
+
+            if(weather == 1) {
+            cout << "今日は晴れですね\n";
+            }
+            else if(weather == 2) {
+            cout << "今日は曇りですね\n";
+            }
+            else {
+            cout << "今日は雨ですね\n";
+            }
+            return 0;
+        }
+    \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]{if文}
+    \begin{block}{if文とは}
+        条件式の条件が成立した場合,特定の処理を行う文.
+        if文の条件式では,関係演算子を用いて値を比較する.
+    \end{block}
+    \begin{lstlisting}[caption=if文の一般形]
+        if (条件式) {
+        条件が成立した場合に行いたい処理;
+        }
+    \end{lstlisting}
+    \begin{exampleblock}{再掲(関係演算子)}
+    \small
+    \begin{table}[]
+        \centering
+        \begin{tabular}{|l|l|}
+        \hline
+        演算子 & 関係\\
+        \hline
+        > & より大きい\\
+        >= & 以上\\
+        < & より小さい\\
+        <= & 以下\\
+        == & 等しい\\
+        != & 等しくない\\
+        \hline
+        \end{tabular}
+        \caption{関係演算子}
+        \label{tab:my_label}
+    \end{table}
+        
+    \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{else if文} 
+    \begin{block}{else if文とは}
+        if文の条件が成立せず, else if文の条件が成立した場合に行いたい処理;
+    \end{block}
+    \begin{lstlisting}[caption=else if文の一般形]
+        if(条件式) {
+        条件が成立した場合に行いたい処理;
+        }
+        else if (条件式) {
+        if文の条件が成立しないかつ, else ifの条件が成立した場合に行いたい処理;
+        }
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{else 文}
+\begin{block}{else 文とは}
+   if文(else if文)の条件が成立しない場合に行われる処理のこと.
+\end{block}
+\begin{lstlisting}[caption=else 文の一般形]
+    if(条件式) {
+    条件が成立した場合に行いたい処理;
+    }
+    else {
+    if文の処理が成立しない場合に行われる処理;
+    }
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{switch文による多分岐選択}
+    \begin{block}{switch文とは}
+        二者択一ではなく複数の選択肢がある場合に用いる文.
+    \end{block}
+    \tiny
+    \begin{lstlisting}
+        switch(変数) {
+            case 定数1 : 
+                実行内容;
+                break;
+            case 定数2 :
+                実行内容;
+                break;
+            .
+            .
+            .
+            default : 
+                実行内容;
+                break;
+        }
+    \end{lstlisting}
+    \normalsize	
+    一致する定数が見つからない場合は,defaultが実行される.
+\end{frame}
+
+
+
+\section{繰り返し処理}
+\begin{frame}[fragile]{繰り返し処理を用いたソースコード}
+    \begin{lstlisting}[caption=繰り返し処理を用いたコード]
+        #include <iostream>
+        using namespace std;
+
+        int main() {
+            for(int i = 0; i < 10; i++) {
+            cout << i << "回目の操作です\n";
+            }
+
+            while(i = 10) {
+            cout << i << "回目の操作です\n";
+            i++;
+            }
+            return 0;
+        }
+    \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]{for文}
+    \begin{block}{for文とは}
+        同じ処理を何度も行う場合に用いられる.
+    \end{block}
+    \small
+    \begin{lstlisting}
+        for(初期値; 条件判定; インクリメント;) {
+        繰り返して行う処理;
+        }
+    \end{lstlisting}
+    \normal
+    \begin{block}{初期値}
+        ループを制御する変数に初期値を設定する文.
+    \end{block}
+    \begin{block}{条件判定}
+        初期値の変数と目標の変数を突き合わせ,真の場合ループを実行する.必ず,for文の最初に実行される.
+    \end{block}
+    \begin{block}{インクリメント}
+        初期値で設定した変数をインクリメント(デクリメント）を行う.必ず,for文の末尾で実行される.
+    \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{while文}
+\begin{block}{while文とは}
+    条件文が真の間だけ繰り返される文.
+\end{block}
+\begin{lstlisting}
+    while(条件式) {
+    繰り返す内容;
+    }
+\end{lstlisting}
+\begin{alertblock}{注意}
+    while文は繰り返す内容の中に条件が真になるか偽になるような処理を行わないと無限ループに陥ってしまう.\footnote{その場合は,Ctrl + cを押すことによって中断することができる.}
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{do-while文}
+    \begin{block}{do-while文とは}
+        条件分が真の間だけ繰り返される文.
+    \end{block}
+    \begin{lstlisting}
+        do {
+        繰り返す内容;
+        } while(条件式);
+    \end{lstlisting}
+    \begin{block}{while文との違い}
+        条件式が末尾で実行されるため,ループ内のコードは必ず1回は実行される.
+    \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{ループのネスト}
+    for文等のループの内側の中にまたループが存在する時のことを言う.一般的には,二重for文などと呼ばれる.
+    \begin{lstlisting}[caption=二重for文]
+        for(初期値; 条件判定; インクリメント) {
+            for(初期値; 条件判定; インクリメント) {
+                繰り返し実行する内容;
+            }
+        }
+    \end{lstlisting}
+    \begin{block}{ループのネストの処理}
+        \begin{enumerate}
+            \item 外側のfor文を一つ回す.
+            \item 内側のfor文を全て回す.
+            \item 外側のfor文を一つ回す.
+        \end{enumerate}
+        \centering
+        $\textbf{\vdots}$
+    \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{break文}
+    \begin{block}{break文とは}
+        break文を用いることで,通常の条件判定を待たずにループから脱出することができる.
+        ループの内側でbreak文に会うと,ループはすぐに終了する.
+    \end{block}
+    \small
+    \begin{lstlisting}[caption = break.cpp]
+    #include <iostream>
+    using namespace std;
+    int main() {
+        for(int i = 0; i < 100; i++) {
+            if(i == 10) {
+            break;
+            }
+        }
+        return 0;
+    }
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{continue文}
+\begin{block}{continue文とは}
+    continue文に出会うと,そこからループ内のコードを全て無視し,ループの次の繰り返しに進む.
+\end{block}
+    \begin{lstlisting}
+        #include <iostream>
+        using namespace std;
+
+        int main() {
+            for(int i = 0; i < 10; i++) {
+                if(i == 5) {
+                continue;
+                }
+            }
+            return 0;
+        }
+    \end{lstlisting}
+\end{frame}
+
+
+\begin{frame}{参考文献}
+    \begin{thebibliography} {99}
+    \bibitem{独習}ハーバード・シルト,独習C 第4版（2016)
+    \bibitem{林}林晃太郎, C言語入門簡易版(2024-4-9)
+    \bibitem{KUTPG}"KUT-PG 高知工科大学 プログラミング集団 Wiki*"
+    \url{https://wikiwiki.jp/kut-pg/}
+    
+    (アクセス日: 2024-4-16)
+    \end{thebibliography}
+\end{frame}
+\end{document}
