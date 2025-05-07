@@ -49,24 +49,31 @@
 人から見ても理解しやすい名前として利用することができる．また，サーバの移転等でIPアドレスが変更した際も紐付けなおすことでユーザには変更を意識させることなくサイトにアクセスすることができる．
 また，ドメインとIPアドレスを接続しないデメリットとしてサーバのIPアドレスを直接入力する必要があり，この作業は非常に煩雑かつタイプミスなども発生しやすいため，サイトへのアクセスは困難となる．
 \section{内容}
-今回行った作業は，他ドメイン向けにDNSで自サーバ名の名前提供を行うサービスを提供する．
+インターネット状のユーザが独自のドメイン名を用いて当サイトに安全にアクセスできるようにするためにドメイン名による名前解決の昨日とHTTPS通信の暗号化機能を提供する．
+まず，BIND9を用いてDNSサーバを構築．ドメイン名とIPアドレスを関連付けるゾーンを定義することでインターネット上のユーザがドメイン名を解決してWebサーバに到達できるようになる．
+また，Apacheの.htpasswdファイルによるユーザ管理によるHTTP Basic認証を導入することで，特定のディレクトリに対するアクセス制限を設け，Webコンテンツの一部に対してユーザ認証を必要とする仕組みを提供する．
+次に，Webサーバ状のnginxにおいて，server_nameにドメイン名を記述することで，DNSで解決されたドメイン名とnginxの設定を対応させる．
+さらに，安全な通信を実現するため，Let's EncryptとCerlbotを利用して，自身のドメインに対するSSL/TLS証明書を取得し，nginxに適用することでHTTPS通信を可能にする．
+これらの構成により，ドメイン名でのアクセス，HTTPSによる安全な通信．ユーザ認証によるアクセス制御を行うことでユーザが利用しやすく，安心してアクセスできるWebサービス環境を提供する．
 \section{要素技術}
-ネットワーク層プロトコルではIPアドレスという32ビットの整数で表される．しかし，ホストの識別は
+DNSとは，ドメイン名をIPアドレスに変換する仕組みのことである．普段，ウェブサイトにアクセスする際に文字列であるドメイン名を用いるが，コンピュータやネットワーク機器は実際には32ビットのIPアドレスを用いている．
+DNSは分散データベースシステムである．各部分はローカルに管理されているが，クライアントサーバメカニズムを用いることでネットワーク全体で利用することができる．DNSデータベースの構造は，木構造として表すことができ，
+各ノードは，親との関係を識別するテキストラベルを保有している．また，DNSサーバにおけるドメインは部分木として表すことができ，サブドメインがある．このサブドメインは別の組織に責任を任せることができる．
+また，それぞれの名前空間において自治管理する部分をゾーンと呼び，分割したサブドメインは，独立したゾーンとなる．
 \section{作業記録}
-まず，パッケージサーバに最新情報を紹介してBIND9をインストールする．
+まず，パッケージサーバに最新情報を更新してBIND9をインストールする．
 % \begin{lstlisting}
 %     sudo apt update
 %     sudo apt install bind9
 % \end{lstlisting}
-を実行する．その後，設定ファイルをvimで編集する．これから編集するファイルは以下の5種類である．
+を実行する．その後，設定ファイルを編集する．編集対象のファイルは以下の5つである．
 \begin{enumerate}
     \item /etc/bind/named.conf.default-zones
     \item /etc/bind/named.conf.options
     \item /etc/bind/named.conf.local
     \item /etc/bind/named/270328f.zone
 \end{enumerate}
-それぞれ，以下の絶対パスであるのでそれらをcpコマンドでコピーし，別名で待避させたのちにvimで開き編集する．最初に named.conf.default-zonesで自分が管理する
-ドメインをzoneで指定する．
+これらのファイルをcpコマンドでバックアップを作成した後，named.conf.default-zonesで自身が管理するドメインのゾーン情報を記述する．
 % \begin{lstlisting}[label = zoneで指定する]
 % zone "270328f.exp.kut.jp" {
 %     type primary;
@@ -90,21 +97,22 @@
 % \begin{lstlisting}
 % sudo systemctl reload bind9
 % \end{lstlisting}
+DNSサーバの再起動と動作確認は以下のコマンドで行う．
 % \begin{lstlisting}{DNSサーバの再起動と動作確認}
 % sudo systemctl restart bihd9
 % sudo ps auxqq | grep named
 % \end{lstlisting}
-ここで，53番ポートを開放してPCからドメインを検索することでサイトに入れるかを確認する．
+ここで，53番ポートを開放してPCからドメイン名を指定してサイトに入れるかを確認する．
 ここまででドメインの名前解決をすることができたため，次はnginxの設定を修正する．
 % \begin{lstlisting}
 %     server_name www.270328f.exp.kut.jp;
 % \end{lstlisting}
-この文を追加することでnginxが受け取るHTTPリクエストのうち，Hostヘッダーがwww.270328f.exp.kut.jpになっているアクセスに対して対応するという意味であり，
-これを実装することでドメインとnginxの設定を紐付けることができた．
+この行をnginxの設定ファイルである/etc/nginx/sites-available/reverse-proxy.confのserverセクションに追記することで，nginxが受け取るHTTPリクエストのうち，Hostヘッダーがwww.270328f.exp.kut.jp
+になっているアクセスに対して対応するようになる．これによりドメインとnginxの設定を紐付けることができた．
 
 \subsection{認証および暗号化}
 これからHTTP通信の暗号化をSSL/TLSを用いて行う．
-暗号化されたHTTPS通信の実現は，以下の手順で行うことができる．
+暗号化されたHTTPS通信の実現は，以下の3段階で行うことができる．
 \begin{enumerate}
     \item 仮の秘密鍵・証明書(暗号化のみ実現)
     \item 秘密鍵・自己署名証明書
@@ -114,9 +122,8 @@
 %\begin{lstlisting}
 %   sudo htpasswd -c /etc/apache2/.htpasswd testuser
 %\end{lstlisting}
-このコマンドを打つことで.htpasswdが無い際に作成し，"testuser"というユーザを作成して，そのパスワードを入力する．また，この認証を実際のサイトで適用するために
-/var/www/htmlの下にbasicというディレクトリを作成し，認証を行う設定をするには/etc/apache2/sites-available/000-default.confを管理者権限でvimを用いて開く．
-以下のコードが実際の設定である．
+このコマンドを打つことで，/etc/apache2/ディレクトリに.htpasswdファイルが存在しない場合に作成し，"testuser"というユーザを作成して，そのパスワードを入力する．また，この認証を実際のサイトで適用するために
+/var/www/htmlの下にbasicというディレクトリを作成する．認証を行う設定をするには/etc/apache2/sites-available/000-default.confを管理者権限でvimを用いて開き，以下の設定を追記する．
 \begin{lstlisting}
     <Directory /var/www/html/basic>
         AuthType Basic
@@ -128,11 +135,11 @@
         Require valid-user
     </Directory>
 \end{lstlisting}
-次は，Let's Encryptによる証明書を作成する．Let's Encryptは無料でDV証明書を発行してくれる認証局である．
+次に，Let's Encryptを用いてSSL/TLS証明書を作成する．Let's Encryptは無料でドメイン認証証明書を発行してくれる認証局である．
 以下の手順を用いて署名を行う．
 \begin{enumerate}
-    \item サーバ側のエージェントソフトウェアが鍵ペアを作成
-    \item www.270328f.exp.kut.jpを管理していることをLet's Encryptの認証局に証明するため，どちらかを実行する
+    \item サーバ側のエージェントソフトウェアが秘密鍵とお証明書の署名要求を作成
+    \item www.270328f.exp.kut.jpを管理していることをLet's Encryptの認証局に証明するため，この2つのどちらかを実行する
     \begin{itemize}
         \item www.270328f.exp.kut.jpのDNSレコードを認証局に提示
         \item http://www.270328f.exp.kut.jpの下にHTMLのコンテンツを配置
@@ -140,10 +147,10 @@
     \item 認証局はエージェントソフトウェアにノンスを提供
     \item 秘密鍵でノンスに署名して，それを認証局へ送付
     \item 認証局は署名を検証
-    \item 認証局はチャレンジに対する処理を確認
-    \item 証明書署名要求内部の秘密鍵と証明書署名要求に付与されている署名を検証して，正当であれば，認証局の署名を付与したwww.270328f.exp.kut.jpの証明書をエージェントソフトウェアに返信
+    \item 認証局はドメイン管理権限の検証が成功したかを確認
+    \item 証明書署名要求内部の秘密鍵と証明書署名要求に付与されている署名を検証して，成功した場合，認証局の署名を付与したwww.270328f.exp.kut.jpの証明書をエージェントソフトウェアに返信
 \end{enumerate}
-これらの手順を今から実際に行っていく．
+これらの手順を実際に行うためのコマンドは以下の通りである．
 \begin{lstlisting}
     $ sudo apt update
     $ sudo apt install python3 python3-venv libaugeas0
@@ -153,5 +160,6 @@
     $ sudo ln -s /opt/certbot/bin/certbot /usr/bin/certbot
     j$ sudo certbot --nginx
 \end{lstlisting}
+これらのコマンドを実行することで，Cerlbotが自動的にLet's Encryptとのやり取りを行い，nginxの設定を更新してHTTPSを有効にする．
 \section{考察}
 \end{document}
