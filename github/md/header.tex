@@ -1,0 +1,37 @@
+\usepackage{luatexja}
+\usepackage{luatexja-fontspec}
+\usepackage{microtype}
+\usepackage{parskip}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{setspace}
+\usepackage{booktabs}
+\usepackage{amsmath,amssymb}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{autonum}
+\usepackage{graphicx}
+\usepackage{caption}
+
+\lstset{
+  frame=single,
+  framesep=3pt,
+  basicstyle=\ttfamily\scriptsize,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{green!50!black},
+  stringstyle=\color{red},
+  breaklines=true,
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  stepnumber=1,
+  tabsize=4
+}
+
+\lstdefinelanguage{zsh}{
+  morekeywords={ls, cd, pwd, echo, export, alias, unalias, function},
+  sensitive=true,
+  morecomment=[l]{\#},
+  morestring=[b]",
+  morestring=[b]'
+}
