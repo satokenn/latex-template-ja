@@ -9,11 +9,12 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{tikz}
-\usepackage{pgfplots}
+\usepackage{pgfplots} % ← このように変更
+\pgfplotsset{compat=1.18} % 直後にこの行を記述
 %\usepackage{xeCJK}
 %\usetheme{Copenhagen}
-\pgfplotsset{compat=1.17}
 \usepackage{listings}
+\usepackage{array}
 % \usepackage{slashbox}
 
 % スタイル設定
@@ -24,8 +25,6 @@
 \usepackage{xcolor}
 \usepackage{url}
 \usepackage{bm}
-\usepackage{pgfplots}
-\pgfplotsset{compat=1.18}
 
 \usetikzlibrary{graphs}
 \usetikzlibrary {arrows.meta}
