@@ -1,0 +1,14 @@
+\frametitle{時間計算量の例.2}
+以下のコードを元に時間計算量を求めていきたい.(計算量オーダーは,最悪時間計算量について考えるのが基本である.)
+    \lstinputlisting{./code/order/for.txt}
+\begin{exampleblock}{}
+    \begin{itemize}
+        \item if文の時間計算量は, $O(1)$である.
+        \item 外側のfor文の繰り返し回数は, $n - 1$回.
+        \item 内側のfor文の繰り返し回数は, $n - i$回.
+    \end{itemize}
+    このアルゴリズムの時間計算量は,
+    \begin{align*}
+        O(1) \times \dfrac{n(n - 1)}{2} = O(n^2)
+    \end{align*}
+\end{exampleblock}
