@@ -1,0 +1,49 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{n+nb}{load}\PYG{+w}{ }\PYG{n}{starData}
+\PYG{n}{nObs}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{size}\PYG{p}{(}\PYG{n}{spectra}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{;}
+\PYG{n}{lambdaStart}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mf}{630.02}\PYG{p}{;}
+\PYG{n}{lambdaDelta}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mf}{0.14}\PYG{p}{;}
+
+\PYG{c}{\PYGZpc{}task1}
+\PYG{n}{lambdaEnd}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{lambdaStart}\PYG{o}{+}\PYG{p}{(}\PYG{n}{nObs}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{lambdaDelta}\PYG{p}{;}
+\PYG{n}{lambda}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{lambdaStart}\PYG{p}{:}\PYG{+w}{ }\PYG{n}{lambdaDelta}\PYG{p}{:}\PYG{+w}{ }\PYG{n}{lambdaEnd}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{c}{\PYGZpc{}task2}
+\PYG{n}{s}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{spectra}\PYG{p}{(}\PYG{p}{:}\PYG{p}{,}\PYG{l+m+mi}{6}\PYG{p}{)}\PYG{p}{;}
+\PYG{c}{\PYGZpc{}task3}
+
+\PYG{n+nb}{figure}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{)}
+\PYG{n+nb}{loglog}\PYG{p}{(}\PYG{n}{lambda}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{s}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}.\PYGZhy{}\PYGZdq{}}\PYG{p}{)}
+
+\PYG{n+nb}{xlabel}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Wavelength\PYGZdq{}}\PYG{p}{)}
+\PYG{n+nb}{ylabel}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Intensity\PYGZdq{}}\PYG{p}{)}
+
+\PYG{c}{\PYGZpc{}task4}
+\PYG{p}{[}\PYG{n}{sHa}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{idx}\PYG{p}{]}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{min}\PYG{p}{(}\PYG{n}{s}\PYG{p}{)}
+\PYG{n}{lambdaHa}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{lambda}\PYG{p}{(}\PYG{n}{idx}\PYG{p}{)}
+
+\PYG{c}{\PYGZpc{}task5}
+\PYG{n+nb}{hold}\PYG{+w}{ }\PYG{n}{on}
+\PYG{+w}{    }\PYG{n+nb}{plot}\PYG{p}{(}\PYG{n}{lambdaHa}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{sHa}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{rs\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{MarkerSize\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{8}\PYG{p}{)}
+\PYG{n+nb}{hold}\PYG{+w}{ }\PYG{n}{off}
+
+\PYG{c}{\PYGZpc{}task6}
+\PYG{n}{z}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{lambdaHa}\PYG{+w}{ }\PYG{o}{/}\PYG{+w}{ }\PYG{l+m+mf}{656.28}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{n}{speed}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{z}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{l+m+mf}{299792.458}
+
+
+\PYG{c}{\PYGZpc{}\PYGZpc{}\PYGZpc{}　恒星運動Ⅱ　\PYGZpc{}\PYGZpc{}\PYGZpc{}}
+\PYG{c}{\PYGZpc{}Task1}
+\PYG{p}{[}\PYG{n}{sHa}\PYG{p}{,}\PYG{n}{idx}\PYG{p}{]}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{min}\PYG{p}{(}\PYG{n}{spectra}\PYG{p}{(}\PYG{p}{:}\PYG{p}{,}\PYG{p}{:}\PYG{p}{)}\PYG{p}{)}\PYG{p}{;}
+\PYG{n}{lambdaHa}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{lambda}\PYG{p}{(}\PYG{n}{idx}\PYG{p}{)}\PYG{p}{;}
+\PYG{n}{z}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{lambdaHa}\PYG{o}{/}\PYG{l+m+mf}{656.28}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{;}
+\PYG{n}{speed}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{z}\PYG{o}{*}\PYG{l+m+mf}{299792.458}\PYG{p}{;}
+\PYG{c}{\PYGZpc{}task3}
+\PYG{n+nb}{figure}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{)}
+\PYG{k}{for}\PYG{+w}{ }\PYG{n}{c}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{l+m+mi}{7}
+\PYG{+w}{    }\PYG{n}{s}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{spectra}\PYG{p}{(}\PYG{p}{:}\PYG{p}{,}\PYG{n}{c}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{    }
+\PYG{+w}{    }\PYG{n+nb}{loglog}\PYG{p}{(}\PYG{n}{lambda}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{s}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZhy{}\PYGZhy{}\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{    }\PYG{n+nb}{hold}\PYG{+w}{ }\PYG{n}{on}
+\PYG{k}{end}
+\end{MintedVerbatim}

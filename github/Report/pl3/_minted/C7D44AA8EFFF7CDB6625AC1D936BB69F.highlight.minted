@@ -1,0 +1,155 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{c}{\PYGZpc{} パラメータ}
+\PYG{n}{currentPath}\PYG{p}{=}\PYG{n+nb}{pwd}\PYG{p}{;}
+\PYG{n}{imgpath}\PYG{p}{=}\PYG{n+nb}{fullfile}\PYG{p}{(}\PYG{n+nb}{pwd}\PYG{p}{,}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{img\PYGZsq{}}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{                        }\PYG{c}{\PYGZpc{} イメージファイルのパス}
+\PYG{c}{\PYGZpc{} 課題 trialnumber=という形で作成する。            \PYGZpc{} 刺激画像ファイルのペアの数}
+\PYG{n}{trialnumber}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{;}\PYG{+w}{                                    }\PYG{c}{\PYGZpc{} ★修正: 試行数を2に設定}
+\PYG{n}{h}\PYG{p}{=}\PYG{l+m+mi}{640}\PYG{p}{;}\PYG{+w}{                                              }\PYG{c}{\PYGZpc{} 刺激画像の横のサイズ（pix）}
+\PYG{n}{v}\PYG{p}{=}\PYG{l+m+mi}{480}\PYG{p}{;}\PYG{+w}{                                              }\PYG{c}{\PYGZpc{} 刺激画像の縦のサイズ（pix）}
+\PYG{n}{textcolor}\PYG{p}{=}\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{+w}{                                        }\PYG{c}{\PYGZpc{} 文字色 (黒)}
+\PYG{c}{\PYGZpc{} 課題 bgcolor=という形で作成する。                \PYGZpc{} 背景色}
+\PYG{n}{bgcolor}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{255}\PYG{p}{;}\PYG{+w}{                                      }\PYG{c}{\PYGZpc{} ★修正: 背景色を白に設定 (白は255)}
+\PYG{c}{\PYGZpc{} 課題 fxcolor = という形で作成する。                \PYGZpc{} 固視点色}
+\PYG{n}{fxcolor}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{+w}{                                        }\PYG{c}{\PYGZpc{} ★修正: 固視点色を黒に設定 (黒は0)}
+
+
+\PYG{k}{try}
+\PYG{+w}{    }\PYG{c}{\PYGZpc{}おやくそくの表記}
+\PYG{+w}{    }\PYG{n}{screenNumber}\PYG{p}{=}\PYG{n+nb}{max}\PYG{p}{(}\PYG{n}{Screen}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{Screens\PYGZsq{}}\PYG{p}{)}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{    }\PYG{p}{[}\PYG{n}{window}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{rectW}\PYG{p}{]}\PYG{p}{=}\PYG{n}{Screen}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{OpenWindow\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{screenNumber}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{}rectWは画面の大きさ}
+\PYG{+w}{    }\PYG{c}{\PYGZpc{} 画面の基本設定}
+\PYG{+w}{    }\PYG{n}{rectI}\PYG{p}{=}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{+w}{ }\PYG{n}{h}\PYG{+w}{ }\PYG{n}{v}\PYG{p}{]}\PYG{p}{;}\PYG{+w}{                              }\PYG{c}{\PYGZpc{} 刺激画像の大きさ}
+\PYG{+w}{    }\PYG{n}{margin}\PYG{p}{=}\PYG{l+m+mi}{220}\PYG{p}{;}\PYG{+w}{                                   }\PYG{c}{\PYGZpc{} 画像の左右端とウィンドウ端との距離}
+
+\PYG{+w}{    }\PYG{c}{\PYGZpc{} 刺激画像の呈示領域（左）}
+\PYG{+w}{    }\PYG{n}{rectIL}\PYG{p}{=}\PYG{p}{[}\PYG{n}{margin}\PYG{+w}{ }\PYG{n}{rectW}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{p}{)}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{o}{\PYGZhy{}}\PYG{n}{rectI}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{p}{)}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{+w}{ }\PYG{n}{margin}\PYG{o}{+}\PYG{n}{rectI}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{+w}{ }\PYG{n}{rectW}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{p}{)}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{o}{+}\PYG{n}{rectI}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{p}{)}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{p}{]}\PYG{p}{;}
+
+\PYG{+w}{    }\PYG{c}{\PYGZpc{} 刺激画像の呈示領域（右）}
+\PYG{+w}{    }\PYG{c}{\PYGZpc{} 課題 上の刺激画像の呈示領域（左）を参考に作成する}
+\PYG{+w}{    }\PYG{n}{rectIR}\PYG{p}{=}\PYG{p}{[}\PYG{n}{rectW}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{o}{\PYGZhy{}}\PYG{n}{margin}\PYG{o}{\PYGZhy{}}\PYG{n}{rectI}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{+w}{ }\PYG{n}{rectW}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{p}{)}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{o}{\PYGZhy{}}\PYG{n}{rectI}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{p}{)}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{+w}{ }\PYG{n}{rectW}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{o}{\PYGZhy{}}\PYG{n}{margin}\PYG{+w}{ }\PYG{n}{rectW}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{p}{)}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{o}{+}\PYG{n}{rectI}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{p}{)}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{p}{]}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{} ★修正: 右側の画像呈示位置を計算}
+
+\PYG{+w}{    }\PYG{c}{\PYGZpc{} 固視点の呈示領域}
+\PYG{+w}{    }\PYG{n}{rectF}\PYG{p}{=}\PYG{p}{[}\PYG{l+m+mi}{40}\PYG{+w}{ }\PYG{l+m+mi}{4}\PYG{p}{]}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{} [幅 高さ]}
+\PYG{+w}{    }\PYG{n}{rectF1}\PYG{p}{=}\PYG{p}{[}\PYG{n}{rectW}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{o}{\PYGZhy{}}\PYG{n}{rectF}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{+w}{ }\PYG{n}{rectW}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{p}{)}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{o}{\PYGZhy{}}\PYG{n}{rectF}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{+w}{ }\PYG{n}{rectW}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{o}{+}\PYG{n}{rectF}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{+w}{ }\PYG{n}{rectW}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{p}{)}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{o}{+}\PYG{n}{rectF}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{p}{]}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{} 横棒}
+\PYG{+w}{    }\PYG{c}{\PYGZpc{} 課題 上のrectF1を参考にrectF2というのを作成する}
+\PYG{+w}{    }\PYG{n}{rectF\PYGZus{}vertical}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{p}{[}\PYG{n}{rectF}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{+w}{ }\PYG{n}{rectF}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{]}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{} 縦棒用に幅と高さを入れ替え}
+\PYG{+w}{    }\PYG{n}{rectF2}\PYG{p}{=}\PYG{p}{[}\PYG{n}{rectW}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{o}{\PYGZhy{}}\PYG{n}{rectF\PYGZus{}vertical}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{+w}{ }\PYG{n}{rectW}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{p}{)}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{o}{\PYGZhy{}}\PYG{n}{rectF\PYGZus{}vertical}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{+w}{ }\PYG{n}{rectW}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{o}{+}\PYG{n}{rectF\PYGZus{}vertical}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{+w}{ }\PYG{n}{rectW}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{p}{)}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{o}{+}\PYG{n}{rectF\PYGZus{}vertical}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{p}{]}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{} ★修正: 縦棒}
+
+\PYG{+w}{    }\PYG{c}{\PYGZpc{} 実験結果}
+\PYG{+w}{    }\PYG{c}{\PYGZpc{}このようにzerosで用意したほうが処理が早くなる。}
+\PYG{+w}{    }\PYG{n}{results}\PYG{p}{=}\PYG{n+nb}{zeros}\PYG{p}{(}\PYG{n}{trialnumber}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{}}
+\PYG{+w}{    }\PYG{c}{\PYGZpc{} 試行番号}
+\PYG{+w}{    }\PYG{n}{results}\PYG{p}{(}\PYG{p}{:}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{=}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{trialnumber}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{}}
+
+\PYG{+w}{    }\PYG{c}{\PYGZpc{}刺激画像ファイルの準備　ここから}
+\PYG{+w}{    }\PYG{c}{\PYGZpc{}刺激画像は男性女性の画像にも対応できるようにしているため込み入っているがここでは気にしなくてよい。}
+\PYG{+w}{    }\PYG{c}{\PYGZpc{} 画像呈示順番リスト}
+\PYG{+w}{    }\PYG{n}{imgLnames}\PYG{p}{=}\PYG{n+nb}{char}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{}}
+\PYG{+w}{    }\PYG{n}{imgRnames}\PYG{p}{=}\PYG{n+nb}{char}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{}}
+\PYG{+w}{    }\PYG{c}{\PYGZpc{} イラストファイルリストの取得}
+\PYG{+w}{    }\PYG{n}{imglist}\PYG{p}{=}\PYG{n}{getFilelist}\PYG{p}{(}\PYG{n}{imgpath}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{\PYGZbs{}w*.BMP\PYGZsq{}}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{}}
+\PYG{+w}{    }\PYG{n}{fimglist}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{imglist}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{l+m+mi}{2}\PYG{p}{:}\PYG{k}{end}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{}}
+\PYG{+w}{    }\PYG{n}{mimglist}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{imglist}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{:}\PYG{l+m+mi}{2}\PYG{p}{:}\PYG{k}{end}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{}}
+\PYG{+w}{    }\PYG{c}{\PYGZpc{} イラストペア呈示順の決定}
+\PYG{+w}{    }\PYG{n}{pairs}\PYG{p}{=}\PYG{n}{exp4i\PYGZus{}setpairs}\PYG{p}{(}\PYG{n}{fimglist}\PYG{p}{,}\PYG{n}{mimglist}\PYG{p}{,}\PYG{n}{trialnumber}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{}}
+\PYG{+w}{    }\PYG{c}{\PYGZpc{}刺激画像ファイルの準備　ここまで}
+
+\PYG{+w}{    }\PYG{c}{\PYGZpc{} 開始画面の表示}
+\PYG{+w}{    }\PYG{n}{HideCursor}\PYG{p}{;}\PYG{+w}{                                           }\PYG{c}{\PYGZpc{} カーソルを隠す}
+\PYG{+w}{    }\PYG{n}{Screen}\PYG{p}{(}\PYG{n}{window}\PYG{p}{,}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{FillRect\PYGZsq{}}\PYG{p}{,}\PYG{n}{bgcolor}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{                    }\PYG{c}{\PYGZpc{} 背景ウィンドウの描画}
+\PYG{+w}{    }\PYG{n}{Screen}\PYG{p}{(}\PYG{n}{window}\PYG{p}{,}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{WaitBlanking\PYGZsq{}}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{                        }\PYG{c}{\PYGZpc{} モニタと同期を取る}
+\PYG{+w}{    }\PYG{n}{WaitSecs}\PYG{p}{(}\PYG{l+m+mf}{1.0}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{                                        }\PYG{c}{\PYGZpc{} 1.0秒待つ}
+
+\PYG{+w}{    }\PYG{k}{for}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{p}{=}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{trialnumber}
+
+\PYG{+w}{        }\PYG{c}{\PYGZpc{}刺激画像ファイルの準備　ここから}
+\PYG{+w}{        }\PYG{c}{\PYGZpc{}刺激画像は男性女性の画像にも対応できるようにしているため込み入っているがここでは気にしなくてよい。}
+\PYG{+w}{        }\PYG{k}{if}\PYG{p}{(}\PYG{n}{pairs}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{o}{==}\PYG{l+m+mi}{0}\PYG{p}{)}\PYG{+w}{ }\PYG{c}{\PYGZpc{}}
+\PYG{+w}{            }\PYG{n}{imglist}\PYG{p}{=}\PYG{n}{fimglist}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{}}
+\PYG{+w}{        }\PYG{k}{else}
+\PYG{+w}{            }\PYG{n}{imglist}\PYG{p}{=}\PYG{n}{mimglist}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{}}
+\PYG{+w}{        }\PYG{k}{end}
+\PYG{+w}{        }\PYG{c}{\PYGZpc{} 刺激画像ファイル1を設定する。}
+\PYG{+w}{        }\PYG{n}{imgL}\PYG{p}{=}\PYG{n}{imglist}\PYG{p}{(}\PYG{n}{pairs}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{}}
+\PYG{+w}{        }\PYG{n}{imgLnames}\PYG{p}{=}\PYG{n+nb}{char}\PYG{p}{(}\PYG{n}{imgLnames}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{imgL}\PYG{p}{.}\PYG{n}{name}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{}}
+\PYG{+w}{        }\PYG{n}{fileL}\PYG{p}{=}\PYG{n+nb}{imread}\PYG{p}{(}\PYG{n}{imgL}\PYG{p}{.}\PYG{n}{name}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{}}
+\PYG{+w}{        }\PYG{n+nb}{clear}\PYG{+w}{ }\PYG{n}{imgL}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{}}
+\PYG{+w}{        }\PYG{c}{\PYGZpc{} 刺激画像ファイル2を設定する。}
+\PYG{+w}{        }\PYG{n}{imgR}\PYG{p}{=}\PYG{n}{imglist}\PYG{p}{(}\PYG{n}{pairs}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{}}
+\PYG{+w}{        }\PYG{n}{imgRnames}\PYG{p}{=}\PYG{n+nb}{char}\PYG{p}{(}\PYG{n}{imgRnames}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{imgR}\PYG{p}{.}\PYG{n}{name}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{}}
+\PYG{+w}{        }\PYG{n}{fileR}\PYG{p}{=}\PYG{n+nb}{imread}\PYG{p}{(}\PYG{n}{imgR}\PYG{p}{.}\PYG{n}{name}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{}}
+\PYG{+w}{        }\PYG{n+nb}{clear}\PYG{+w}{ }\PYG{n}{imgR}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{}}
+\PYG{+w}{         }\PYG{c}{\PYGZpc{}刺激画像ファイルの準備　ここまで}
+
+\PYG{+w}{        }\PYG{c}{\PYGZpc{} 固視点を呈示する。}
+\PYG{+w}{        }\PYG{n}{Screen}\PYG{p}{(}\PYG{n}{window}\PYG{p}{,}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{FillRect\PYGZsq{}}\PYG{p}{,}\PYG{n}{bgcolor}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{                    }\PYG{c}{\PYGZpc{} 背景ウィンドウの描画}
+\PYG{+w}{        }\PYG{n}{Screen}\PYG{p}{(}\PYG{n}{window}\PYG{p}{,}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{FillRect\PYGZsq{}}\PYG{p}{,}\PYG{n}{fxcolor}\PYG{p}{,}\PYG{n}{rectF1}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{             }\PYG{c}{\PYGZpc{} 固視点（横棒）の描画}
+\PYG{+w}{        }\PYG{n}{Screen}\PYG{p}{(}\PYG{n}{window}\PYG{p}{,}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{FillRect\PYGZsq{}}\PYG{p}{,}\PYG{n}{fxcolor}\PYG{p}{,}\PYG{n}{rectF2}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{             }\PYG{c}{\PYGZpc{} 固視点（縦棒）の描画}
+\PYG{+w}{        }\PYG{p}{[}\PYG{n}{VBLTimestamp}\PYG{+w}{ }\PYG{n}{StimulusOnsetTime}\PYG{+w}{ }\PYG{n}{FlipTimestamp}\PYG{+w}{ }\PYG{n}{Missed}\PYG{+w}{ }\PYG{n}{Beampos}\PYG{p}{]}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{Screen}\PYG{p}{(}\PYG{n}{window}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{Flip\PYGZsq{}}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{}}
+
+\PYG{+w}{        }\PYG{c}{\PYGZpc{} 課題 　　3秒間固視点を維持する}
+\PYG{+w}{        }\PYG{n}{WaitSecs}\PYG{p}{(}\PYG{l+m+mf}{3.0}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{                                        }\PYG{c}{\PYGZpc{} ★修正: 3秒待つ}
+
+\PYG{+w}{        }\PYG{c}{\PYGZpc{} 回答キーを制限する。}
+\PYG{+w}{        }\PYG{n}{RestrictKeysForKbCheck}\PYG{p}{(}\PYG{p}{[}\PYG{n}{KbName}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{g\PYGZsq{}}\PYG{p}{)}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{KbName}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{j\PYGZsq{}}\PYG{p}{)}\PYG{p}{]}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{}}
+
+\PYG{+w}{        }\PYG{c}{\PYGZpc{} 刺激画像を呈示する。}
+\PYG{+w}{        }\PYG{n}{Screen}\PYG{p}{(}\PYG{n}{window}\PYG{p}{,}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{FillRect\PYGZsq{}}\PYG{p}{,}\PYG{n}{bgcolor}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{                    }\PYG{c}{\PYGZpc{} 背景ウィンドウの描画}
+\PYG{+w}{        }\PYG{n}{Screen}\PYG{p}{(}\PYG{n}{window}\PYG{p}{,}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{PutImage\PYGZsq{}}\PYG{p}{,}\PYG{n}{fileL}\PYG{p}{,}\PYG{n}{rectIL}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{               }\PYG{c}{\PYGZpc{} 左画像の描画}
+\PYG{+w}{        }\PYG{n}{Screen}\PYG{p}{(}\PYG{n}{window}\PYG{p}{,}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{PutImage\PYGZsq{}}\PYG{p}{,}\PYG{n}{fileR}\PYG{p}{,}\PYG{n}{rectIR}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{               }\PYG{c}{\PYGZpc{} 右画像の描画}
+\PYG{+w}{        }\PYG{p}{[}\PYG{n}{VBLTimestamp}\PYG{+w}{ }\PYG{n}{StimulusOnsetTime}\PYG{+w}{ }\PYG{n}{FlipTimestamp}\PYG{+w}{ }\PYG{n}{Missed}\PYG{+w}{ }\PYG{n}{Beampos}\PYG{p}{]}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{Screen}\PYG{p}{(}\PYG{n}{window}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{Flip\PYGZsq{}}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{     }\PYG{c}{\PYGZpc{} FlipTimestampが刺激画像を呈示した時間になる}
+\PYG{+w}{        }\PYG{n}{stimOnset}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{FlipTimestamp}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{} 刺激呈示時間を記録}
+\PYG{+w}{        }\PYG{n+nb}{clear}\PYG{+w}{ }\PYG{n}{fileL}\PYG{+w}{ }\PYG{n}{fileR}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{}}
+
+\PYG{+w}{        }\PYG{c}{\PYGZpc{} 回答キーが押されたらキーコードと反応時間を取得する。}
+\PYG{+w}{        }\PYG{p}{[}\PYG{n}{secs}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{keyCode1}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{deltaSecs}\PYG{p}{]}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{KbWait}\PYG{p}{(}\PYG{p}{[}\PYG{p}{]}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{}}
+\PYG{+w}{        }\PYG{n}{tKey}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{secs}\PYG{p}{;}\PYG{+w}{       }\PYG{c}{\PYGZpc{}　GetSecsの代わりにKbWaitの戻り値を使う}
+\PYG{+w}{        }\PYG{n}{res}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{find}\PYG{p}{(}\PYG{n}{keyCode1}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{   }\PYG{c}{\PYGZpc{}  キーコードの取得}
+
+\PYG{+w}{         }\PYG{c}{\PYGZpc{} 回答（キーコード） （gはコード71、jはコード74）}
+\PYG{+w}{         }\PYG{k}{if}\PYG{+w}{ }\PYG{o}{\PYGZti{}}\PYG{n+nb}{isempty}\PYG{p}{(}\PYG{n}{res}\PYG{p}{)}
+\PYG{+w}{            }\PYG{n}{results}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{res}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{} 最初に押されたキーを記録}
+\PYG{+w}{         }\PYG{k}{else}
+\PYG{+w}{            }\PYG{n}{results}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{NaN}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{} キーが押されなかった場合}
+\PYG{+w}{         }\PYG{k}{end}
+
+\PYG{+w}{         }\PYG{c}{\PYGZpc{} 反応時間}
+\PYG{+w}{         }\PYG{c}{\PYGZpc{} 課題    \PYGZpc{}回答を参考にして、反応時間をresultsの3列目に入れる。}
+\PYG{+w}{         }\PYG{k}{if}\PYG{+w}{ }\PYG{o}{\PYGZti{}}\PYG{n+nb}{isempty}\PYG{p}{(}\PYG{n}{res}\PYG{p}{)}
+\PYG{+w}{            }\PYG{n}{results}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{tKey}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{stimOnset}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{} ★修正: 反応時間を計算して記録}
+\PYG{+w}{         }\PYG{k}{else}
+\PYG{+w}{            }\PYG{n}{results}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{NaN}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{} キーが押されなかった場合}
+\PYG{+w}{         }\PYG{k}{end}
+
+\PYG{+w}{         }\PYG{c}{\PYGZpc{} adds 100 msec of data to catch final events}
+\PYG{+w}{         }\PYG{n}{WaitSecs}\PYG{p}{(}\PYG{l+m+mf}{0.1}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{}}
+
+\PYG{+w}{         }\PYG{c}{\PYGZpc{} 次の試行に行くためにreturnを押すように指示。}
+\PYG{+w}{         }\PYG{c}{\PYGZpc{} 既存の関数を使用。}
+\PYG{+w}{         }\PYG{n}{exp4i\PYGZus{}shortrest}\PYG{p}{(}\PYG{n}{window}\PYG{p}{,}\PYG{n}{rectW}\PYG{p}{,}\PYG{n}{bgcolor}\PYG{p}{,}\PYG{n}{textcolor}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{}}
+
+\PYG{+w}{         }\PYG{c}{\PYGZpc{} return キーが押されたら次の試行に進む。}
+\PYG{+w}{         }\PYG{n}{RestrictKeysForKbCheck}\PYG{p}{(}\PYG{n}{KbName}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{return\PYGZsq{}}\PYG{p}{)}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{}}
+\PYG{+w}{         }\PYG{n}{KbWait}\PYG{p}{(}\PYG{p}{[}\PYG{p}{]}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{} returnキーが押されるのを待つ (keyCode2は使わないので削除)}
+
+\PYG{+w}{    }\PYG{k}{end}
+\PYG{+w}{    }\PYG{n}{WaitSecs}\PYG{p}{(}\PYG{l+m+mf}{0.1}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{	}\PYG{c}{\PYGZpc{} wait a while to record a few more samples}
+
+\PYG{+w}{   }\PYG{c}{\PYGZpc{}データの保存。カンマ区切り。}
+\PYG{+w}{   }\PYG{c}{\PYGZpc{} 課題}
+\PYG{+w}{   }\PYG{c}{\PYGZpc{} writematrixを使ってデータをカンマ区切りで保存する。ファイル名はexp3\PYGZus{}7\PYGZus{}**.csvとする。**には班の数字を入れる。}
+\PYG{+w}{   }\PYG{n}{group\PYGZus{}number}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{XX\PYGZsq{}}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{} ★修正: ここに班の数字（例: \PYGZsq{}01\PYGZsq{}）を入れる}
+\PYG{+w}{   }\PYG{n}{filename}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{p}{[}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{exp3\PYGZus{}7\PYGZus{}\PYGZsq{}}\PYG{+w}{ }\PYG{n}{group\PYGZus{}number}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{.csv\PYGZsq{}}\PYG{p}{]}\PYG{p}{;}
+\PYG{+w}{   }\PYG{n+nb}{writematrix}\PYG{p}{(}\PYG{n}{results}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{filename}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{                  }\PYG{c}{\PYGZpc{} ★修正: 結果をCSVファイルに保存}
+
+\PYG{+w}{   }\PYG{n}{Screen}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{CloseAll\PYGZsq{}}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{}}
+\PYG{+w}{   }\PYG{n}{ShowCursor}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{}}
+
+\PYG{k}{catch}
+
+\PYG{+w}{    }\PYG{n}{Screen}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{CloseAll\PYGZsq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{ShowCursor}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{psychrethrow}\PYG{p}{(}\PYG{n}{psychlasterror}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{}}
+
+\PYG{k}{end}
+\end{MintedVerbatim}

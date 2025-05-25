@@ -1,4 +1,6 @@
+\documentclass[dvipdfmx, titlepage]{jsarticle}
 \input{lstset}
+
 \title{title}
 \author{情報学群 \\ 1270328 佐藤謙成}
 \date{\today}
@@ -13,37 +15,57 @@
 \section{第六回の目的}
     第六回では，地球に到達する光を分析することにより，恒星の動きを知ることを目的とする．恒星がどの程度の速度で地球から遠ざかっているのかを算出し，観測されたスペクトルを描画する．また，単一の恒星についての分析と複数の恒星についてどのよう分析を行い，～～する．
 \section{第七回の目的}
+    第七回では，次回の眼球運動継続実験の準備としてMatLab及びPsychotoolboxを用いてプログラムを作成する．本課題では，被験者が左右に提示される顔画像の魅力を判断し，キー押しで反応する二者択一の選択課題を 2 試行行う実験環境を構築することである．
 \section{第八回の目的}
 \section{第九回の目的}
 \section{第十回の目的}
 
 \section{第六回の方法}
-    \lstinputlisting[caption = データの読み込み,
-        label={lst:exp3_6_load},
-        linerange={1-2}]{code/Exp3_6_Matlab.m}
-    \ref{lst:exp3_6_load}では，まず starData というデータファイルを読み込み，\lstinline|size(spectra,1)| で各スペクトルに含まれる観測点の数を取得する．
+    \inputminted[linenos, firstline=1, lastline=2, frame=lines, fontsize=\small]{matlab}{code/Exp3_6_Matlab.m}
+    \ref{lst:exp3_6_load}では，まず starData というデータファイルを読み込み，\mintinline{matlab}|size(spectra,1)| で各スペクトルに含まれる観測点の数を取得する．
 
     次に，恒星 HD94028 のスペクトルを抽出する．それが以下のコード \ref{lst:exp3_6_s}である．
-    \lstinputlisting[caption = 恒星 HD94028 のスペクトル表示
-        label={lst:exp3_6_s},
-        linerange={14-19}]{code/Exp3_6_Matlab.m}
+    \inputminted[linenos, firstline=14, lastline=19, frame=lines, fontsize=\small]{matlab}{code/Exp3_6_Matlab.m}
     ここでは，両軸対数スケールで出力するために関数 loglog を用いている．また，恒星 HD94028 のスペクトルはベクトル s に格納する．
 
-    ベクトル s に格納された値を用いて水素アルファ線の波長を求める．コード \ref{lst:exp3_6_alpha} では， s の最小値が水素アルファ線であることを利用して \lstinline|min(s)| で求めている．関数 min はここでは 2つの値を出力することができる．一つ目の値が水素アルファ線の値で二つ目の値がそのインデックスとなる．
+    ベクトル s に格納された値を用いて水素アルファ線の波長を求める．コード \ref{lst:exp3_6_alpha} では， s の最小値が水素アルファ線であることを利用して \mintinline{matlab}|min(s)| で求めている．関数 min はここでは 2つの値を出力することができる．一つ目の値が水素アルファ線の値で二つ目の値がそのインデックスとなる．
 
-    \lstinputlisting[caption= 水素アルファ線の特定,
-    label={lst:exp3_6_alpha},
-    linerange={20-23}]{code/Exp3_6_Matlab.m}
+    \inputminted[linenos, firstline=20, lastline=23, frame=lines, fontsize=\small]{matlab}{code/Exp3_6_Matlab.m}
 
-    特定した水素アルファ線に対して点を追加するためのコードがコード\ref{lst:exp3_6_hold}である． ここでは， \lstinline|hold on| を記述することで既存のグラフに点を追記することができ， \lstinline|hold off| で追記を終了することができる．今回は，水素アルファ線の値の部分にマーカーサイズが 8 の赤い正方形をプロットする．
-    \lstinputlisting[caption = 既存グラフへの追記,
-    label = {lst:exp3_6_hold},
-    linerange={24-27}]{code/Exp3_6_Matlab.m}
+    特定した水素アルファ線に対して点を追加するためのコードがコード\ref{lst:exp3_6_hold}である． ここでは， \mintinline{matlab}|hold on| を記述することで既存のグラフに点を追記することができ， \mintinline{matlab}|hold off| で追記を終了することができる．今回は，水素アルファ線の値の部分にマーカーサイズが 8 の赤い正方形をプロットする．
+    \inputminted[linenos, firstline=24, lastline=27, frame=lines, fontsize=\small]{matlab}{code/Exp3_6_Matlab.m}
     
     赤方偏移係数と星が地球から遠ざかる速度を求める．赤方偏移係数は係数を $z$ としたときに $z = \dfrac{\lambda Ha }{656.28} - 1$ で求めることができるため，これを実装する．速度に関しては，赤方偏移係数に光速の値をかけることで求めることができる．
-    \lstinputlisting[caption = 赤方偏移係数と速度の計算,
-    label={lst:exp3_6_spped},
-    linerange={29-31}]{code/Exp3_6_Matlab.m}
+    \inputminted[linenos, firstline=29, lastline=31, frame=lines, fontsize=\small]{matlab}{code/Exp3_6_Matlab.m}
 
-    ここから，各星の水素アルファ線を求める．行列の各行に対して最小値とそのインデックスを計算する．これは \lstinline|min(spectra(:,:))| で求めることができる．
+    % svgに変更しよう
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.5\textwidth]{figure/stellar1.pdf}
+        \caption{恒星 HD94028 のスペクトルと水素アルファ線}
+        \label{fig:exp3_6_spectra}
+    \end{figure}
+
+    ここから，各星の水素アルファ線を求める．行列の各行に対して最小値とそのインデックスを計算する．これは \mintinline{matlab}|min(spectra(:,:))| で求めることができる．また，各星の Ha の波長を \mintinline{matlab}|lambda(idx)|で求め，その値を用いて赤方偏移係数と速度を求める．
+
+    \inputminted[linenos, firstline=11, lastline=15, frame=lines, fontsize=\small]{matlab}{code/Exp3_6_2_Matlab.m}
+
+    この各星で求めた値を1つの図にまとめるプログラムで出力する．全ての星のスペクトルを一つのグラフに目止めて描画し，青方偏移か赤方偏移を視覚的に区別し，どの線がどの星に対応するかを明確にする．各星について速度が 0 以下の場合は青方偏移，0 より大きい場合は赤方偏移と判断するため，if文を用いて条件分岐を行う．また，その条件分岐を各星に対して行うために for 文を用いる．
+    \inputminted[linenos, firstline=16, lastline=27, frame=lines, fontsize=\small]{matlab}{code/Exp3_6_2_Matlab.m}
+
+    % svgに変更しよう
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.5\textwidth]{figure/stellar2.pdf}
+        \caption{各星のスペクトルと水素アルファ線}
+        \label{fig:exp3_6_spectra2}
+    \end{figure}
+
+\section{第七回の方法}
+    まず，刺激呈示環境を構築する．まず，背景色を白色とするために \mintinline{matlab}|bgcolor = 255| と設定する．刺激画像の大きさは 640 $\times$ 480 とするので 高さは \mintinline{matlab}|h = 640| とし，幅は \mintinline{matlab}|w = 480| とする．画面左右端と画像端との距離は 220 ピクセルとするため， \mintinline{matlab}|margin = 220| とする．固視点は 画像中央に幅 40，縦 4 及び 幅 4 縦 40 の黒色の十字とする．黒色は 0 で指定することができ，固視点の十字は長方形を二つで組み合わせることで表現できる．ここで長方形は \mintinline{matlab}|[left top right bottom]| でベクトルで定義できる．
+    
+    \inputminted[linenos, firstline=1, lastline=12, frame=lines, fontsize=\small]{matlab}{code/Exp3_7_Matlab.m}
+    \inputminted[linenos, firstline=32, lastline=33, frame=lines, fontsize=\small]{matlab}{code/Exp3_7_Matlab.m}
+    \inputminted[linenos, firstline=35, lastline=36, frame=lines, fontsize=\small]{matlab}{code/Exp3_7_Matlab.m}
+
 \end{document}

@@ -1,0 +1,3 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{p}{[}\PYG{n}{left}\PYG{+w}{ }\PYG{n}{top}\PYG{+w}{ }\PYG{n}{right}\PYG{+w}{ }\PYG{n}{bottom}\PYG{p}{]}
+\end{MintedVerbatim}

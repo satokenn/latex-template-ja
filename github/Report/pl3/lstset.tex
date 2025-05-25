@@ -1,10 +1,13 @@
-\documentclass[dvipdfmx, titlepage]{jsarticle}
+
 % \usepackage{geometry}
 \usepackage[dvipdfmx]{graphicx}
 \usepackage{ascmac}
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{listings}
+\usepackage{minted}
+% \usepackage{jlistings}
+% \usepackage[utf8]{inputenc}
+% \usepackage{listingsutf8}
 \usepackage{float}
 \usepackage{fix-cm}
 \usepackage{svg}
@@ -21,24 +24,47 @@
 	bookmarkstype=toc
 }
 
-\lstset{
-  language=Matlab,
-  basicstyle={\ttfamily},
-  identifierstyle={\small},
-  inputencoding=auto,
-  commentstyle={\small\sffamily},
-  keywordstyle={\small\bfseries},
-  ndkeywordstyle={\small},
-  stringstyle={\small\ttfamily},
-  frame={tb},
-  breaklines=true,
-  columns=[l]{fullflexible},
-  numbers=left,
-  % xrightmargin=0zw,
-  % xleftmargin=3zw,
-  numberstyle={\scriptsize},
-  firstnumber=auto,
-  stepnumber=1,
-  numbersep=5pt,
-  lineskip=1ex
+% \lstset{
+%   basicstyle={\ttfamily},
+%   identifierstyle={\small},
+%   inputencoding=auto,
+%   commentstyle={\small\sffamily},
+%   keywordstyle={\small\bfseries},
+%   ndkeywordstyle={\small},
+%   stringstyle={\small\ttfamily},
+%   frame={tb},
+%   breaklines=true,
+%   columns=[l]{fullflexible},
+%   numbers=left,
+%   % xrightmargin=0zw,
+%   % xleftmargin=3zw,
+%   numberstyle={\scriptsize},
+%   firstnumber=auto,
+%   stepnumber=1,
+%   numbersep=5pt,
+%   lineskip=1ex
+% }
+\setminted{
+  mathescape,              % 数式モードへのエスケープを許可 (必要なら)
+  % basicstyle やフォント関連
+  fontsize=\small,         % 全体のフォントサイズ (listings の \small に合わせる試み)
+                           % \ttfamily は minted のデフォルトに近いが、日本語対応の等幅フォントを
+                           % LaTeX 側で \ normaalfont や \ttdefault に設定しておくのが理想
+  % frame
+  frame=lines,             % 上下に線を引く frame=tb に近いものとして lines (上下左右に線)
+  framesep=2mm,            % 枠線とコードの間隔 (調整が必要)
+  % breaklines
+  breaklines=true,         % 自動折り返し
+  % numbers
+  linenos=true,            % 行番号を左に表示
+  firstnumber=auto,        % 行番号を開始行に合わせる
+  numbersep=5pt,           % 行番号とコードの間隔
+  % stepnumber=1,          % linenos=true で通常1ステップ
+  % highlight と Pygments スタイル
+  % minted では Pygments のスタイルを使います。
+  % style=friendly のようにスタイル名を指定できます。
+  % デフォルトのスタイルでキーワードが太字になるか確認。
+  % commentstyle や keywordstyle の LaTeX コマンド直接指定はできません。
+  % Pygments のスタイルでこれらがどのように見えるか確認し、
+  % 必要ならカスタムスタイルを作るか、別の既存スタイルを選びます。
 }
