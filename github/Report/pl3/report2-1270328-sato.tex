@@ -1,0 +1,49 @@
+\input{lstset}
+\title{title}
+\author{情報学群 \\ 1270328 佐藤謙成}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+    
+\end{abstract}
+\section{全体の目的}
+\section{第六回の目的}
+    第六回では，地球に到達する光を分析することにより，恒星の動きを知ることを目的とする．恒星がどの程度の速度で地球から遠ざかっているのかを算出し，観測されたスペクトルを描画する．また，単一の恒星についての分析と複数の恒星についてどのよう分析を行い，～～する．
+\section{第七回の目的}
+\section{第八回の目的}
+\section{第九回の目的}
+\section{第十回の目的}
+
+\section{第六回の方法}
+    \lstinputlisting[caption = データの読み込み,
+        label={lst:exp3_6_load},
+        linerange={1-2}]{code/Exp3_6_Matlab.m}
+    \ref{lst:exp3_6_load}では，まず starData というデータファイルを読み込み，\lstinline|size(spectra,1)| で各スペクトルに含まれる観測点の数を取得する．
+
+    次に，恒星 HD94028 のスペクトルを抽出する．それが以下のコード \ref{lst:exp3_6_s}である．
+    \lstinputlisting[caption = 恒星 HD94028 のスペクトル表示
+        label={lst:exp3_6_s},
+        linerange={14-19}]{code/Exp3_6_Matlab.m}
+    ここでは，両軸対数スケールで出力するために関数 loglog を用いている．また，恒星 HD94028 のスペクトルはベクトル s に格納する．
+
+    ベクトル s に格納された値を用いて水素アルファ線の波長を求める．コード \ref{lst:exp3_6_alpha} では， s の最小値が水素アルファ線であることを利用して \lstinline|min(s)| で求めている．関数 min はここでは 2つの値を出力することができる．一つ目の値が水素アルファ線の値で二つ目の値がそのインデックスとなる．
+
+    \lstinputlisting[caption= 水素アルファ線の特定,
+    label={lst:exp3_6_alpha},
+    linerange={20-23}]{code/Exp3_6_Matlab.m}
+
+    特定した水素アルファ線に対して点を追加するためのコードがコード\ref{lst:exp3_6_hold}である． ここでは， \lstinline|hold on| を記述することで既存のグラフに点を追記することができ， \lstinline|hold off| で追記を終了することができる．今回は，水素アルファ線の値の部分にマーカーサイズが 8 の赤い正方形をプロットする．
+    \lstinputlisting[caption = 既存グラフへの追記,
+    label = {lst:exp3_6_hold},
+    linerange={24-27}]{code/Exp3_6_Matlab.m}
+    
+    赤方偏移係数と星が地球から遠ざかる速度を求める．赤方偏移係数は係数を $z$ としたときに $z = \dfrac{\lambda Ha }{656.28} - 1$ で求めることができるため，これを実装する．速度に関しては，赤方偏移係数に光速の値をかけることで求めることができる．
+    \lstinputlisting[caption = 赤方偏移係数と速度の計算,
+    label={lst:exp3_6_spped},
+    linerange={29-31}]{code/Exp3_6_Matlab.m}
+
+    ここから，各星の水素アルファ線を求める．行列の各行に対して最小値とそのインデックスを計算する．これは \lstinline|min(spectra(:,:))| で求めることができる．
+\end{document}

@@ -1,0 +1,44 @@
+\documentclass[dvipdfmx, titlepage]{jsarticle}
+% \usepackage{geometry}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{ascmac}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{fix-cm}
+\usepackage{svg}
+
+\usepackage{hyperref}
+% for hyperref
+\usepackage{pxjahyper}
+\hypersetup{
+    dvipdfmx,
+	colorlinks=false, % リンクに色をつけない設定
+	bookmarks=true, % 以下ブックマークに関する設定
+	bookmarksnumbered=true,
+	pdfborder={0 0 0},
+	bookmarkstype=toc
+}
+
+\lstset{
+  language=Matlab,
+  basicstyle={\ttfamily},
+  identifierstyle={\small},
+  inputencoding=auto,
+  commentstyle={\small\sffamily},
+  keywordstyle={\small\bfseries},
+  ndkeywordstyle={\small},
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},
+  numbers=left,
+  % xrightmargin=0zw,
+  % xleftmargin=3zw,
+  numberstyle={\scriptsize},
+  firstnumber=auto,
+  stepnumber=1,
+  numbersep=5pt,
+  lineskip=1ex
+}
