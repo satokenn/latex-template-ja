@@ -1,0 +1,64 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{c}{\PYGZpc{} 初期設定}
+\PYG{n+nb}{clear}\PYG{+w}{ }\PYG{n+nb}{all}\PYG{p}{;}
+\PYG{n}{filename}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{exp4i\PYGZus{}g0310.csv\PYGZsq{}}\PYG{p}{;}
+\PYG{n}{data}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{csvread}\PYG{p}{(}\PYG{n}{filename}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{n}{choice}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{data}\PYG{p}{(}\PYG{p}{:}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{p}{:}\PYG{p}{)}\PYG{p}{;}
+\PYG{n}{num\PYGZus{}trials}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{length}\PYG{p}{(}\PYG{n}{choice}\PYG{p}{)}\PYG{p}{;}
+\PYG{n}{sampling\PYGZus{}freq}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{500}\PYG{p}{;}
+\PYG{n}{data\PYGZus{}matrix}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{zeros}\PYG{p}{(}\PYG{l+m+mi}{500}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{num\PYGZus{}trials}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{;}
+\PYG{n+nb}{time}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{998}\PYG{p}{:}\PYG{l+m+mi}{2}\PYG{p}{:}\PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{n}{data\PYGZus{}matrix}\PYG{p}{(}\PYG{p}{:}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{time}\PYG{p}{;}
+
+\PYG{k}{for}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{num\PYGZus{}trials}
+\PYG{+w}{    }\PYG{n}{filename}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{p}{[}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{g0310.asc\PYGZus{}TRIAL\PYGZus{}\PYGZsq{}}\PYG{+w}{  }\PYG{n+nb}{num2str}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{)}\PYG{+w}{  }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{.csv\PYGZsq{}}\PYG{p}{]}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{eye\PYGZus{}data}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{csvread}\PYG{p}{(}\PYG{n}{filename}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{    }\PYG{p}{[}\PYG{n}{rows}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{cols}\PYG{p}{]}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{size}\PYG{p}{(}\PYG{n}{eye\PYGZus{}data}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{    }\PYG{c}{\PYGZpc{} 必要な情報を抽出して行列 expos を作成}
+\PYG{+w}{    }\PYG{c}{\PYGZpc{} 行はサンプル数を示す}
+\PYG{+w}{    }\PYG{c}{\PYGZpc{} 列は 1.時間，2.画面の状態，3.左右どちらを見ているか，4.選択した方を見ているか，5.X座標}
+
+\PYG{+w}{    }\PYG{n}{end\PYGZus{}time}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{eye\PYGZus{}data}\PYG{p}{(}\PYG{k}{end}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{} 最終行の時間 (終了時)}
+\PYG{+w}{    }\PYG{n}{adjusted\PYGZus{}eye\PYGZus{}time}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{eye\PYGZus{}data}\PYG{p}{(}\PYG{p}{:}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{end\PYGZus{}time}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{} 終了時を 0 とする}
+\PYG{+w}{    }\PYG{n}{times\PYGZus{}to\PYGZus{}zero}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{2}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{p}{(}\PYG{p}{(}\PYG{n}{rows}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{} キー押し時を 0 として時間を格納}
+\PYG{+w}{    }\PYG{n}{expos}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{zeros}\PYG{p}{(}\PYG{n}{rows}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{5}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{expos}\PYG{p}{(}\PYG{p}{:}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{times\PYGZus{}to\PYGZus{}zero}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{expos}\PYG{p}{(}\PYG{p}{:}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{:}\PYG{l+m+mi}{4}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{;}
+\PYG{+w}{    }\PYG{p}{[}\PYG{n}{is\PYGZus{}valid\PYGZus{}time}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{idx\PYGZus{}in\PYGZus{}eye\PYGZus{}data}\PYG{p}{]}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{ismember}\PYG{p}{(}\PYG{n}{expos}\PYG{p}{(}\PYG{p}{:}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{eye\PYGZus{}data}\PYG{p}{(}\PYG{p}{:}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{eye\PYGZus{}data}\PYG{p}{(}\PYG{k}{end}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{valid\PYGZus{}rows}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{is\PYGZus{}valid\PYGZus{}time}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{expos}\PYG{p}{(}\PYG{n}{valid\PYGZus{}rows}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{eye\PYGZus{}data}\PYG{p}{(}\PYG{n}{idx\PYGZus{}in\PYGZus{}eye\PYGZus{}data}\PYG{p}{(}\PYG{n}{valid\PYGZus{}rows}\PYG{p}{)}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{expos}\PYG{p}{(}\PYG{n}{valid\PYGZus{}rows}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{5}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{round}\PYG{p}{(}\PYG{n}{eye\PYGZus{}data}\PYG{p}{(}\PYG{n}{idx\PYGZus{}in\PYGZus{}eye\PYGZus{}data}\PYG{p}{(}\PYG{n}{valid\PYGZus{}rows}\PYG{p}{)}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{4}\PYG{p}{)}\PYG{o}{*}\PYG{l+m+mi}{10}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{filation\PYGZus{}rows}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{  }\PYG{n}{expos}\PYG{p}{(}\PYG{p}{:}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{+w}{ }\PYG{n}{expos}\PYG{p}{(}\PYG{p}{:}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{5}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZti{}=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{fixation\PYGZus{}x\PYGZus{}values}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{expos}\PYG{p}{(}\PYG{n}{filation\PYGZus{}rows}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{5}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{center\PYGZus{}x}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{round}\PYG{p}{(}\PYG{n+nb}{mean}\PYG{p}{(}\PYG{n}{fixation\PYGZus{}x\PYGZus{}values}\PYG{p}{)}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{left\PYGZus{}rows}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{expos}\PYG{p}{(}\PYG{p}{:}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{+w}{ }\PYG{n}{expos}\PYG{p}{(}\PYG{p}{:}\PYG{p}{,}\PYG{l+m+mi}{5}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{n}{center\PYGZus{}x}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{expos}\PYG{p}{(}\PYG{n}{left\PYGZus{}rows}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{100}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{right\PYGZus{}rows}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{expos}\PYG{p}{(}\PYG{p}{:}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{+w}{ }\PYG{n}{expos}\PYG{p}{(}\PYG{p}{:}\PYG{p}{,}\PYG{l+m+mi}{5}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{n}{center\PYGZus{}x}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{expos}\PYG{p}{(}\PYG{n}{right\PYGZus{}rows}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{102}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{selected\PYGZus{}side}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{data}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{not\PYGZus{}missing}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{expos}\PYG{p}{(}\PYG{p}{:}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZti{}=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{expos}\PYG{p}{(}\PYG{n}{not\PYGZus{}missing}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{+w}{ }\PYG{n}{expos}\PYG{p}{(}\PYG{p}{:}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{n}{selected\PYGZus{}side}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{)}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{4}\PYG{p}{)}\PYG{+w}{  }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{;}
+\PYG{+w}{    }
+\PYG{+w}{    }\PYG{n}{expos}\PYG{p}{(}\PYG{n}{not\PYGZus{}missing}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{+w}{ }\PYG{n}{expos}\PYG{p}{(}\PYG{p}{:}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZti{}=}\PYG{+w}{ }\PYG{n}{selected\PYGZus{}side}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{)}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{4}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{time\PYGZus{}window}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{expos}\PYG{p}{(}\PYG{p}{:}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZgt{}=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{998}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{+w}{ }\PYG{n}{expos}\PYG{p}{(}\PYG{p}{:}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZlt{}=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{selected\PYGZus{}segment}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{expos}\PYG{p}{(}\PYG{n}{time\PYGZus{}window}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{4}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{data\PYGZus{}matrix}\PYG{p}{(}\PYG{p}{:}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{selected\PYGZus{}segment}\PYG{p}{;}
+\PYG{k}{end}
+
+\PYG{n}{proportion\PYGZus{}correct}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{zeros}\PYG{p}{(}\PYG{l+m+mi}{500}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{;}
+\PYG{k}{for}\PYG{+w}{ }\PYG{n+nb}{j}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{l+m+mi}{500}
+\PYG{+w}{    }\PYG{n}{valid\PYGZus{}trials}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{data\PYGZus{}matrix}\PYG{p}{(}\PYG{n+nb}{j}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{:}\PYG{k}{end}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZti{}=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{valid\PYGZus{}data}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{data\PYGZus{}matrix}\PYG{p}{(}\PYG{n+nb}{j}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{:}\PYG{k}{end}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{mean\PYGZus{}valid\PYGZus{}data}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{mean}\PYG{p}{(}\PYG{n}{valid\PYGZus{}data}\PYG{p}{(}\PYG{n}{valid\PYGZus{}trials}\PYG{p}{)}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{proportion\PYGZus{}correct}\PYG{p}{(}\PYG{n+nb}{j}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{mean\PYGZus{}valid\PYGZus{}data}\PYG{p}{;}
+\PYG{k}{end}
+
+\PYG{n}{x}\PYG{p}{=}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{998}\PYG{p}{:}\PYG{l+m+mi}{2}\PYG{p}{:}\PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{n+nb}{plot}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,}\PYG{n}{proportion\PYGZus{}correct}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZhy{}\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{n+nb}{xlabel}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}キー押し時(0)までの時間[ms]\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{n+nb}{ylabel}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}視線が魅力的な画像に一致していた割合\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{n+nb}{title}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}キー押し時前に視線が魅力的画像と一致していた割合の時間変化\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{    }
+\end{MintedVerbatim}

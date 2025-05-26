@@ -1,4 +1,4 @@
-\documentclass[dvipdfmx, titlepage]{jsarticle}
+\documentclass[dvipdfmx, titlepage, t]{jsarticle}
 \input{lstset}
 
 \title{title}
@@ -12,15 +12,16 @@
     
 \end{abstract}
 \section{全体の目的}
-\section{第六回の目的}
+\subsection{第六回の目的}
     第六回では，地球に到達する光を分析することにより，恒星の動きを知ることを目的とする．恒星がどの程度の速度で地球から遠ざかっているのかを算出し，観測されたスペクトルを描画する．また，単一の恒星についての分析と複数の恒星についてどのよう分析を行い，～～する．
-\section{第七回の目的}
+\subsection{第七回の目的}
     第七回では，次回の眼球運動継続実験の準備としてMatLab及びPsychotoolboxを用いてプログラムを作成する．本課題では，被験者が左右に提示される顔画像の魅力を判断し，キー押しで反応する二者択一の選択課題を 2 試行行う実験環境を構築することである．
-\section{第八回の目的}
-\section{第九回の目的}
-\section{第十回の目的}
-
-\section{第六回の方法}
+\subsection{第八回の目的}
+\subsection{第九回の目的}
+    第八回では，EyeLink II によって過去に測定された眼球運動実験のデータをプログラムを用いて解析することである．被験者が左右の顔画像のどちらかを選択する際に，選択した顔画像んいどの程度視線を向けていたかの確率を時間経過とともにグラフかすることを目的とする．
+\subsection{第十回の目的}
+\section{方法}
+\subsection{第六回の方法}
     \inputminted[linenos, firstline=1, lastline=2, frame=lines, fontsize=\small]{matlab}{code/Exp3_6_Matlab.m}
     \ref{lst:exp3_6_load}では，まず starData というデータファイルを読み込み，\mintinline{matlab}|size(spectra,1)| で各スペクトルに含まれる観測点の数を取得する．
 
@@ -39,7 +40,7 @@
     \inputminted[linenos, firstline=29, lastline=31, frame=lines, fontsize=\small]{matlab}{code/Exp3_6_Matlab.m}
 
     % svgに変更しよう
-    \begin{figure}
+    \begin{figure}[H]
         \centering
         \includegraphics[width=0.5\textwidth]{figure/stellar1.pdf}
         \caption{恒星 HD94028 のスペクトルと水素アルファ線}
@@ -54,18 +55,102 @@
     \inputminted[linenos, firstline=16, lastline=27, frame=lines, fontsize=\small]{matlab}{code/Exp3_6_2_Matlab.m}
 
     % svgに変更しよう
-    \begin{figure}
+    \begin{figure}[H]
         \centering
         \includegraphics[width=0.5\textwidth]{figure/stellar2.pdf}
         \caption{各星のスペクトルと水素アルファ線}
         \label{fig:exp3_6_spectra2}
     \end{figure}
 
-\section{第七回の方法}
-    まず，刺激呈示環境を構築する．まず，背景色を白色とするために \mintinline{matlab}|bgcolor = 255| と設定する．刺激画像の大きさは 640 $\times$ 480 とするので 高さは \mintinline{matlab}|h = 640| とし，幅は \mintinline{matlab}|w = 480| とする．画面左右端と画像端との距離は 220 ピクセルとするため， \mintinline{matlab}|margin = 220| とする．固視点は 画像中央に幅 40，縦 4 及び 幅 4 縦 40 の黒色の十字とする．黒色は 0 で指定することができ，固視点の十字は長方形を二つで組み合わせることで表現できる．ここで長方形は \mintinline{matlab}|[left top right bottom]| でベクトルで定義できる．
-    
-    \inputminted[linenos, firstline=1, lastline=12, frame=lines, fontsize=\small]{matlab}{code/Exp3_7_Matlab.m}
-    \inputminted[linenos, firstline=32, lastline=33, frame=lines, fontsize=\small]{matlab}{code/Exp3_7_Matlab.m}
-    \inputminted[linenos, firstline=35, lastline=36, frame=lines, fontsize=\small]{matlab}{code/Exp3_7_Matlab.m}
+\subsection{第七回の方法}
+    まず，刺激呈示環境を構築する．まず，背景色を白色とするために \mintinline{matlab}|bgcolor = 255| と設定する．刺激画像の大きさは 640 $\times$ 480 とするので 高さは \mintinline{matlab}|h = 640| とし，幅は \mintinline{matlab}|w = 480| とする．
 
+    \begin{program}
+    \inputminted[linenos, firstline=5, lastline=12, frame=lines, fontsize=\small]{matlab}{code/Exp3_7_Matlab.m}
+    \end{program}
+
+    画面左右端と画像端との距離は 220 ピクセルとするため， \mintinline{matlab}|margin = 220| とする．固視点は 画像中央に幅 40，縦 4 及び 幅 4 縦 40 の黒色の十字とする．黒色は 0 で指定することができ，固視点の十字は長方形を二つで組み合わせることで表現できる．ここで長方形は \mintinline{matlab}|[left top right bottom]| でベクトルで定義できる．
+    \begin{program}[H]
+        \inputminted[linenos, firstline=32, lastline=36, frame=lines, fontsize=\small]{matlab}{code/Exp3_7_Matlab.m}      
+        \caption{固視点の表示}
+        \label{lst:exp3_7_eye}
+    \end{program}
+
+    固視点呈示後，準備された左右の顔画像を表示する．それはコード\ref{lst:exp3_7_window}で表示することができる．
+    \begin{program}[H]
+        \caption{刺激の呈示}
+        \inputminted[linenos, 
+        firstline=95,
+        lastline=99,
+        frame=lines,
+        fontsize=\small]{matlab}{code/Exp3_7_Matlab.m}
+        \label{lst:exp3_7_window}
+    \end{program}
+
+    刺激を呈示した後の回答を格納するための関数は \mintinline{matlab}|KbWait([], 3)| を用いる．KbWait の返り値の一つである keyCode1 で押されたキーが確認できるが 1 $\times$ 256 の論理配列であり，各キーに対応した要素を真である．keycode1 で真になった要素を探索するため関数 Find を使用して行った．そのコードが\ref{lst:exp3_7_get}である．
+
+    \begin{program}[H]
+        \caption{反応時間の取得}
+        \inputminted[linenos,
+            firstline=102,
+            lastline=107,
+            frame=lines,
+            fontsize = \small
+        ]{matlab}{code/Exp3_7_Matlab.m}
+        \label{lst:exp3_7_get}
+    \end{program}
+
+    これで，全ての試行が完了した後は，results配列にデータを格納するコードをコード\ref{lst:exp3_7_result}に示す．
+
+    \begin{program}[H]
+        \caption{データの保存}
+        \inputminted[linenos,
+        firstline=106,
+        lastline=111,
+        frame=lines,
+        fontsize = \small]{matlab}{code/Exp3_7_Matlab.m}
+        \label{lst:exp3_7_result}
+    \end{program}
+
+    最後に，results配列の値を csv ファイルに書き出した保存する．ここでは writematrix 関数を使用して \mintinline{matlab}| writematrix(results, filename)| と記述することで書き出すことができる．ここでの filename は，exp3\_7\_05.csv のことであり，拡張子に csv がついているため csv ファイルで保存される．
+        \begin{program}
+        \caption{データの書き出し}
+        \inputminted[linenos,
+        firstline=129,
+        lastline=132,
+        frame=lines,
+        fontsize = \small]{matlab}{code/Exp3_7_Matlab.m}
+        \label{lst:exp3_7_write}
+    \end{program}
+
+
+    \subsection{第七回の結果}
+    第七回では眼球運動計測実験で使用するプログラムを作成した．このプログラムを実行した後に書き出される csv ファイルには 1 列目に 試行番号， 2 列目に 被験者が押したキーに対応するキーコード， 3 列目に反応時間が入力される．これらのデータを用いて眼球運動に関してのデータ分析をすることが期待できる．
+
+    \subsection{第八回の方法}
+    \subsection{第九回の方法}
+    結果を格納するための行列を作成する．行数はサンプリング周波数に対応する 500 行と列数は時間データ列と試行数となる．時間軸のデータについてはキー押しの 1 秒前からのデータを用いる．キーを押した時を 0msec として -998 までの 2msec おきの配列を作成する．これらを実装したコードがコード\ref{lst:exp3_9_vec}である．
+    
+    \begin{program}
+        \caption{結果格納用の準備}
+        \inputminted[linenos,
+        firstline=1,
+        lastline=11,
+        frame=lines,
+        fontsize = \small]{matlab}{code/Exp3_9_Matlab.m}
+        \label{lst:exp3_9_vec}
+    \end{program}
+
+    ここから各試行ごとにデータ処理を行っていく．キー押しの瞬間を基準とした相対的な時間軸を用いるため，キーを押した時刻を 0 の基準として，元々格納している時間である絶対時間を用いて相対時間を求める．それが以下のコード\ref{lst:exp3_9_expos}である．
+    \begin{program}[H]
+        \caption{注視データの整形}
+        \inputminted[linenos,
+        firstline=18,
+        lastline=27,
+        frame=lines,
+        fontsize = \small]{matlab}{code/Exp3_9_Matlab.m}
+        \label{lst:exp3_9_expos}
+    \end{program}
+
+    ここで，欠損値についても考えていく．欠損値とは，眼球運動の測定データにおいて，特定の時点でデータが取得されなかった場合や解析するにあたって無効なデータの場合は欠損として扱われる． EyeLink の測定では，まばたきやセンサの誤作動によってデータが欠けることがあるため， MatLab 上では欠損値として扱う．欠損データは -1 で初期化する．また，有効な行のみを対象に画面状態や X 座標を代入する．有効な行の識別は \mintinline{matlab}|ismember(expos(:, 1), eye_data(:, 1) - eye_data(end, 1))| でき，expos の各時間点で実際の眼球データ
 \end{document}

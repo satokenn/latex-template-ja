@@ -5,9 +5,11 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{minted}
-% \usepackage{jlistings}
+\usepackage{listings}
 % \usepackage[utf8]{inputenc}
 % \usepackage{listingsutf8}
+\usepackage{newfloat} % newfloat パッケージを読み込む
+\usepackage{caption}
 \usepackage{float}
 \usepackage{fix-cm}
 \usepackage{svg}
@@ -44,6 +46,15 @@
 %   numbersep=5pt,
 %   lineskip=1ex
 % }
+
+% 新しい浮動体「listing」を定義
+\DeclareFloatingEnvironment[
+    fileext=lol,       % List of Listings ファイルの拡張子 (List of Listings を作成する場合)
+    name=Listing,      % キャプションの接頭辞 (例: "Listing 1")
+    placement={!htbp}, % フロートの配置オプション (お好みで調整してください)
+    within=section     % 番号付けをセクションごとにする場合 (例: Listing 1.1) (任意、不要なら削除)
+]{program}
+
 \setminted{
   mathescape,              % 数式モードへのエスケープを許可 (必要なら)
   % basicstyle やフォント関連

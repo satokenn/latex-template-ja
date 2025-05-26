@@ -98,28 +98,18 @@
 \PYG{+w}{        }\PYG{n}{Screen}\PYG{p}{(}\PYG{n}{window}\PYG{p}{,}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{PutImage\PYGZsq{}}\PYG{p}{,}\PYG{n}{fileL}\PYG{p}{,}\PYG{n}{rectIL}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{               }\PYG{c}{\PYGZpc{} 左画像の描画}
 \PYG{+w}{        }\PYG{n}{Screen}\PYG{p}{(}\PYG{n}{window}\PYG{p}{,}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{PutImage\PYGZsq{}}\PYG{p}{,}\PYG{n}{fileR}\PYG{p}{,}\PYG{n}{rectIR}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{               }\PYG{c}{\PYGZpc{} 右画像の描画}
 \PYG{+w}{        }\PYG{p}{[}\PYG{n}{VBLTimestamp}\PYG{+w}{ }\PYG{n}{StimulusOnsetTime}\PYG{+w}{ }\PYG{n}{FlipTimestamp}\PYG{+w}{ }\PYG{n}{Missed}\PYG{+w}{ }\PYG{n}{Beampos}\PYG{p}{]}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{Screen}\PYG{p}{(}\PYG{n}{window}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{Flip\PYGZsq{}}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{     }\PYG{c}{\PYGZpc{} FlipTimestampが刺激画像を呈示した時間になる}
-\PYG{+w}{        }\PYG{n}{stimOnset}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{FlipTimestamp}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{} 刺激呈示時間を記録}
 \PYG{+w}{        }\PYG{n+nb}{clear}\PYG{+w}{ }\PYG{n}{fileL}\PYG{+w}{ }\PYG{n}{fileR}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{}}
 
 \PYG{+w}{        }\PYG{c}{\PYGZpc{} 回答キーが押されたらキーコードと反応時間を取得する。}
 \PYG{+w}{        }\PYG{p}{[}\PYG{n}{secs}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{keyCode1}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{deltaSecs}\PYG{p}{]}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{KbWait}\PYG{p}{(}\PYG{p}{[}\PYG{p}{]}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{}}
-\PYG{+w}{        }\PYG{n}{tKey}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{secs}\PYG{p}{;}\PYG{+w}{       }\PYG{c}{\PYGZpc{}　GetSecsの代わりにKbWaitの戻り値を使う}
 \PYG{+w}{        }\PYG{n}{res}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{find}\PYG{p}{(}\PYG{n}{keyCode1}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{   }\PYG{c}{\PYGZpc{}  キーコードの取得}
 
 \PYG{+w}{         }\PYG{c}{\PYGZpc{} 回答（キーコード） （gはコード71、jはコード74）}
-\PYG{+w}{         }\PYG{k}{if}\PYG{+w}{ }\PYG{o}{\PYGZti{}}\PYG{n+nb}{isempty}\PYG{p}{(}\PYG{n}{res}\PYG{p}{)}
-\PYG{+w}{            }\PYG{n}{results}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{res}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{} 最初に押されたキーを記録}
-\PYG{+w}{         }\PYG{k}{else}
-\PYG{+w}{            }\PYG{n}{results}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{NaN}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{} キーが押されなかった場合}
-\PYG{+w}{         }\PYG{k}{end}
+\PYG{+w}{         }\PYG{n}{results}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{res}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{} 最初に押されたキーを記録}
 
 \PYG{+w}{         }\PYG{c}{\PYGZpc{} 反応時間}
 \PYG{+w}{         }\PYG{c}{\PYGZpc{} 課題    \PYGZpc{}回答を参考にして、反応時間をresultsの3列目に入れる。}
-\PYG{+w}{         }\PYG{k}{if}\PYG{+w}{ }\PYG{o}{\PYGZti{}}\PYG{n+nb}{isempty}\PYG{p}{(}\PYG{n}{res}\PYG{p}{)}
-\PYG{+w}{            }\PYG{n}{results}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{tKey}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{stimOnset}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{} ★修正: 反応時間を計算して記録}
-\PYG{+w}{         }\PYG{k}{else}
-\PYG{+w}{            }\PYG{n}{results}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{NaN}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{} キーが押されなかった場合}
-\PYG{+w}{         }\PYG{k}{end}
+\PYG{+w}{         }\PYG{n}{results}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{tKey}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{stimOnset}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{} ★修正: 反応時間を計算して記録}
 
 \PYG{+w}{         }\PYG{c}{\PYGZpc{} adds 100 msec of data to catch final events}
 \PYG{+w}{         }\PYG{n}{WaitSecs}\PYG{p}{(}\PYG{l+m+mf}{0.1}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{}}
@@ -138,7 +128,7 @@
 \PYG{+w}{   }\PYG{c}{\PYGZpc{}データの保存。カンマ区切り。}
 \PYG{+w}{   }\PYG{c}{\PYGZpc{} 課題}
 \PYG{+w}{   }\PYG{c}{\PYGZpc{} writematrixを使ってデータをカンマ区切りで保存する。ファイル名はexp3\PYGZus{}7\PYGZus{}**.csvとする。**には班の数字を入れる。}
-\PYG{+w}{   }\PYG{n}{group\PYGZus{}number}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{XX\PYGZsq{}}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{} ★修正: ここに班の数字（例: \PYGZsq{}01\PYGZsq{}）を入れる}
+\PYG{+w}{   }\PYG{n}{group\PYGZus{}number}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{05\PYGZsq{}}\PYG{p}{;}\PYG{+w}{ }\PYG{c}{\PYGZpc{} ★修正: ここに班の数字（例: \PYGZsq{}01\PYGZsq{}）を入れる}
 \PYG{+w}{   }\PYG{n}{filename}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{p}{[}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{exp3\PYGZus{}7\PYGZus{}\PYGZsq{}}\PYG{+w}{ }\PYG{n}{group\PYGZus{}number}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{.csv\PYGZsq{}}\PYG{p}{]}\PYG{p}{;}
 \PYG{+w}{   }\PYG{n+nb}{writematrix}\PYG{p}{(}\PYG{n}{results}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{filename}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{                  }\PYG{c}{\PYGZpc{} ★修正: 結果をCSVファイルに保存}
 

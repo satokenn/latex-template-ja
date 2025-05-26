@@ -97,28 +97,18 @@ try
         Screen(window,'PutImage',fileL,rectIL);               % 左画像の描画
         Screen(window,'PutImage',fileR,rectIR);               % 右画像の描画
         [VBLTimestamp StimulusOnsetTime FlipTimestamp Missed Beampos] = Screen(window, 'Flip');     % FlipTimestampが刺激画像を呈示した時間になる
-        stimOnset = FlipTimestamp; % 刺激呈示時間を記録
         clear fileL fileR; %
 
         % 回答キーが押されたらキーコードと反応時間を取得する。
         [secs, keyCode1, deltaSecs] = KbWait([], 3); %
-        tKey = secs;       %　GetSecsの代わりにKbWaitの戻り値を使う
         res = find(keyCode1);   %  キーコードの取得
 
          % 回答（キーコード） （gはコード71、jはコード74）
-         if ~isempty(res)
-            results(i,2) = res(1); % 最初に押されたキーを記録
-         else
-            results(i,2) = NaN; % キーが押されなかった場合
-         end
+         results(i,2) = res(1); % 最初に押されたキーを記録
 
          % 反応時間
          % 課題    %回答を参考にして、反応時間をresultsの3列目に入れる。
-         if ~isempty(res)
-            results(i,3) = tKey - stimOnset; % ★修正: 反応時間を計算して記録
-         else
-            results(i,3) = NaN; % キーが押されなかった場合
-         end
+         results(i,3) = tKey - stimOnset; % ★修正: 反応時間を計算して記録
 
          % adds 100 msec of data to catch final events
          WaitSecs(0.1); %
@@ -137,7 +127,7 @@ try
    %データの保存。カンマ区切り。
    % 課題
    % writematrixを使ってデータをカンマ区切りで保存する。ファイル名はexp3_7_**.csvとする。**には班の数字を入れる。
-   group_number = 'XX'; % ★修正: ここに班の数字（例: '01'）を入れる
+   group_number = '05'; % ★修正: ここに班の数字（例: '01'）を入れる
    filename = ['exp3_7_' group_number '.csv'];
    writematrix(results, filename);                  % ★修正: 結果をCSVファイルに保存
 
