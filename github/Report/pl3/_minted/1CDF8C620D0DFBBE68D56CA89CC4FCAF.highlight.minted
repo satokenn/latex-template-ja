@@ -77,9 +77,14 @@
 \PYG{+w}{    }\PYG{n}{data\PYGZus{}matrix}\PYG{p}{(}\PYG{p}{:}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{selected\PYGZus{}segment}\PYG{p}{;}
 \PYG{k}{end}
 
+\PYG{c}{\PYGZpc{} 各サンプリング時点についての処理}
 \PYG{n}{proportion\PYGZus{}correct}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{zeros}\PYG{p}{(}\PYG{l+m+mi}{500}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{;}
 \PYG{k}{for}\PYG{+w}{ }\PYG{n+nb}{j}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{l+m+mi}{500}
+
+\PYG{+w}{    }\PYG{c}{\PYGZpc{} 現在の行のうち，欠損値でないデータの論理配列を作成}
 \PYG{+w}{    }\PYG{n}{valid\PYGZus{}trials}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{data\PYGZus{}matrix}\PYG{p}{(}\PYG{n+nb}{j}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{:}\PYG{k}{end}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZti{}=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{;}
+
+\PYG{+w}{    }\PYG{c}{\PYGZpc{} 欠損値でないデータの平均を計算}
 \PYG{+w}{    }\PYG{n}{valid\PYGZus{}data}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{data\PYGZus{}matrix}\PYG{p}{(}\PYG{n+nb}{j}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{:}\PYG{k}{end}\PYG{p}{)}\PYG{p}{;}
 \PYG{+w}{    }\PYG{n}{mean\PYGZus{}valid\PYGZus{}data}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{mean}\PYG{p}{(}\PYG{n}{valid\PYGZus{}data}\PYG{p}{(}\PYG{n}{valid\PYGZus{}trials}\PYG{p}{)}\PYG{p}{)}\PYG{p}{;}
 \PYG{+w}{    }\PYG{n}{proportion\PYGZus{}correct}\PYG{p}{(}\PYG{n+nb}{j}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{mean\PYGZus{}valid\PYGZus{}data}\PYG{p}{;}

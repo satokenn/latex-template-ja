@@ -76,9 +76,14 @@ for i = 1:num_trials
     data_matrix(:, i + 1) = selected_segment;
 end
 
+% 各サンプリング時点についての処理
 proportion_correct = zeros(500, 1);
 for j = 1 : 500
+
+    % 現在の行のうち，欠損値でないデータの論理配列を作成
     valid_trials = data_matrix(j, 2:end) ~= -1;
+
+    % 欠損値でないデータの平均を計算
     valid_data = data_matrix(j, 2:end);
     mean_valid_data = mean(valid_data(valid_trials));
     proportion_correct(j, 1) = mean_valid_data;

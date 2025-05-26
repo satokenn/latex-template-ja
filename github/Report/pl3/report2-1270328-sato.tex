@@ -196,5 +196,35 @@
         fontsize = \small]{matlab}{code/Exp3_9_Matlab.m}
         \label{lst:exp3_9_match}
     \end{program}
+    コード\ref{lst:exp3_9_match_rate}では，全試行のデータが格納されている \mintinline{matlab}|data_matrix| をもとに，キー押し前の各時点において，平均してどのくらいの割合で被験者が最終的に選択した魅力的な画像をを見ていたのかを求める．500 行 1 列のゼロベクトルを用意する．その後，そのベクトルに抽出されたデータの平均値を計算する．0 と 1 のデータセットの平均値は，1 の割合を表す．したがって，\mintinline{matlab}|mean_valid_data| には， j の場合において有効な試行データの中で魅力的な画像を見ていた試行の割合が格納される．
+    \begin{program}
+        \caption{注視位置と選択位置の一致率}
+        \inputminted[linenos,
+        firstline=79,
+        lastline=91,
+        frame=lines,
+        fontsize = \small]{matlab}{code/Exp3_9_Matlab.m}
+        \label{lst:exp3_9_match_rate}
+    \end{program}
 
+    全試行分の統計として，各時間ごとに視線が魅力的な画像と一致していた割合を計算する．結果を時間軸に沿ってグラフ描画する．これをコード\ref{lst:exp3_9_plot}に示す．
+    \begin{program}
+        \caption{注視位置と選択位置の一致率のグラフ化}
+        \inputminted[linenos,
+        firstline=92,
+        lastline=96,
+        frame=lines,
+        fontsize = \small]{matlab}{code/Exp3_9_Matlab.m}
+        \label{lst:exp3_9_plot}
+    \end{program}
+    
+    \subsection{第九回の結果}
+    これらの結果より，以下のグラフを得ることができる．
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figure/g0310/lab3_2.png}
+        \caption{注視位置と選択位置の一致率}
+        \label{fig:exp3_9_plot}
+    \end{figure}
 \end{document}
