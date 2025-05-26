@@ -152,5 +152,49 @@
         \label{lst:exp3_9_expos}
     \end{program}
 
-    ここで，欠損値についても考えていく．欠損値とは，眼球運動の測定データにおいて，特定の時点でデータが取得されなかった場合や解析するにあたって無効なデータの場合は欠損として扱われる． EyeLink の測定では，まばたきやセンサの誤作動によってデータが欠けることがあるため， MatLab 上では欠損値として扱う．欠損データは -1 で初期化する．また，有効な行のみを対象に画面状態や X 座標を代入する．有効な行の識別は \mintinline{matlab}|ismember(expos(:, 1), eye_data(:, 1) - eye_data(end, 1))| でき，expos の各時間点で実際の眼球データ
+    ここで，欠損値についても考えていく．欠損値とは，眼球運動の測定データにおいて，特定の時点でデータが取得されなかった場合や解析するにあたって無効なデータの場合は欠損として扱われる． EyeLink の測定では，まばたきやセンサの誤作動によってデータが欠けることがあるため， MatLab 上では欠損値として扱う．欠損データは -1 で初期化する．また，有効な行のみを対象に画面状態や X 座標を代入する．有効な行の識別は \mintinline{matlab}|ismember(expos(:, 1), eye_data(:, 1) - eye_data(end, 1))| でき， expos の各時間点で実際の眼球データが存在するかを確認する．
+    その結果から有効な行のインデックスを取得する．expos の各列は以下の形式で入力を行う．
+    \begin{enumerate}[label=\arabic*列目]
+        \item 時間
+        \item 測定する目の情報
+        \item 両目の状態
+        \item 左目注視位置 X座標
+        \item 左目注視位置 Y座標
+        \item 左目瞳孔径
+    \end{enumerate}
+    この列に対応した情報を入れていくが有効な行のみを対象とするため， ismember で取得したインデックスを用いて行う．これらのコードをコード\ref{lst:exp3_9_missing}に示す．
+
+    \begin{program}
+        \caption{欠損値の処理}
+        \inputminted[linenos,
+        firstline=29,
+        lastline=48,
+        frame=lines,
+        fontsize = \small]{matlab}{code/Exp3_9_Matlab.m}
+        \label{lst:exp3_9_missing}
+    \end{program}
+
+    これから，注視位置の判定を行う．画像提示時のうち，x 座標を取得し，これらの平均値を計算する．この平均値の四捨五入したものがその試行における画面の中心 x 座標とする．この中心よりも左であるならば左側の画像を選択したと判断し，右であれば右側の画像を選択したと判断する．ここで，左側を見ていた場合を 100, 右側を見ていたなら 102 とする．画像提示時は expos の 3 列目に格納されており，その時の値は 2 であれば刺激画像を提示してる時である．また，左目の注視位置は， 5 列目に格納されており，中心よりも左であるか右であるかの論理積を取ることでそれぞれ求めることができる．これらのコードをコード\ref{lst:exp3_9_select}に示す．
+    \begin{program}[H]
+        \caption{注視位置の判定}
+        \inputminted[linenos,
+        firstline=50,
+        lastline=58,
+        frame=lines,
+        fontsize = \small]{matlab}{code/Exp3_9_Matlab.m}
+        \label{lst:exp3_9_select}
+    \end{program}
+
+    注視方向と選択の位置判定はキー押しの選択と視線が一致していたら 1, 一致していなければ 0 とする．これを行うために expos の 3 列目の値が 2 の時に選択位置と注視位置の判定を行う．また，選択位置は 100, 102 のどちらかであり，注視位置は -1, 1 のどちらかであるため，それらの論理積を取ることで一致しているかを判定する． どちらの顔画像が魅力的かを判断したデータは data という行列の 2 行目に格納されているため，そのデータとキーコードが一致しているかを確認する．また，キー押し直線の一秒間に限定して，被験者が最終的に魅力的だと判断した画像を見ていたかどうかをのデータを格納する．
+    これらを実装したコードをコード\ref{lst:exp3_9_match}に示す．
+    \begin{program}[H]
+        \caption{注視位置と選択位置の一致}
+        \inputminted[linenos,
+        firstline=60,
+        lastline=76,
+        frame=lines,
+        fontsize = \small]{matlab}{code/Exp3_9_Matlab.m}
+        \label{lst:exp3_9_match}
+    \end{program}
+
 \end{document}
