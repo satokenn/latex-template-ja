@@ -20,6 +20,8 @@
 \subsection{第九回の目的}
     第八回では，EyeLink II によって過去に測定された眼球運動実験のデータをプログラムを用いて解析することである．被験者が左右の顔画像のどちらかを選択する際に，選択した顔画像んいどの程度視線を向けていたかの確率を時間経過とともにグラフかすることを目的とする．
 \subsection{第十回の目的}
+第十回では，異なる負荷条件下で記録された筋電図データを解析し，各条件下での筋活動レベルを定量的に評価することである．
+
 \section{方法}
 \subsection{第六回の方法}
     \inputminted[linenos, firstline=1, lastline=2, frame=lines, fontsize=\small]{matlab}{code/Exp3_6_Matlab.m}
@@ -128,6 +130,18 @@
     第七回では眼球運動計測実験で使用するプログラムを作成した．このプログラムを実行した後に書き出される csv ファイルには 1 列目に 試行番号， 2 列目に 被験者が押したキーに対応するキーコード， 3 列目に反応時間が入力される．これらのデータを用いて眼球運動に関してのデータ分析をすることが期待できる．
 
     \subsection{第八回の方法}
+    以下の 4 つの実験を行う．ただし，Eye Link II が故障しているため，第\ref{眼球} 目については実施をしない．
+    \subsubsection{眼球運動計測実験 (1)}\label{眼球}
+    時間計測度の高い眼球運動計測装置を用いて，顔の印象に関する判断を行う時に眼球運動の計測を行う．眼球運動計測装置として Eye Link II を用いる．まず，被験者に Eye Link II の愛カメラを装着し，キャリブレーション，バリデーションを行う．次に固視点を注視し，左右に現れる顔画像のどちらかが魅力的かを判断し，キー押しで反応してもらう．この試行を合計 20 試行行う．
+    \subsubsection{眼球運動計測実験 (2)}
+    メガネ型眼球運動計測装置である Tobii Glass 3 を用いて対象を自由に見る時の眼球運動を解析する．実験の手続きとしてはアイトラッキング用メガネを装着し，呈示されるマーカを追視．視線方向のキャリブレーションを行う．ここで，対象を自由に観察した時の Gaze Plot と Heat Map を作成する．
+    \subsubsection{脳波計測}
+    タイプしたい文字を脳情報のみから指定するブレイン・マシン・インターフェースのシステムを体験する．脳波による指標は，刺激提示から約 300 ミリ秒ほど後に頂点をもって現れる陽性の脳電位である p 300 を用いる． MatLab から Simulink のブロックセットを起動する．ドライ電極を頭部に装着する．電極位置は電波キャップに従って決める．本実験では視覚的刺激を提示する．
+    \subsubsection{筋電計測}
+    最大随意収縮及びダンベルを持っている時の上腕二頭筋の筋活動を計測する．まずは，LabChartを立ち上げる．今回は上腕二頭筋から筋活動を計測する．設置電極は肩峰とする．電極間の距離は約 2cm とする．サンプリング周波数は 1000Hz とする．
+
+    最大随意収縮の計測については，安静状態から腕を 90 度曲げた状態で机等の動かないものに対して等尺性収縮で最大筋力を発揮する．ダンベルについては，1kg, 3kg, 5kg を用いて安静状態から選んだダンベルを 90 度曲げた状態で保持中の筋活動を計測する．
+
     \subsection{第九回の方法}
     結果を格納するための行列を作成する．行数はサンプリング周波数に対応する 500 行と列数は時間データ列と試行数となる．時間軸のデータについてはキー押しの 1 秒前からのデータを用いる．キーを押した時を 0msec として -998 までの 2msec おきの配列を作成する．これらを実装したコードがコード\ref{lst:exp3_9_vec}である．
     
@@ -208,7 +222,7 @@
     \end{program}
 
     全試行分の統計として，各時間ごとに視線が魅力的な画像と一致していた割合を計算する．結果を時間軸に沿ってグラフ描画する．これをコード\ref{lst:exp3_9_plot}に示す．
-    \begin{program}
+    \begin{program}[H]
         \caption{注視位置と選択位置の一致率のグラフ化}
         \inputminted[linenos,
         firstline=92,
@@ -217,14 +231,88 @@
         fontsize = \small]{matlab}{code/Exp3_9_Matlab.m}
         \label{lst:exp3_9_plot}
     \end{program}
-    
-    \subsection{第九回の結果}
-    これらの結果より，以下のグラフを得ることができる．
 
+    \subsection{第十回の方法}
+    まず，読み込んだテキストファイルから筋電データを読み込む．次に，筋電データを plot 関数を用いて読み込んだ各条件のデータを描画し，視覚的に確認するコードをコード\ref{lst:3_10_plot}に示す．
+
+    \begin{program}[H]
+        \caption{筋電データの読み込みと描画}
+        \inputminted[linenos,
+        firstline=1,
+        lastline=25,
+        frame=lines,
+        fontsize=\small]{matlab}{code/Exp3_10_Matlab.m}
+        \label{lst:3_10_plot}
+    \end{program}
+    次に，最大随意収縮 (MVC) の解析を行う．MVC のデータは，dataBlocks{1} に格納されているため，このデータを用いる．コード\ref{lst:3_10_plot} で，表示したデータから筋活動が安定している安静時区間を目視で確認し，その区間の平均値をベースライン値として算出する．そこから，MVC の値を引くことで基線のずれを補正する．また，全波整流を行うためにベースライン補正後の MVC データを abs 関数を用いて絶対値化する．最後に，整流処理後のデータから max 関数を用いて最大値を取得する．
+    \begin{program}
+        \caption{最大随意収縮 (MVC) の解析}
+        \inputminted[linenos,
+        firstline=27,
+        lastline=48,
+        frame=lines,
+        fontsize = \small]{matlab}{code/Exp3_10_Matlab.m}
+        \label{lst:3_10_mvc}
+    \end{program}
+
+    これから，MVC 以外の各負荷条件のデータに対して，処理を行なっていく．最初に，条件データの準備を行う．dataBlocks{2} から dataBlocks{5} までのデータをループを用いて抽出していき，抽出したデータの安静時区間をコード\ref{lst:3_10_plot} で出力されたグラフから出力されているため，目視で確認する．その区間の筋電位の平均値をベースラインとして算出後，データ全体から減算し，整流する．これらの実装をコード\ref{lst:3_10_load}に示す．
+    \begin{program}[H]
+        \caption{各負荷条件のデータの準備}
+        \inputminted[linenos,
+        firstline=53,
+        lastline=69,
+        frame=lines,
+        fontsize = \small]{matlab}{code/Exp3_10_Matlab.m}
+        \label{lst:3_10_load}
+    \end{program}
+
+    次に，ローパスフィルタ処理を設定する．サンプリング周波数を 1000Hz, カットオフ周波数 5Hz の2次バターワースローパスフィルタを butter 関数で設計する．この設定したファイルを filtfit 関数を用いて整流後のデータに適用し，平滑化を施す．filtfit 関数は位相の歪みを防ぐために順方向と逆方向からフィルタをかける．このフィルタ処理後のデータから，筋が安定して活動していると見なせる 1000ms 区間の平均値を求める．この筋が安定していると見なせる区間はコード\ref{lst:3_10_plot} で出力された図で確認できる．ここから特定した安定活動区間が適切であるかを確認するため，フィルタ処理後のデータと選択された区間の開始・
+    終了位置をプロットする．ここで，分散が最も小さくなる区間をとする．これらの内容をコード\ref{lst:3_10_ana} に記す．
+
+    \begin{program}
+        \caption{各負荷条件のデータの解析}
+        \inputminted[linenos,
+        firstline=71,
+        lastline=90,
+        frame=lines,
+        fontsize = \small]{matlab}{code/Exp3_10_Matlab.m}
+        \label{lst:3_10_ana}        
+    \end{program}
+
+    適切な区間が正しいかをグラフに出力して確かめ，正規化筋電を求め，結果を格納するベクトルに結果を入れる．これらの内容をコード\ref{lst:3_10_norm}に示す．
+
+    \begin{program}
+        \caption{各負荷条件の正規化}
+        \inputminted[linenos,
+        firstline=71,
+        lastline=90,
+        frame=lines,
+        fontsize = \small]{matlab}{code/Exp3_10_Matlab.m}
+        \label{lst:3_10_norm}
+    \end{program}
+
+    各条件の解析終了後，結果をグラフで表示する．
+
+    \begin{program}
+        \caption{各負荷条件の正規化}
+        \inputminted[linenos,
+        firstline=142,
+        lastline=157,
+        frame=lines,
+        fontsize = \small]{matlab}{code/Exp3_10_Matlab.m}
+        \label{lst:3_10_norm}        
+    \end{program}
+
+    \section{各回の結果}
+
+    \subsection{第九回の結果}
+    これらの結果より，図\ref{fig:exp3_9_plot} を得ることができる．この図から読み取れることは，-1000ms 付近では割合は比較的低く，どちらかの画像を注視しているかが明確でないか選択していない画像を注視している可能性がある．時間が 0ms に近づくにつれ割合が高くなっており魅力的な画像を注視していることがわかる．また，-500ms, -300ms あたりでは割合が高くなっていることがわかる．最後の 0ms 付近では非常に高い割合に達しており，被験者の視線はほぼ魅力的だと判断した画像に向けられていることを意味していると考えられる．まとめとして，被験者が顔画像の魅力を判断し，キーを教えて選択するまでの最後の 1 秒間で意思決定が固まるにつれ，最終的に選択する画像に対する注視が高まっていく過程を数値化している．
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.5\textwidth]{figure/g0310/lab3_2.png}
         \caption{注視位置と選択位置の一致率}
         \label{fig:exp3_9_plot}
     \end{figure}
+
+    \subsection{第十回の結果}
 \end{document}
