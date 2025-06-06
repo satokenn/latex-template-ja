@@ -31,7 +31,7 @@ z = (lambdaHa / 656.28) - 1
 speed = z * 299792.458
 
 
-%%%　恒星運動Ⅱ　%%%
+
 %Task1
 [sHa,idx] = min(spectra(:,:));
 lambdaHa = lambda(idx);

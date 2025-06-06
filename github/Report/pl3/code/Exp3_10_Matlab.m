@@ -1,58 +1,61 @@
-%test02_BB‚Æ‚È‚Á‚Ä‚¢‚é‚Æ‚±‚ë‚ÍŠe”Ç‚Ìƒtƒ@ƒCƒ‹–¼‚ğ“ü‚ê‚é
+%test02_BBã¨ãªã£ã¦ã„ã‚‹ã¨ã“ã‚ã¯å„ç­ã®ãƒ•ã‚¡ã‚¤ãƒ«åã‚’å…¥ã‚Œã‚‹
 dataBlocks=open_EMG('group5.txt');
-%dataBlocks‚Æ‚¢‚¤ƒf[ƒ^‚ª‚Å‚«‚éB
-%dataBlocks{1}‚Í1‚Â–Ú‚ÌAo2p‚Í2‚Â–Ú‚Ìƒf[ƒ^‚ª“ü‚Á‚Ä‚¢‚éB
-%Šeƒf[ƒ^‚Ì1—ñ–Ú‚ÍŠÔA2—ñ–Ú‚Í‹Ø“dƒf[ƒ^‚Æ‚È‚Á‚Ä‚¢‚éB
+%dataBlocksã¨ã„ã†ãƒ‡ãƒ¼ã‚¿ãŒã§ãã‚‹ã€‚
+%dataBlocks{1}ã¯1ã¤ç›®ã®ã€ï½›2ï½ã¯2ã¤ç›®ã®ãƒ‡ãƒ¼ã‚¿ãŒå…¥ã£ã¦ã„ã‚‹ã€‚
+%å„ãƒ‡ãƒ¼ã‚¿ã®1åˆ—ç›®ã¯æ™‚é–“ã€2åˆ—ç›®ã¯ç­‹é›»ãƒ‡ãƒ¼ã‚¿ã¨ãªã£ã¦ã„ã‚‹ã€‚
 
-%•`‰æ‚µ‚Äƒf[ƒ^‚ğŠm”FB
-%‰Û‘è@plot‚ğg—pB
+
+%æç”»ã—ã¦ãƒ‡ãƒ¼ã‚¿ã‚’ç¢ºèªã€‚
+%èª²é¡Œã€€plotã‚’ä½¿ç”¨ã€‚
 for i = 1 : 4
     switch i
         case 1
             str = 'MEC';
         case 2
-            str = 'ƒ_ƒ“ƒxƒ‹1kg';
+            str = 'ãƒ€ãƒ³ãƒ™ãƒ«1kgæ™‚';
         case 3
-            str = 'ƒ_ƒ“ƒxƒ‹3kg';
+            str = 'ãƒ€ãƒ³ãƒ™ãƒ«3kgæ™‚';
         case 4
-            str = 'ƒ_ƒ“ƒxƒ‹5kg';
+            str = 'ãƒ€ãƒ³ãƒ™ãƒ«5kgæ™‚';
     end
-    figure('Name', [str, '‚Ìƒf[ƒ^'], 'NumberTitle', 'off');
+    figure('Name', [str, 'ã®ãƒ‡ãƒ¼ã‚¿'], 'NumberTitle', 'off');
     plot(dataBlocks{i}(:,1), dataBlocks{i}(:,2));
-    xlabel('ŠÔ(s)');
-    ylabel('‹Ø“d(mV)');
-    title([str, '‚Ìƒf[ƒ^']);
+    xlabel('æ™‚é–“(s)');
+    ylabel('ç­‹é›»(mV)');
+    title([str, 'ã®ãƒ‡ãƒ¼ã‚¿']);
 end
-%Œ‹‰Ê‚Ìƒf[ƒ^
-%‰Û‘è@results‚Æ‚¢‚¤–¼‘O‚É‘Î‚µ‚Äzeros‚ğg‚Á‚Äì‚Á‚Ä‚¨‚­B
+%çµæœã®ãƒ‡ãƒ¼ã‚¿
+%èª²é¡Œã€€resultsã¨ã„ã†åå‰ã«å¯¾ã—ã¦zerosã‚’ä½¿ã£ã¦ä½œã£ã¦ãŠãã€‚
 results = zeros(length(dataBlocks) - 1, 2);
 
-
-
-%MVC‚Ì‰ğÍ
-%‰Û‘è@MVCƒf[ƒ^‚Ì€”õBdataBlocks{1}‚É“ü‚Á‚Ä‚¢‚é
+%MVCã®è§£æ
+%èª²é¡Œã€€MVCãƒ‡ãƒ¼ã‚¿ã®æº–å‚™ã€‚dataBlocks{1}ã«å…¥ã£ã¦ã„ã‚‹
 mvc_data = dataBlocks{1}(:, 2);
 
-%baseline•â³
-%‰Û‘è@}‚©‚çˆÀ’è‚µ‚Ä‚¢‚é‚Æ‚±‚ë‚ğŠm”F‚µA‚»‚Ì•”•ª‚Ì·•ª‚ğæ‚éB
+
+%baselineè£œæ­£
+%èª²é¡Œã€€å›³ã‹ã‚‰å®‰å®šã—ã¦ã„ã‚‹ã¨ã“ã‚ã‚’ç¢ºèªã—ã€ãã®éƒ¨åˆ†ã®å·®åˆ†ã‚’å–ã‚‹ã€‚
 rest_mvc = 1 : 3000 ;
 baseline = mean(mvc_data(rest_mvc));
 
+
 re_mvc_data = mvc_data - baseline;
-%®—¬irectifyj
-%‰Û‘è@â‘Î’l‰»‚·‚é
+%æ•´æµï¼ˆrectifyï¼‰
+%èª²é¡Œã€€çµ¶å¯¾å€¤åŒ–ã™ã‚‹
 rectify_mvc_data = abs(re_mvc_data);
 
-%Å‘å’l‚ğ‚Æ‚é
-%‰Û‘è@maxŠÖ”‚ğg‚¤
+
+%æœ€å¤§å€¤ã‚’ã¨ã‚‹
+%èª²é¡Œã€€maxé–¢æ•°ã‚’ä½¿ã†
 max_mvc_data = max(rectify_mvc_data);
 
-%ŠeğŒ‚Ì‰ğÍ(ğŒ”‚¾‚¯ŒJ‚è•Ô‚·)
+
+%å„æ¡ä»¶ã®è§£æ(æ¡ä»¶æ•°ã ã‘ç¹°ã‚Šè¿”ã™)
 for i = 2:length(dataBlocks)
-%‰Û‘è@ğŒƒf[ƒ^‚Ì€”õBdataBlocks{*}‚É“ü‚Á‚Ä‚¢‚éB
+%èª²é¡Œã€€æ¡ä»¶ãƒ‡ãƒ¼ã‚¿ã®æº–å‚™ã€‚dataBlocks{*}ã«å…¥ã£ã¦ã„ã‚‹ã€‚
 each_data = (dataBlocks{i});
-%baseline•â³
-%‰Û‘è@}‚©‚çˆÀ’è‚µ‚Ä‚¢‚é‚Æ‚±‚ë‚ğŠm”F‚µA‚»‚Ì•”•ª‚Ì·•ª‚ğæ‚éB
+%baselineè£œæ­£
+%èª²é¡Œã€€å›³ã‹ã‚‰å®‰å®šã—ã¦ã„ã‚‹ã¨ã“ã‚ã‚’ç¢ºèªã—ã€ãã®éƒ¨åˆ†ã®å·®åˆ†ã‚’å–ã‚‹ã€‚
 switch i
     case 2
         rest = 1 : 3200;
@@ -64,20 +67,23 @@ end
 baseline = mean(each_data(rest, 2)); 
 re_each_data = each_data(:, 2) - baseline; 
 
-%®—¬irectifyj
-%‰Û‘è@â‘Î’l‰»‚·‚é
+
+%æ•´æµï¼ˆrectifyï¼‰
+%èª²é¡Œã€€çµ¶å¯¾å€¤åŒ–ã™ã‚‹
 rectify_each_data = abs(re_each_data);
 
-%ƒ[ƒpƒXƒtƒBƒ‹ƒ^
-%‰Û‘è@butter‚ÅİŒv‚µAfiltfilt‚ğg‚Á‚Äƒ[ƒpƒXƒtƒBƒ‹ƒ^‚ğ‚©‚¯‚é
+
+%ãƒ­ãƒ¼ãƒ‘ã‚¹ãƒ•ã‚£ãƒ«ã‚¿
+%èª²é¡Œã€€butterã§è¨­è¨ˆã—ã€filtfiltã‚’ä½¿ã£ã¦ãƒ­ãƒ¼ãƒ‘ã‚¹ãƒ•ã‚£ãƒ«ã‚¿ã‚’ã‹ã‘ã‚‹
 fs = 1000;
 fc = 5;
 [b, a] = butter(2, [fc/(fs/2)], 'low');
 filter_each_data = filtfilt(b, a, rectify_each_data);
-%‰Û‘è@—]—T‚ª‚ ‚él‚Í©ì‚ÅƒtƒBƒ‹ƒ^‚ğì¬‚·‚é@‰Û‘èà–¾¦‚PQÆ
+%èª²é¡Œã€€ä½™è£•ãŒã‚ã‚‹äººã¯è‡ªä½œã§ãƒ•ã‚£ãƒ«ã‚¿ã‚’ä½œæˆã™ã‚‹ã€€èª²é¡Œèª¬æ˜â€»ï¼‘å‚ç…§
 
-%‹ØŠˆ“®
-%‰Û‘è@ˆÀ’è‚µ‚ÄŠˆ“®‚µ‚Ä‚¢‚é1000ms‹æŠÔ‚Ì•½‹Ï’l‚ğ‚Æ‚é
+
+%ç­‹æ´»å‹•
+%èª²é¡Œã€€å®‰å®šã—ã¦æ´»å‹•ã—ã¦ã„ã‚‹1000msåŒºé–“ã®å¹³å‡å€¤ã‚’ã¨ã‚‹
 switch i
     case 2
         provisional_active_start = 3200;
@@ -89,7 +95,8 @@ end
 min_var = Inf;
 provisional_active_end = length(filter_each_data);
 
-%Å‚àˆÀ’è‚µ‚Ä‚ªŠˆ“®‚µ‚Ä‚¢‚é‹æŠÔ‚ğŒˆ‚ß‚é
+
+%æœ€ã‚‚å®‰å®šã—ã¦ãŒæ´»å‹•ã—ã¦ã„ã‚‹åŒºé–“ã‚’æ±ºã‚ã‚‹
 for j = provisional_active_start : provisional_active_end -1000
     provisional_active_data = j : (j + 1000 - 1);
     provisional_data = filter_each_data(provisional_active_data);
@@ -106,76 +113,57 @@ active_data = filter_each_data((active)');
 mean_emg = mean(active_data);
 
 
-%Šm”F
-%‰Û‘è@‰ğÍ‚µ‚½‹æŠÔ‚ªŠm‚©‚ÉÅ‚àˆÀ’è‚µ‚½êŠ‚Å‚ ‚é‚©•`‰æ‚µ‚ÄŠm”FB
+
+
+%ç¢ºèª
+%èª²é¡Œã€€è§£æã—ãŸåŒºé–“ãŒç¢ºã‹ã«æœ€ã‚‚å®‰å®šã—ãŸå ´æ‰€ã§ã‚ã‚‹ã‹æç”»ã—ã¦ç¢ºèªã€‚
 switch i
     case 2
-        str = '1kg';
+        str = '1kgæ™‚';
     case 3
-        str = '3kg';
+        str = '3kgæ™‚';
     case 4
-        str = '5kg';
+        str = '5kgæ™‚';
 end
-figure('Name', ['ƒ_ƒ“ƒxƒ‹', str, '‚ÌˆÀ’èŠˆ“®‹æŠÔ‚ÌŠm”F'], 'NumberTitle', 'off');
+figure('Name', ['ãƒ€ãƒ³ãƒ™ãƒ«', str, 'ã®å®‰å®šæ´»å‹•åŒºé–“ã®ç¢ºèª'], 'NumberTitle', 'off');
 plot(dataBlocks{i}(:, 1) , filter_each_data,'b');
-title(['ƒ_ƒ“ƒxƒ‹', str, '‚ÌˆÀ’èŠˆ“®‹æŠÔ‚ÌŠm”F']);
+title(['ãƒ€ãƒ³ãƒ™ãƒ«', str, 'ã®å®‰å®šæ´»å‹•åŒºé–“ã®ç¢ºèª']);
 hold on;
-%ˆÀ’è‹æŠÔ‚ÌŠJnEI—¹‚ğ•\¦
+%å®‰å®šåŒºé–“ã®é–‹å§‹ãƒ»çµ‚äº†ã‚’è¡¨ç¤º
 x_start = dataBlocks{i}(active_start(1), 1);
 x_end = dataBlocks{i}(active_end(1), 1);
 y_limits = ylim;
 line([x_start x_start], y_limits, 'Color', 'r', 'LineStyle', '--', 'LineWidth', 1.5);
 line([x_end x_end], y_limits, 'Color', 'r', 'LineStyle', '--', 'LineWidth', 1.5);
-xlabel('ŠÔ(s)');
-ylabel('‹Ø“d(mV)')
+xlabel('æ™‚é–“(s)');
+ylabel('ç­‹é›»(mV)')
 
-%³‹K‰»
-%‰Û‘è@MVC‚Åƒm[ƒ}ƒ‰ƒCƒY‚·‚é
+
+%æ­£è¦åŒ–
+%èª²é¡Œã€€MVCã§ãƒãƒ¼ãƒãƒ©ã‚¤ã‚ºã™ã‚‹
 normalized_emg = mean_emg / max_mvc_data;
 
-%ƒf[ƒ^‚Ì•ÛŠÇ
-%‰Û‘è@results‚ÉŒ‹‰Ê‚ğ“ü‚ê‚éB
+
+%ãƒ‡ãƒ¼ã‚¿ã®ä¿ç®¡
+%èª²é¡Œã€€resultsã«çµæœã‚’å…¥ã‚Œã‚‹ã€‚
 results(i - 1, 2) = normalized_emg;
 end
 results(:, 1) = [1, 3, 5];
 
-%•`‰æ
-%‰Û‘è@ŠeğŒ–ˆ‚É“¯—l‚Ì‰ğÍ‚ğs‚¢A‰¡²‚ğƒ_ƒ“ƒxƒ‹‚Ì’lAc²‚ğ‹Ø“d‚Ì’l‚Å•`‰æ‚·‚é
-figure('Name', '‰ğÍŒ‹‰Ê', 'NumberTitle', 'off');
+%æç”»
+%èª²é¡Œã€€å„æ¡ä»¶æ¯ã«åŒæ§˜ã®è§£æã‚’è¡Œã„ã€æ¨ªè»¸ã‚’ãƒ€ãƒ³ãƒ™ãƒ«ã®å€¤ã€ç¸¦è»¸ã‚’ç­‹é›»ã®å€¤ã§æç”»ã™ã‚‹
+figure('Name', 'è§£æçµæœ', 'NumberTitle', 'off');
 p = plot(results(:, 1), results(:, 2), '-o', 'LineWidth', 3);
 p.MarkerFaceColor = [1 0.5 0];
 p.MarkerSize = 8;
 p.MarkerEdgeColor = [1 0.5 0];
 xticks([1 3 5]);
-xlabel('ƒ_ƒ“ƒxƒ‹d—Ê(kg)');
-ylabel('³‹K‰»‹Ø“d(/MVC)');
-title('‰ğÍŒ‹‰Ê');
+xlabel('ãƒ€ãƒ³ãƒ™ãƒ«é‡é‡(kg)');
+ylabel('æ­£è¦åŒ–ç­‹é›»(/MVC)');
+title('è§£æçµæœ');
 grid on;
 
-disp('‰ğÍŒ‹‰Ê:');
-disp('ƒ_ƒ“ƒxƒ‹d—Ê(kg) ³‹K‰»‹Ø“d(/MVC)');
+
+disp('è§£æçµæœ:');
+disp('ãƒ€ãƒ³ãƒ™ãƒ«é‡é‡(kg) æ­£è¦åŒ–ç­‹é›»(/MVC)');
 disp(results);
-
-
-%%%‚±‚±‚Ü‚Å‚Åˆê“xTAŠm”F%%%
-
-%‹ØŠˆ“®‚ÌƒIƒ“ƒZƒbƒg‚ğ’²‚×‚éB
-%ƒ[ƒpƒXƒtƒBƒ‹ƒ^‚Í20Hz
-%‘S‹æŠÔ‚Ì‡Œv‚Ì95%‚ğ–‚½‚·‹æŠÔ‚ªÅ‚à’Z‚¢‚Æ‚±‚ë‚ÌÅ‰‚ÌêŠ‚ğ‹ØŠˆ“®‚ÌŠJnêŠiƒIƒ“ƒZƒbƒgj‚Æ‚·‚éB
-%•`‰æ‚µ‚ÄƒIƒ“ƒZƒbƒg‚ª“KØ‚©Šm”FB
-
-%%%‚±‚±‚Ü‚Å‚Åˆê“xTAŠm”F%%%
-
-%‘S‚Ä‚Ì”Ç‚Ì‰ğÍ‚ğ“¯‚¶ƒvƒƒOƒ‰ƒ€‚Å©“®“I‚É‰ğÍ‚Å‚«‚éƒvƒƒOƒ‰ƒ€‚ğì‚èA“KØ‚É‰ğÍ‚ª‚Å‚«‚Ä‚¢‚é‚©•`‰æ‚µ‚ÄŠm”FB
-
-
-
-
-
-
-
-
-
-
-
-

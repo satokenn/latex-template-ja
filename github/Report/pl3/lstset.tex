@@ -6,14 +6,16 @@
 \usepackage{amssymb}
 \usepackage{minted}
 \usepackage{listings}
-% \usepackage[utf8]{inputenc}
+\usepackage[utf8]{inputenc}
 % \usepackage{listingsutf8}
 \usepackage{newfloat} % newfloat パッケージを読み込む
 \usepackage{caption}
+\usepackage{subcaption}
 \usepackage{float}
 \usepackage{fix-cm}
 \usepackage{svg}
 \usepackage{enumitem}
+\usepackage{mdframed}
 
 \usepackage{hyperref}
 % for hyperref
@@ -48,12 +50,12 @@
 %   lineskip=1ex
 % }
 
-% 新しい浮動体「listing」を定義
+
 \DeclareFloatingEnvironment[
     fileext=lol,       % List of Listings ファイルの拡張子 (List of Listings を作成する場合)
     name=Listing,      % キャプションの接頭辞 (例: "Listing 1")
-    placement={!htbp}, % フロートの配置オプション (お好みで調整してください)
-    within=section     % 番号付けをセクションごとにする場合 (例: Listing 1.1) (任意、不要なら削除)
+    % placement={!htbp}, % フロートの配置オプション (お好みで調整してください)
+    % within=section     % 番号付けをセクションごとにする場合 (例: Listing 1.1) (任意、不要なら削除)
 ]{program}
 
 \setminted{
@@ -67,16 +69,9 @@
   framesep=2mm,            % 枠線とコードの間隔 (調整が必要)
   % breaklines
   breaklines=true,         % 自動折り返し
+  breakanywhere=true
   % numbers
   linenos=true,            % 行番号を左に表示
   firstnumber=auto,        % 行番号を開始行に合わせる
   numbersep=5pt,           % 行番号とコードの間隔
-  % stepnumber=1,          % linenos=true で通常1ステップ
-  % highlight と Pygments スタイル
-  % minted では Pygments のスタイルを使います。
-  % style=friendly のようにスタイル名を指定できます。
-  % デフォルトのスタイルでキーワードが太字になるか確認。
-  % commentstyle や keywordstyle の LaTeX コマンド直接指定はできません。
-  % Pygments のスタイルでこれらがどのように見えるか確認し、
-  % 必要ならカスタムスタイルを作るか、別の既存スタイルを選びます。
 }

@@ -1,3 +1,0 @@
-\def\minted@exec@error{%
-  \minted@error{^^J => \detokenize{./report2-1270328-sato:244:} Cannot decode file \detokenize{"code/Exp3_10_Matlab.m"} with encoding=\detokenize{"utf8"}}%
-}%

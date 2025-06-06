@@ -1,0 +1,171 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{c}{\PYGZpc{}test02\PYGZus{}BBとなっているところは各班のファイル名を入れる}
+\PYG{n}{dataBlocks}\PYG{p}{=}\PYG{n}{open\PYGZus{}EMG}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{group5.txt\PYGZsq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{c}{\PYGZpc{}dataBlocksというデータができる。}
+\PYG{c}{\PYGZpc{}dataBlocks\PYGZob{}1\PYGZcb{}は1つ目の、｛2｝は2つ目のデータが入っている。}
+\PYG{c}{\PYGZpc{}各データの1列目は時間、2列目は筋電データとなっている。}
+
+
+\PYG{c}{\PYGZpc{}描画してデータを確認。}
+\PYG{c}{\PYGZpc{}課題　plotを使用。}
+\PYG{k}{for}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{l+m+mi}{4}
+\PYG{+w}{    }\PYG{k}{switch}\PYG{+w}{ }\PYG{n+nb}{i}
+\PYG{+w}{        }\PYG{k}{case}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{+w}{            }\PYG{n}{str}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{MEC\PYGZsq{}}\PYG{p}{;}
+\PYG{+w}{        }\PYG{k}{case}\PYG{+w}{ }\PYG{l+m+mi}{2}
+\PYG{+w}{            }\PYG{n}{str}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{ダンベル1kg時\PYGZsq{}}\PYG{p}{;}
+\PYG{+w}{        }\PYG{k}{case}\PYG{+w}{ }\PYG{l+m+mi}{3}
+\PYG{+w}{            }\PYG{n}{str}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{ダンベル3kg時\PYGZsq{}}\PYG{p}{;}
+\PYG{+w}{        }\PYG{k}{case}\PYG{+w}{ }\PYG{l+m+mi}{4}
+\PYG{+w}{            }\PYG{n}{str}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{ダンベル5kg時\PYGZsq{}}\PYG{p}{;}
+\PYG{+w}{    }\PYG{k}{end}
+\PYG{+w}{    }\PYG{n+nb}{figure}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{Name\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{p}{[}\PYG{n}{str}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{のデータ\PYGZsq{}}\PYG{p}{]}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{NumberTitle\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{off\PYGZsq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n+nb}{plot}\PYG{p}{(}\PYG{n}{dataBlocks}\PYG{p}{\PYGZob{}}\PYG{n+nb}{i}\PYG{p}{\PYGZcb{}}\PYG{p}{(}\PYG{p}{:}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{dataBlocks}\PYG{p}{\PYGZob{}}\PYG{n+nb}{i}\PYG{p}{\PYGZcb{}}\PYG{p}{(}\PYG{p}{:}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n+nb}{xlabel}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{時間(s)\PYGZsq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n+nb}{ylabel}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{筋電(mV)\PYGZsq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n+nb}{title}\PYG{p}{(}\PYG{p}{[}\PYG{n}{str}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{のデータ\PYGZsq{}}\PYG{p}{]}\PYG{p}{)}\PYG{p}{;}
+\PYG{k}{end}
+\PYG{c}{\PYGZpc{}結果のデータ}
+\PYG{c}{\PYGZpc{}課題　resultsという名前に対してzerosを使って作っておく。}
+\PYG{n}{results}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{zeros}\PYG{p}{(}\PYG{n+nb}{length}\PYG{p}{(}\PYG{n}{dataBlocks}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{c}{\PYGZpc{}MVCの解析}
+\PYG{c}{\PYGZpc{}課題　MVCデータの準備。dataBlocks\PYGZob{}1\PYGZcb{}に入っている}
+\PYG{n}{mvc\PYGZus{}data}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{dataBlocks}\PYG{p}{\PYGZob{}}\PYG{l+m+mi}{1}\PYG{p}{\PYGZcb{}}\PYG{p}{(}\PYG{p}{:}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{p}{;}
+
+
+\PYG{c}{\PYGZpc{}baseline補正}
+\PYG{c}{\PYGZpc{}課題　図から安定しているところを確認し、その部分の差分を取る。}
+\PYG{n}{rest\PYGZus{}mvc}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{l+m+mi}{3000}\PYG{+w}{ }\PYG{p}{;}
+\PYG{n}{baseline}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{mean}\PYG{p}{(}\PYG{n}{mvc\PYGZus{}data}\PYG{p}{(}\PYG{n}{rest\PYGZus{}mvc}\PYG{p}{)}\PYG{p}{)}\PYG{p}{;}
+
+
+\PYG{n}{re\PYGZus{}mvc\PYGZus{}data}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{mvc\PYGZus{}data}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{baseline}\PYG{p}{;}
+\PYG{c}{\PYGZpc{}整流（rectify）}
+\PYG{c}{\PYGZpc{}課題　絶対値化する}
+\PYG{n}{rectify\PYGZus{}mvc\PYGZus{}data}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{abs}\PYG{p}{(}\PYG{n}{re\PYGZus{}mvc\PYGZus{}data}\PYG{p}{)}\PYG{p}{;}
+
+
+\PYG{c}{\PYGZpc{}最大値をとる}
+\PYG{c}{\PYGZpc{}課題　max関数を使う}
+\PYG{n}{max\PYGZus{}mvc\PYGZus{}data}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{max}\PYG{p}{(}\PYG{n}{rectify\PYGZus{}mvc\PYGZus{}data}\PYG{p}{)}\PYG{p}{;}
+
+
+\PYG{c}{\PYGZpc{}各条件の解析(条件数だけ繰り返す)}
+\PYG{k}{for}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{:}\PYG{n+nb}{length}\PYG{p}{(}\PYG{n}{dataBlocks}\PYG{p}{)}
+\PYG{c}{\PYGZpc{}課題　条件データの準備。dataBlocks\PYGZob{}*\PYGZcb{}に入っている。}
+\PYG{n}{each\PYGZus{}data}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{dataBlocks}\PYG{p}{\PYGZob{}}\PYG{n+nb}{i}\PYG{p}{\PYGZcb{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{c}{\PYGZpc{}baseline補正}
+\PYG{c}{\PYGZpc{}課題　図から安定しているところを確認し、その部分の差分を取る。}
+\PYG{k}{switch}\PYG{+w}{ }\PYG{n+nb}{i}
+\PYG{+w}{    }\PYG{k}{case}\PYG{+w}{ }\PYG{l+m+mi}{2}
+\PYG{+w}{        }\PYG{n}{rest}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{l+m+mi}{3200}\PYG{p}{;}
+\PYG{+w}{    }\PYG{k}{case}\PYG{+w}{ }\PYG{l+m+mi}{3}
+\PYG{+w}{        }\PYG{n}{rest}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{l+m+mi}{3500}\PYG{p}{;}
+\PYG{+w}{    }\PYG{k}{case}\PYG{+w}{ }\PYG{l+m+mi}{4}
+\PYG{+w}{        }\PYG{n}{rest}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{l+m+mi}{3400}\PYG{p}{;}
+\PYG{k}{end}
+\PYG{n}{baseline}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{mean}\PYG{p}{(}\PYG{n}{each\PYGZus{}data}\PYG{p}{(}\PYG{n}{rest}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }
+\PYG{n}{re\PYGZus{}each\PYGZus{}data}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{each\PYGZus{}data}\PYG{p}{(}\PYG{p}{:}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{baseline}\PYG{p}{;}\PYG{+w}{ }
+
+
+\PYG{c}{\PYGZpc{}整流（rectify）}
+\PYG{c}{\PYGZpc{}課題　絶対値化する}
+\PYG{n}{rectify\PYGZus{}each\PYGZus{}data}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{abs}\PYG{p}{(}\PYG{n}{re\PYGZus{}each\PYGZus{}data}\PYG{p}{)}\PYG{p}{;}
+
+
+\PYG{c}{\PYGZpc{}ローパスフィルタ}
+\PYG{c}{\PYGZpc{}課題　butterで設計し、filtfiltを使ってローパスフィルタをかける}
+\PYG{n}{fs}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1000}\PYG{p}{;}
+\PYG{n}{fc}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{5}\PYG{p}{;}
+\PYG{p}{[}\PYG{n}{b}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{a}\PYG{p}{]}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{butter}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{+w}{ }\PYG{p}{[}\PYG{n}{fc}\PYG{o}{/}\PYG{p}{(}\PYG{n}{fs}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{p}{]}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{low\PYGZsq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{n}{filter\PYGZus{}each\PYGZus{}data}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{filtfilt}\PYG{p}{(}\PYG{n}{b}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{a}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{rectify\PYGZus{}each\PYGZus{}data}\PYG{p}{)}\PYG{p}{;}
+\PYG{c}{\PYGZpc{}課題　余裕がある人は自作でフィルタを作成する　課題説明※１参照}
+
+
+\PYG{c}{\PYGZpc{}筋活動}
+\PYG{c}{\PYGZpc{}課題　安定して活動している1000ms区間の平均値をとる}
+\PYG{k}{switch}\PYG{+w}{ }\PYG{n+nb}{i}
+\PYG{+w}{    }\PYG{k}{case}\PYG{+w}{ }\PYG{l+m+mi}{2}
+\PYG{+w}{        }\PYG{n}{provisional\PYGZus{}active\PYGZus{}start}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{3200}\PYG{p}{;}
+\PYG{+w}{    }\PYG{k}{case}\PYG{+w}{ }\PYG{l+m+mi}{3}
+\PYG{+w}{        }\PYG{n}{provisional\PYGZus{}active\PYGZus{}start}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{3500}\PYG{p}{;}
+\PYG{+w}{    }\PYG{k}{case}\PYG{+w}{ }\PYG{l+m+mi}{4}
+\PYG{+w}{        }\PYG{n}{provisional\PYGZus{}active\PYGZus{}start}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{3400}\PYG{p}{;}
+\PYG{k}{end}
+\PYG{n}{min\PYGZus{}var}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{Inf}\PYG{p}{;}
+\PYG{n}{provisional\PYGZus{}active\PYGZus{}end}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{length}\PYG{p}{(}\PYG{n}{filter\PYGZus{}each\PYGZus{}data}\PYG{p}{)}\PYG{p}{;}
+
+
+\PYG{c}{\PYGZpc{}最も安定してが活動している区間を決める}
+\PYG{k}{for}\PYG{+w}{ }\PYG{n+nb}{j}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{provisional\PYGZus{}active\PYGZus{}start}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{n}{provisional\PYGZus{}active\PYGZus{}end}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1000}
+\PYG{+w}{    }\PYG{n}{provisional\PYGZus{}active\PYGZus{}data}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{j}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{j}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{l+m+mi}{1000}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{provisional\PYGZus{}data}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{filter\PYGZus{}each\PYGZus{}data}\PYG{p}{(}\PYG{n}{provisional\PYGZus{}active\PYGZus{}data}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{var\PYGZus{}data}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{var}\PYG{p}{(}\PYG{n}{provisional\PYGZus{}data}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{    }
+\PYG{+w}{    }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{var\PYGZus{}data}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{n}{min\PYGZus{}var}
+\PYG{+w}{        }\PYG{n}{min\PYGZus{}var}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{var\PYGZus{}data}\PYG{p}{;}
+\PYG{+w}{        }\PYG{n}{active\PYGZus{}start}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{j}\PYG{p}{;}
+\PYG{+w}{    }\PYG{k}{end}
+\PYG{k}{end}
+\PYG{n}{active\PYGZus{}end}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{active\PYGZus{}start}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{l+m+mi}{1000}\PYG{p}{;}
+\PYG{n}{active}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{active\PYGZus{}start}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{n}{active\PYGZus{}end}\PYG{p}{;}
+\PYG{n}{active\PYGZus{}data}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{filter\PYGZus{}each\PYGZus{}data}\PYG{p}{(}\PYG{p}{(}\PYG{n}{active}\PYG{p}{)}\PYG{o}{\PYGZsq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{n}{mean\PYGZus{}emg}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{mean}\PYG{p}{(}\PYG{n}{active\PYGZus{}data}\PYG{p}{)}\PYG{p}{;}
+
+
+
+
+\PYG{c}{\PYGZpc{}確認}
+\PYG{c}{\PYGZpc{}課題　解析した区間が確かに最も安定した場所であるか描画して確認。}
+\PYG{k}{switch}\PYG{+w}{ }\PYG{n+nb}{i}
+\PYG{+w}{    }\PYG{k}{case}\PYG{+w}{ }\PYG{l+m+mi}{2}
+\PYG{+w}{        }\PYG{n}{str}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{1kg時\PYGZsq{}}\PYG{p}{;}
+\PYG{+w}{    }\PYG{k}{case}\PYG{+w}{ }\PYG{l+m+mi}{3}
+\PYG{+w}{        }\PYG{n}{str}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{3kg時\PYGZsq{}}\PYG{p}{;}
+\PYG{+w}{    }\PYG{k}{case}\PYG{+w}{ }\PYG{l+m+mi}{4}
+\PYG{+w}{        }\PYG{n}{str}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{5kg時\PYGZsq{}}\PYG{p}{;}
+\PYG{k}{end}
+\PYG{n+nb}{figure}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{Name\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{p}{[}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{ダンベル\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{str}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{の安定活動区間の確認\PYGZsq{}}\PYG{p}{]}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{NumberTitle\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{off\PYGZsq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{n+nb}{plot}\PYG{p}{(}\PYG{n}{dataBlocks}\PYG{p}{\PYGZob{}}\PYG{n+nb}{i}\PYG{p}{\PYGZcb{}}\PYG{p}{(}\PYG{p}{:}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{,}\PYG{+w}{ }\PYG{n}{filter\PYGZus{}each\PYGZus{}data}\PYG{p}{,}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{b\PYGZsq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{n+nb}{title}\PYG{p}{(}\PYG{p}{[}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{ダンベル\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{str}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{の安定活動区間の確認\PYGZsq{}}\PYG{p}{]}\PYG{p}{)}\PYG{p}{;}
+\PYG{n}{hold}\PYG{+w}{ }\PYG{l+s}{on}\PYG{p}{;}
+\PYG{c}{\PYGZpc{}安定区間の開始・終了を表示}
+\PYG{n}{x\PYGZus{}start}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{dataBlocks}\PYG{p}{\PYGZob{}}\PYG{n+nb}{i}\PYG{p}{\PYGZcb{}}\PYG{p}{(}\PYG{n}{active\PYGZus{}start}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{;}
+\PYG{n}{x\PYGZus{}end}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{dataBlocks}\PYG{p}{\PYGZob{}}\PYG{n+nb}{i}\PYG{p}{\PYGZcb{}}\PYG{p}{(}\PYG{n}{active\PYGZus{}end}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{;}
+\PYG{n}{y\PYGZus{}limits}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{ylim}\PYG{p}{;}
+\PYG{n+nb}{line}\PYG{p}{(}\PYG{p}{[}\PYG{n}{x\PYGZus{}start}\PYG{+w}{ }\PYG{n}{x\PYGZus{}start}\PYG{p}{]}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{y\PYGZus{}limits}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{Color\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{r\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{LineStyle\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{\PYGZhy{}\PYGZhy{}\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{LineWidth\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mf}{1.5}\PYG{p}{)}\PYG{p}{;}
+\PYG{n+nb}{line}\PYG{p}{(}\PYG{p}{[}\PYG{n}{x\PYGZus{}end}\PYG{+w}{ }\PYG{n}{x\PYGZus{}end}\PYG{p}{]}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{y\PYGZus{}limits}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{Color\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{r\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{LineStyle\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{\PYGZhy{}\PYGZhy{}\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{LineWidth\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mf}{1.5}\PYG{p}{)}\PYG{p}{;}
+\PYG{n+nb}{xlabel}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{時間(s)\PYGZsq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{n+nb}{ylabel}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{筋電(mV)\PYGZsq{}}\PYG{p}{)}
+
+
+\PYG{c}{\PYGZpc{}正規化}
+\PYG{c}{\PYGZpc{}課題　MVCでノーマライズする}
+\PYG{n}{normalized\PYGZus{}emg}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{mean\PYGZus{}emg}\PYG{+w}{ }\PYG{o}{/}\PYG{+w}{ }\PYG{n}{max\PYGZus{}mvc\PYGZus{}data}\PYG{p}{;}
+
+
+\PYG{c}{\PYGZpc{}データの保管}
+\PYG{c}{\PYGZpc{}課題　resultsに結果を入れる。}
+\PYG{n}{results}\PYG{p}{(}\PYG{n+nb}{i}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{normalized\PYGZus{}emg}\PYG{p}{;}
+\PYG{k}{end}
+\PYG{n}{results}\PYG{p}{(}\PYG{p}{:}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{3}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{5}\PYG{p}{]}\PYG{p}{;}
+
+\PYG{c}{\PYGZpc{}描画}
+\PYG{c}{\PYGZpc{}課題　各条件毎に同様の解析を行い、横軸をダンベルの値、縦軸を筋電の値で描画する}
+\PYG{n+nb}{figure}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{Name\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{解析結果\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{NumberTitle\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{off\PYGZsq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{n}{p}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{plot}\PYG{p}{(}\PYG{n}{results}\PYG{p}{(}\PYG{p}{:}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{results}\PYG{p}{(}\PYG{p}{:}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{\PYGZhy{}o\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{LineWidth\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{p}{;}
+\PYG{n}{p}\PYG{p}{.}\PYG{n}{MarkerFaceColor}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{l+m+mf}{0.5}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{;}
+\PYG{n}{p}\PYG{p}{.}\PYG{n}{MarkerSize}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{8}\PYG{p}{;}
+\PYG{n}{p}\PYG{p}{.}\PYG{n}{MarkerEdgeColor}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{l+m+mf}{0.5}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{;}
+\PYG{n+nb}{xticks}\PYG{p}{(}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{l+m+mi}{3}\PYG{+w}{ }\PYG{l+m+mi}{5}\PYG{p}{]}\PYG{p}{)}\PYG{p}{;}
+\PYG{n+nb}{xlabel}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{ダンベル重量(kg)\PYGZsq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{n+nb}{ylabel}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{正規化筋電(/MVC)\PYGZsq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{n+nb}{title}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{解析結果\PYGZsq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{n}{grid}\PYG{+w}{ }\PYG{l+s}{on}\PYG{p}{;}
+
+
+\PYG{n+nb}{disp}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{解析結果:\PYGZsq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{n+nb}{disp}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}}\PYG{l+s}{ダンベル重量(kg) 正規化筋電(/MVC)\PYGZsq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{n+nb}{disp}\PYG{p}{(}\PYG{n}{results}\PYG{p}{)}\PYG{p}{;}
+\end{MintedVerbatim}
