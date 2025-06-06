@@ -1,0 +1,216 @@
+% custombeamer.sty
+\ProvidesPackage{custombeamer}[2025/06/06 Custom beamer settings]
+
+% 以下はsty内で必要なパッケージはRequirePackageで読み込む
+\RequirePackage{xcolor}
+\RequirePackage{tikz}
+\RequirePackage{pgfplots}% This is mybeamerstyle.sty
+
+% ---------------------------------------------------------------------
+% 1. Documenclass & Theme/Package loading that MUST be in .cls or .tex
+%    These lines MUST NOT be in a .sty file.
+% ---------------------------------------------------------------------
+% \documentclass[8pt, jfont=ipaexm, t]{beamer} % This line belongs in your .tex file
+% \usepackage{hyperref} % hyperref should be loaded after documentclass in the .tex file if you want specific options to affect it early.
+% \usepackage[utf8]{inputenc} % This is often set in the .tex file
+% \usepackage{luatexja} % luatexja should be loaded early in .tex for font setup
+% \usepackage{luatexja-fontspec} % luatexja-fontspec should be loaded early in .tex for font setup
+% \usepackage{lmodern} % This is a font package, often loaded in .tex
+% \usepackage[T1]{fontenc} % This is a font encoding package, often loaded in .tex
+
+
+% ---------------------------------------------------------------------
+% 2. General packages
+% ---------------------------------------------------------------------
+\usepackage{caption}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18} % Use 1.18 as it's newer than 1.17
+\usepackage{listings}
+\usepackage{ifthen}
+\usepackage[varg]{txfonts}
+\usepackage{ragged2e}
+\usepackage{svg}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage{bm}
+\usepackage[export]{adjustbox} % loads also graphicx
+
+
+% ---------------------------------------------------------------------
+% 3. Beamer Theme and Color/Font/Inner/Outer Theme
+% ---------------------------------------------------------------------
+% Main Beamer theme
+\usetheme[progressbar=frametitle, block=fill, numbering=fraction, ]{metropolis}
+
+% Color/Font/Inner/Outer themes
+\usecolortheme{orchid}
+\usefonttheme{professionalfonts}
+\useinnertheme{circles}
+\useoutertheme{infolines}
+
+% ---------------------------------------------------------------------
+% 4. Beamer Template and Color Settings
+% ---------------------------------------------------------------------
+
+\setbeamertemplate{headline}{} % そしてそれを空にする
+% Title color
+\setbeamercolor{title}{fg=structure, bg=}
+
+% Frame title color
+\setbeamercolor{frametitle}{fg=structure, bg=}
+
+% Caption numbering and Japanese names
+\setbeamertemplate{caption}[numbered]
+\renewcommand{\figurename}{図}
+\renewcommand{\tablename}{表}
+
+% Block styles
+\setbeamertemplate{blocks}[rounded]
+\setbeamercolor{block title}{bg=gray!30,fg=black}
+\setbeamercolor{block body}{bg=gray!10,fg=black}
+
+\setbeamercolor{block title example}{bg=orange!30,fg=black}
+\setbeamercolor{block body example}{bg=orange!10,fg=black}
+
+\setbeamercolor{block title alerted}{bg=red!30,fg=black}
+\setbeamercolor{block body alerted}{bg=red!10,fg=black}
+
+% Footline customization (page number)
+% This defines the footline for all templates including 'plain'
+\setbeamertemplate{footline}{%
+  \hfill%
+  \usebeamercolor[fg]{page number in head/foot}%
+  \usebeamerfont{page number in head/foot}%
+  \insertframenumber\,/\,\inserttotalframenumber\kern1em\vskip2pt%
+}
+% The \makeatletter / \expandafter... part for plain footline is not typically needed if setbeamertemplate covers it.
+% But if you find it necessary, keep it (though it might be redundant here).
+% \makeatletter
+% \expandafter\def\csname beamer@foottemplate@plain\endcsname{%
+%   \usebeamertemplate{footline}
+% }
+% \makeatother % Don't forget this if you use \makeatletter
+
+% ---------------------------------------------------------------------
+% 5. Listings Settings
+% ---------------------------------------------------------------------
+\lstset{
+  basicstyle={\ttfamily},
+  identifierstyle={\small},
+  commentstyle={\smallitshape},
+  keywordstyle={\small\bfseries},
+  ndkeywordstyle={\small},
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},
+  numbers=left,
+  % xrightmargin=0zw, % These might need custom definitions or specific package for 'zw'
+  % xleftmargin=3zw,
+  numberstyle={\scriptsize},
+  stepnumber=1,
+  numbersep=1,
+  lineskip=1ex
+}
+
+% ---------------------------------------------------------------------
+% 6. TikZ Settings and Libraries
+% ---------------------------------------------------------------------
+\usetikzlibrary{graphs}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{bending}
+\usetikzlibrary{arrows,shapes,automata,petri,positioning,calc}
+
+% TikZ custom styles
+\tikzset{set label/.style={fill=white,circle,inner sep=2}}
+\tikzset{
+    place/.style={
+        circle,
+        thick,
+        draw=black,
+        fill=gray!50,
+        minimum size=6mm,
+    },
+    state/.style={
+        circle,
+        thick,
+        draw=blue!75,
+        fill=blue!20,
+        minimum size=6mm,
+    },
+}
+
+% ---------------------------------------------------------------------
+% 7. Section-wise Table of Contents (ToC)
+% ---------------------------------------------------------------------
+\newif\ifinappendix
+\inappendixfalse
+
+\AtBeginSection[]{
+  \ifinappendix
+    \begin{frame}{付録}
+      \tableofcontents[currentsection]
+    \end{frame}
+  \else
+    \begin{frame}{目次}
+      \tableofcontents[currentsection]
+    \end{frame}
+  \fi
+}
+
+% カラーテーマの細かい設定（beamercolor）
+\setbeamercolor{title}{fg=structure, bg=}
+\setbeamercolor{frametitle}{fg=structure, bg=}
+
+% captionに番号追加 & 日本語対応
+\setbeamertemplate{caption}[numbered]
+\renewcommand{\figurename}{図}
+\renewcommand{\tablename}{表}
+
+% ブロックのスタイルカスタマイズ
+\setbeamertemplate{blocks}[rounded]
+\setbeamercolor{block title}{bg=gray!30, fg=black}
+\setbeamercolor{block body}{bg=gray!10, fg=black}
+\setbeamercolor{block title example}{bg=orange!30, fg=black}
+\setbeamercolor{block body example}{bg=orange!10, fg=black}
+\setbeamercolor{block title alerted}{bg=red!30, fg=black}
+\setbeamercolor{block body alerted}{bg=red!10, fg=black}
+
+% tikzのカスタムスタイル
+\tikzset{set label/.style={fill=white,circle,inner sep=2}}
+\tikzset{
+    place/.style={
+        circle,
+        thick,
+        draw=black,
+        fill=gray!50,
+        minimum size=6mm,
+    },
+    state/.style={
+        circle,
+        thick,
+        draw=blue!75,
+        fill=blue!20,
+        minimum size=6mm,
+    },
+}
+
+% フッター（ページ番号）設定
+\makeatletter
+\setbeamertemplate{footline}{
+  \hfill%
+  \usebeamercolor[fg]{page number in head/foot}%
+  \usebeamerfont{page number in head/foot}%
+  \insertframenumber\,/\,\inserttotalframenumber\kern1em\vskip2pt%
+}
+\expandafter\def\csname beamer@foottemplate@plain\endcsname{%
+  \usebeamertemplate{footline}
+}
+\makeatother
+
+\endinput

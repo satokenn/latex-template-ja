@@ -1,0 +1,169 @@
+\documentclass[10pt, jfont=ipaexm]{beamer} % ドキュメントクラスはここに残す
+\usepackage{hyperref} % hyperref はドキュメントクラスの直後に置くのが安全
+\usepackage[utf8]{inputenc} % エンコーディングもここ
+\usepackage{luatexja} % 和文パッケージもここで読み込む
+\usepackage{luatexja-fontspec}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{subfig}
+
+% ★作成したスタイルファイルを読み込む★
+\usepackage{custombeamer} % ここで作成したスタイルファイルを読み込む
+
+\begin{document}
+\begin{frame}{目次}
+    \tableofcontents
+\end{frame}
+
+\begin{frame}{初めに}
+    作成したソースコードについては，行数が多いため付録に載せておく．
+\end{frame}
+
+\section{微分フィルタの概要と定義}
+\begin{frame}{微分フィルタとは}
+    微分フィルタとは，エッジを検出するためのフィルタ処理である．ここでのエッジとは，画像内の輝度や色の急激な変化が起こる部分を指し，物体の境界に対応する．
+\end{frame}
+
+\begin{frame}{微分フィルタの定義}
+    数学において，微分とは \eqref{eq:lim} を指す．この式は，関数 $f(x)$ の値が変化する速度である勾配を測定する操作として見ることができる．
+    \begin{block}{}
+    \begin{equation} \label{eq:lim}
+        f'(x) = \lim_{h \to 0} \dfrac{f(x+h) - f(x)}{h}
+    \end{equation}
+    \end{block}
+\end{frame}
+
+\begin{frame}{画像処理においての微分}
+    \begin{block}{}
+    \begin{columns}
+    \begin{column}{0.48\textwidth}
+        \vspace*{-\baselineskip}
+        \begin{align}
+            f'(x) & \approx f(x+1) - f(x) \label{eq:for_diff}\\
+            f'(x) & \approx f(x) - f(x-1) \label{eq:bac_diff}\\
+            f'(x) & \approx \dfrac{f(x+1) - f(x-1)}{2} \label{eq:cen_diff}
+        \end{align}
+    \end{column}
+    \vrule \hspace {10pt}
+    \begin{column}{0.48\textwidth}
+        \begin{itemize}
+            \item $f'(x)$ は微分値
+            \item $f(x)$ は注目画素の画素値
+            \item $f(x + 1), f(x - 1)$ は隣接する画素の画素値
+        \end{itemize}
+    \end{column}
+    \end{columns}
+    \end{block}
+    画像等のデジタル領域では，値は連続した値ではないため隣接する離散的な値の差分を計算することで近似している．\eqref{eq:for_diff} は前方差分，\eqref{eq:bac_diff} は後方差分，\eqref{eq:cen_diff} は中心差分と呼ばれる．
+\end{frame}
+\section{前提知識}
+
+\begin{frame}{勾配とは}
+    あ
+\end{frame}
+
+\section{1次微分フィルタ}
+\begin{frame}{1次微分フィルタとは}
+    1次微分フィルタとは，画素値や信号値の 1 次差分である勾配を計算することでエッジを検出する．
+\end{frame}
+
+\begin{frame}{Prewittフィルタ}
+    \begin{block}{}
+        \begin{figure}[H]
+            \subfloat[][\small 横方向フィルタ]{
+            \begin{tabular}{|c|c|c|}
+                \hline
+                -1 & 0 & 1\\
+                \hline
+                -1 & 0 & 1\\
+                \hline
+                -1 & 0 & 1\\
+                \hline
+            \end{tabular}
+            }
+            \qquad
+            \subfloat[][\small 縦方向フィルタ]{
+            \begin{tabular}{|c|c|c|}
+                \hline
+                1 & 1 & 1\\
+                \hline
+                0 & 0 & 0\\
+                \hline
+                -1 & -1 & -1\\
+                \hline
+            \end{tabular}
+            }
+            \caption{Prewittフィルタの横方向と縦方向のフィルタ}
+            \label{fig:prewitt_filter}
+        \end{figure}
+    \end{block}
+    Prewittフィルタは，均一な係数を使用することで計算の単純性を向上させ，計算が効率的かつ容易に行える特徴を持っているが Sobel フィルタのよりもノイズに反応してしまう特徴を持つ．
+\end{frame}
+
+\begin{frame}{Sobelフィルタ}
+        \begin{block}{}
+        \begin{figure}[H]
+            \subfloat[][\small 横方向フィルタ]{
+            \begin{tabular}{|c|c|c|}
+                \hline
+                -1 & 0 & 1\\
+                \hline
+                -2 & 0 & 2\\
+                \hline
+                -1 & 0 & 1\\
+                \hline
+            \end{tabular}
+            }
+            \qquad
+            \subfloat[][\small 縦方向フィルタ]{
+            \begin{tabular}{|c|c|c|}
+                \hline
+                1 & 2 & 1\\
+                \hline
+                0 & 0 & 0\\
+                \hline
+                -1 & -2 & -1\\
+                \hline
+            \end{tabular}
+            }
+            \caption{Sobelフィルタの横方向と縦方向のフィルタ}
+            \label{fig:prewitt_filter}
+        \end{figure}
+    \end{block}
+\end{frame}
+\section{2次微分フィルタ}
+\begin{frame}
+    あいうえお
+\end{frame}
+\section{微分フィルタの実装}
+\begin{frame}
+    あいうえお
+\end{frame}
+\section{微分フィルタの比較}
+\begin{frame}
+    あいうえお
+\end{frame}
+\section{微分フィルタの問題点}
+\begin{frame}
+    あいうえお
+\end{frame}
+
+\appendix
+\inappendixtrue
+\setbeamercolor{frametitle}{fg=black, bg=gray!20}
+\setbeamertemplate{footline}{
+  \hfill%
+  \usebeamercolor[fg]{page number in head/foot}%
+  \usebeamerfont{page number in head/foot}%
+  \insertframenumber\,/\,\inserttotalframenumber\kern1em\vskip2pt%
+}
+
+\section{各フィルタのソースコード}
+\begin{frame}
+    あいうえお
+\end{frame}
+\section{中心差分とは}
+\begin{frame}
+    あいうえお
+\end{frame}
+\end{document}

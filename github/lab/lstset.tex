@@ -1,0 +1,169 @@
+\documentclass[8pt, jfont=ipaexm, t]{beamer} % IPAex明朝
+\usepackage{hyperref}
+% 一般的によく使用されるパッケージ
+\usepackage{caption}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usepackage{pgfplots}
+%\usepackage{xeCJK}
+%\usetheme{Copenhagen}
+\pgfplotsset{compat=1.17}
+\usepackage{listings}
+% \usepackage{slashbox}
+
+% スタイル設定
+\usepackage{ifthen}
+\usepackage[varg]{txfonts}
+\usepackage{ragged2e}
+\usepackage{svg}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage{bm}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\usetikzlibrary{graphs}
+\usetikzlibrary {arrows.meta}
+\usetikzlibrary {bending}
+\usetikzlibrary{arrows,shapes,automata,petri,positioning,calc}
+
+
+% 和文用パッケージ（luatex用）
+\usepackage{luatexja}
+\usepackage{luatexja-fontspec}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc} % 必要に応じてフォントエンコーディングを指定
+
+
+%カラーテーマの選択(省略可)
+\usecolortheme{orchid}
+%フォントテーマの選択(省略可)
+\usefonttheme{professionalfonts}
+%フレーム内のテーマの選択(省略可)
+\useinnertheme{circles}
+%フレーム外側のテーマの選択(省略可)
+\useoutertheme{infolines}
+%しおりの文字化け解消
+% \AtBeginShipoutFirst{\special{pdf:tounicode EUC-UCS2}}
+
+% \AtBeginShipoutFirst{\special{pdf:tounicode 90ms-RKSJ-UCS2}}
+%ナビゲーションバー非表示
+%\setbeamertemplate{navigation symbols}{}
+
+% タイトル色
+\setbeamercolor{title}{fg=structure, bg=}
+
+% フレームタイトル色
+\setbeamercolor{frametitle}{fg=structure, bg=}
+
+% caption に番号追加
+\setbeamertemplate{caption}[numbered]
+% caption 日本語
+\renewcommand{\figurename}{図}
+\renewcommand{\tablename}{表}
+
+\usepackage[export]{adjustbox} % loads also graphicx
+
+
+\usetheme[progressbar=frametitle, block=fill, numbering=fraction, header=none]{metropolis}
+% \usetheme{default}
+            
+% ブロックのスタイルをカスタマイズ
+\setbeamertemplate{blocks}[rounded]
+\setbeamercolor{block title}{bg=gray!30,fg=black} % ブロックのタイトルの背景とフォントの色
+\setbeamercolor{block body}{bg=gray!10,fg=black} % ブロック本体の背景とフォントの色
+
+\setbeamercolor{block title example}{bg=orange!30,fg=black} % 例のブロックのタイトルの背景とフォントの色
+\setbeamercolor{block body example}{bg=orange!10,fg=black} % 例のブロック本体の背景とフォントの色
+
+\setbeamercolor{block title alerted}{bg=red!30,fg=black} % アラートのブロックのタイトルの背景とフォントの色
+\setbeamercolor{block body alerted}{bg=red!10,fg=black} % アラートのブロック本体の背景とフォントの色
+
+\tikzset{set label/.style={fill=white,circle,inner sep=2}}
+
+% \def\radius{2}
+% \def\ratio{0.6}
+
+% \def\centerA{180:\ratio*\radius}
+% \def\circleA{(\centerA) circle [radius=\radius]}
+
+% 各セクションの開始時に目次スライドを挿入
+\newif\ifinappendix
+\inappendixfalse
+
+\AtBeginSection[]{
+  \ifinappendix
+    \begin{frame}{付録の目次}
+      \tableofcontents[currentsection]
+    \end{frame}
+  \else
+    \begin{frame}{目次}
+      \tableofcontents[currentsection]
+    \end{frame}
+  \fi
+}
+
+
+
+
+%追加
+\setbeamertemplate{footline}{%
+  \hfill%
+  \usebeamercolor[fg]{page number in head/foot}%
+  \usebeamerfont{page number in head/foot}%
+  \insertframenumber\,/\,\inserttotalframenumber\kern1em\vskip2pt%
+}
+
+
+%ソースコードに関する設定
+\lstset{
+  basicstyle={\ttfamily},
+  identifierstyle={\small},
+  commentstyle={\smallitshape},
+  keywordstyle={\small\bfseries},
+  ndkeywordstyle={\small},
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},
+  numbers=left,
+  % xrightmargin=0zw,
+  % xleftmargin=3zw,
+  numberstyle={\scriptsize},
+  stepnumber=1,
+  numbersep=1,
+  lineskip=1ex
+}
+
+
+\tikzset{
+    place/.style={
+        circle,
+        thick,
+        draw=black,
+        fill=gray!50,
+        minimum size=6mm,
+    },
+        state/.style={
+        circle,
+        thick,
+        draw=blue!75,
+        fill=blue!20,
+        minimum size=6mm,
+    },
+}
+
+\makeatletter
+\setbeamertemplate{footline}{
+  \hfill%
+  \usebeamercolor[fg]{page number in head/foot}%
+  \usebeamerfont{page number in head/foot}%
+  \insertframenumber\,/\,\inserttotalframenumber\kern1em\vskip2pt%
+}
+\expandafter\def\csname beamer@foottemplate@plain\endcsname{%
+  \usebeamertemplate{footline}
+}
